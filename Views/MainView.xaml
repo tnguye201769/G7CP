@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         xmlns:ui="http://schemas.modernwpf.com/2019"
-        ui:WindowHelper.UseModernWindowStyle="True">
-    <ui:SimpleStackPanel Margin="12" Spacing="24">
-        <TextBlock Text="My first ModernWPF app" Style="{StaticResource HeaderTextBlockStyle}" />
-        <Button Content="I am a button" />
-        <Button Content="I am an accent button" Style="{StaticResource AccentButtonStyle}" />
-    </ui:SimpleStackPanel>
+        ui:WindowHelper.UseModernWindowStyle="True"
+        ui:ThemeManager.IsThemeAware="True"
+        xmlns:vw="clr-namespace:G7CP.Views">
+    <Grid>
+        <vw:DashBoard></vw:DashBoard>
+    </Grid>
 </Window>
