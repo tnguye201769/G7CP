@@ -21,11 +21,11 @@ namespace G7CP.Models
             }
         }
 
-        public GoninDigitalDBContext Db { get; private set; }
+        public G7CPDBContext Db { get; private set; }
 
         private DataProvider()
         {
-            Db = new GoninDigitalDBContext();
+            Db = new G7CPDBContext();
         }
     }
 }

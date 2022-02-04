@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace G7CP.Models
 {
-    public partial class GoninDigitalDBContext : DbContext
+    public partial class G7CPDBContext : DbContext
     {
-        public GoninDigitalDBContext()
+        public G7CPDBContext()
         {
         }
 
-        public GoninDigitalDBContext(DbContextOptions<GoninDigitalDBContext> options)
+        public G7CPDBContext(DbContextOptions<G7CPDBContext> options)
             : base(options)
         {
         }
@@ -34,7 +34,7 @@ namespace G7CP.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=tcp:gonin-digital.database.windows.net,1433;Initial Catalog=GoninDigitalDB;Persist Security Info=False;User ID=gonin-admin;Password=5nin-digital;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                optionsBuilder.UseSqlServer("");
             }
         }
 
