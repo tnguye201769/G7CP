@@ -26,6 +26,7 @@ namespace G7CP.Views
         public DashBoard()
         {
             InitializeComponent();
+            contentFrame.Navigate(typeof(HomePage));
         }
         private void NavigationView_SelectionChanged(ModernWpf.Controls.NavigationView sender, ModernWpf.Controls.NavigationViewSelectionChangedEventArgs args)
         {
@@ -38,7 +39,7 @@ namespace G7CP.Views
                 var selectedItem = (ModernWpf.Controls.NavigationViewItem)args.SelectedItem;
                 if (selectedItem != null) {
                     string selectedItemTag = (string)selectedItem.Tag;
-                    string pageName = "GoninDigital.Views.DashBoardPages." + selectedItemTag;
+                    string pageName = "G7CP.Views.DashBoardPages." + selectedItemTag;
                     Type pageType = typeof(HomePage).Assembly.GetType(pageName);
                     contentFrame.Navigate(pageType);
                 }
