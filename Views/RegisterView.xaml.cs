@@ -11,17 +11,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using G7CP.ViewModels;
-using G7CP.Models;
 
 namespace G7CP.Views
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for RegisterView.xaml
     /// </summary>
-    public partial class LoginView : Window
+    public partial class RegisterView : Window
     {
-        public LoginView()
+        public RegisterView()
         {
             InitializeComponent();
         }

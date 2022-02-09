@@ -39,7 +39,7 @@ namespace G7CP.Views
                 var selectedItem = (ModernWpf.Controls.NavigationViewItem)args.SelectedItem;
                 if (selectedItem != null) {
                     string selectedItemTag = (string)selectedItem.Tag;
-                    string pageName = "G7CP.Views.DashBoardPages." + selectedItemTag;
+                    string pageName = "GoninDigital.Views.DashBoardPages." + selectedItemTag;
                     Type pageType = typeof(HomePage).Assembly.GetType(pageName);
                     contentFrame.Navigate(pageType);
                 }
