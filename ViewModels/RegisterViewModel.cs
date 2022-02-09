@@ -5,10 +5,10 @@ using System.Text;
 using System.Windows;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using GoninDigital.Command;
+using G7CP.Command;
 using System.ComponentModel;
-using GoninDigital.Views;
-namespace GoninDigital.ViewModels
+using G7CP.Views;
+namespace G7CP.ViewModels
 {
     class RegisterViewModel: MainViewModel
     {
