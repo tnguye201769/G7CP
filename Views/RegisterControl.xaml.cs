@@ -10,18 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using G7CP.ViewModels;
-using G7CP.Models;
 
 namespace G7CP.Views
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for RegisterControl.xaml
     /// </summary>
-    public partial class LoginView : Window
+    public partial class RegisterControl : UserControl
     {
-        public LoginView()
+        public RegisterControl()
         {
             InitializeComponent();
         }
