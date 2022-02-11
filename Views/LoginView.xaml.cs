@@ -24,6 +24,7 @@ namespace G7CP.Views
         public LoginView()
         {
             InitializeComponent();
+            DataContext = new LoginViewModel(this);
         }
     }
 }

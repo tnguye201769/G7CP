@@ -12,7 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using G7CP.Views;
+using G7CP.Models;
+
 namespace G7CP
 {
     /// <summary>
@@ -23,11 +24,6 @@ namespace G7CP
         public MainWindow()
         {
             InitializeComponent();
-            /*GoninDigitalDBContext db = new GoninDigitalDBContext();
-            db.Add(new ProductCategory { Id="unique", Name = "A" });
-            db.SaveChanges();*/
-
-
         }
     }
 }
