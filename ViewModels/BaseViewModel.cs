@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using G7CP.Utils;
 
 namespace G7CP.ViewModels
 {
