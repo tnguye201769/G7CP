@@ -64,5 +64,10 @@ namespace G7CP.SharedControl
         {
             InitializeComponent();
         }
+
+        private void productCard_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Ok");
+        }
     }
 }
