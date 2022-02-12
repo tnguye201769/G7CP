@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows;
+using G7CP.Command;
 using G7CP.Models;
 using G7CP.Views;
 using System.Windows.Input;

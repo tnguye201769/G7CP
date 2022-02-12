@@ -12,5 +12,6 @@
         xmlns:vw="clr-namespace:G7CP.Views">
     <Grid VerticalAlignment="Top" >
         <vw:DashBoard></vw:DashBoard>
+        
     </Grid>
 </Window>
