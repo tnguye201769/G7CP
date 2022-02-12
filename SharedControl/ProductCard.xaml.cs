@@ -51,7 +51,7 @@ namespace G7CP.SharedControl
             DependencyProperty.Register("Title", typeof(object), typeof(ProductCard), new PropertyMetadata("Unknown"));
         public static readonly DependencyProperty ImageProperty =
             DependencyProperty.Register("Image", typeof(object), typeof(ProductCard),
-                new PropertyMetadata("/Resources/Images/BlankImage.jpg") );
+                new PropertyMetadata("/Resources/BlankImage.jpg") );
         public static readonly DependencyProperty RatingValueProperty =
             DependencyProperty.Register("RatingValue", typeof(object), typeof(ProductCard), new PropertyMetadata("2.5"));
         public static readonly DependencyProperty RatingCaptionProperty =
@@ -63,11 +63,6 @@ namespace G7CP.SharedControl
         public ProductCard()
         {
             InitializeComponent();
-        }
-
-        private void productCard_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            MessageBox.Show("Ok");
         }
     }
 }
