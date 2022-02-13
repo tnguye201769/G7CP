@@ -10,29 +10,18 @@ namespace G7CP.ViewModels
 {
     class HomePageViewModel : BaseViewModel
     {
-        private string art;
-        public string Art
+        public string k;
+        private Product _a;
+        public Product a
         {
-            get { return art; }
-            set { art = value; OnPropertyChanged(); }
+            get { return _a; }
+            set { _a = value; OnPropertyChanged(); }
         }
-
-        private List<Product> recommnededByEditor;
-        public List<Product> RecommendedByEditor
-        {
-            get { return recommnededByEditor; }
-            set { recommnededByEditor = value; OnPropertyChanged(); }
-        }
-        public List<Product> RecommendedByEditor3
-        {
-            get { return recommnededByEditor.GetRange(0, 3); }
-        }
-
         public HomePageViewModel()
         {
-            art = "/GoninDigital;component/Resources/Images/HomeBanner.jpg";
-            GoninDigitalDBContext db = DataProvider.Instance.Db;
-            recommnededByEditor = db.Products.ToList();
+            var db = DataProvider.Instance.Db;
+            _a = db.Products.First();
+            db.Brands.ToList();
         }
 
     }
