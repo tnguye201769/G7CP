@@ -10,21 +10,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using G7CP.ViewModels;
 using G7CP.Models;
 
-namespace G7CP.Views
+namespace G7CP.Views.AdminPages
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for BrandPage.xaml
     /// </summary>
-    public partial class LoginView : Window
+    public partial class BrandPage
     {
-        public LoginView()
+        public BrandPage()
         {
             InitializeComponent();
-            DataContext = new LoginViewModel(this);
+
         }
+
     }
 }

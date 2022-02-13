@@ -2,6 +2,4 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:viewmodel="clr-namespace:G7CP.ViewModels">
     <viewmodel:MainViewModel x:Key="MainVM"></viewmodel:MainViewModel>
-    <viewmodel:LoginViewModel x:Key="LoginVM"></viewmodel:LoginViewModel>
-
 </ResourceDictionary>

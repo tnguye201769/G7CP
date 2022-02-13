@@ -6,87 +6,77 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.ComponentModel;
-using System.Windows.Controls;
+
 using G7CP.Models;
-using G7CP.Utils;
+using G7CP.Command;
+using System.Windows.Controls;
 
 namespace G7CP.ViewModels
 {
-    class LoginViewModel : BaseViewModel
+    class LoginViewModel : INotifyPropertyChanged
     {
         #region Properties
-        Window curWindow;
+        private Window window;
         public Action CloseAction { get; set; }
-        private string _Usrname;
+        private string _usrname;
         public string UserName
         {
-            get { return _Usrname; }
+            get { return _usrname; }
             set
             {
-                _Usrname = value;
-                OnPropertyChanged(UserName);
+                if (_usrname == value) { return; }
+                _usrname = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("UserName"));
             }
         }
-        private string _Passwrd;
+        private string _passwrd;
         public string Password
         {
-            get { return _Passwrd; }
+            get { return _passwrd; }
             set
             {
-                _Passwrd = value;
-                OnPropertyChanged(Password);
+                if (_passwrd == value) { return; }
+                _passwrd = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Password"));
             }
         }
+        public ICommand Passwordchangedcommand { get; set; }
         public ICommand LoginCommand { get; set; }
-        public ICommand RegisterCommand { get; set; }
-        public ICommand LoadedLoginCommand { get; set; }
-        public ICommand PasswordChangedCommand { get; set; }
         #endregion
 
         #region Constructor
-        public LoginViewModel()
+        public LoginViewModel(Window window)
         {
-            LoadedLoginCommand = new RelayCommand<Window>((p)=> { return true; }, (p)=> {
-                curWindow = p;
-            });
+            this.window = window;
             LoginCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { LoginCommandExecute(); });
-            PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
-            RegisterCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { RegisterCommandExcute(); });
+            Passwordchangedcommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { _passwrd = p.Password; });
         }
         #endregion
 
         #region Private Methods
-        
         private void LoginCommandExecute()
         {
-            if (UserName == null || Password == null)
+            _usrname = UserName;
+            if (_usrname == null || _passwrd == null)
             {
-                MessageBox.Show("Both username and password should be filled in.");
+                //MessageBox.Show("Both username and password should be filled in.");
                 return;
             }
-
-            string passEncode = Encode.MD5Hash(Encode.Base64Encode(Password));
-            int accCount = DataProvider.Instance.Db.Users.Where(x => x.UserName == UserName && x.Password == passEncode).Count();
+            int accCount = DataProvider.Instance.Db.Users.Where(x => x.UserName == _usrname && x.Password == _passwrd).Count();
             if (accCount > 0)
             {
-                var homepageViewModel = new MainWindow();
-                homepageViewModel.Show();
-                curWindow.Close();
+                this.window = new Window();
+                window.Show();
             }
             else
             {
-                MessageBox.Show("Invalid credentials.");
+                //MessageBox.Show("Invalid credentials.");
             }
         }
-        private void RegisterCommandExcute()
-        {
-            var registerWindow = new RegisterViewModel(curWindow);
-            WindowManager.ChangeWindowContent(curWindow, registerWindow, "GoninDigital", "GoninDigital.Views.RegisterControl");
-            if (registerWindow.CloseAction == null)
-            {
-                registerWindow.CloseAction = () => curWindow.Close();
-            }
-        }
+        #endregion
+
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
         #endregion
     }
 }
