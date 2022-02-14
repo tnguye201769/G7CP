@@ -3,19 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using G7CP.Models;
 
 namespace G7CP.ViewModels
 {
-    class HomePageViewModel : BaseViewModel
+    class CartPageViewModel :BaseViewModel
     {
-        private string art;
-        public string Art
-        {
-            get { return art; }
-            set { art = value; OnPropertyChanged(); }
-        }
+        
 
         private List<Product> recommnededByEditor;
         public List<Product> RecommendedByEditor
@@ -28,12 +22,11 @@ namespace G7CP.ViewModels
             get { return recommnededByEditor.GetRange(0, 3); }
         }
 
-        public HomePageViewModel()
+        public CartPageViewModel()
         {
-            art = "/GoninDigital;component/Resources/Images/HomeBanner.jpg";
+  
             GoninDigitalDBContext db = DataProvider.Instance.Db;
             recommnededByEditor = db.Products.ToList();
         }
-
     }
 }

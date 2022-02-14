@@ -12,18 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using G7CP.Views;
-using G7CP.Models;
-using G7CP.ViewModels;
 
-namespace G7CP
+namespace G7CP.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ConfirmationCodeView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ConfirmationCodeView : UserControl
     {
-        public MainWindow()
+        public ConfirmationCodeView()
         {
             InitializeComponent();
         }

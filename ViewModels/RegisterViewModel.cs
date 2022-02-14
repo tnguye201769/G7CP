@@ -8,12 +8,20 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using G7CP.Models;
 using G7CP.Utils;
+using ModernWpf.Controls;
+using G7CP.Properties;
 
 namespace G7CP.ViewModels
 {
     class RegisterViewModel : BaseViewModel
     {
         Window curWindow;
+        private string art;
+        public string Art
+        {
+            get { return art; }
+            set { art = value; OnPropertyChanged(); }
+        }
         public Action CloseAction { get; set; }
         enum LGender
         {
@@ -47,16 +55,6 @@ namespace G7CP.ViewModels
                 OnPropertyChanged();
             }
         }
-        private string _RePassword;
-        public string RePassword
-        {
-            get => _RePassword;
-            set
-            {
-                _RePassword = value;
-                OnPropertyChanged();
-            }
-        }
         private string _FirstName;
         public string FirstName
         {
@@ -87,7 +85,7 @@ namespace G7CP.ViewModels
                 OnPropertyChanged();
             }
         }
-        private DateTime _DoB;
+        private DateTime _DoB = DateTime.Now;
         public DateTime DoB
         {
             get => _DoB;
@@ -132,75 +130,90 @@ namespace G7CP.ViewModels
             !string.IsNullOrEmpty(FirstName) &&
             !string.IsNullOrEmpty(LastName) &&
             !string.IsNullOrEmpty(PhoneNumber) &&
-            !string.IsNullOrEmpty(Password) &&
-            !string.IsNullOrEmpty(RePassword);
+            !string.IsNullOrEmpty(Password);
 
         public ICommand RegisterCommand { get; set; }
         public ICommand CancelCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
-        public ICommand rePasswordChangedCommand { get; set; }
         public RegisterViewModel(Window p)
         {
+            art = "/GoninDigital;component/Resources/Images/LoginImage.jpg";
             curWindow = p;
             RegisterCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { RegisterExecute(); });
             CancelCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { CancelExecute(); });
             PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
-            rePasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { RePassword = p.Password; });
         }
         void RegisterExecute()
         {
             if (!CanRegister)
-                MessageBox.Show("Chưa nhập đủ thông tin");
+            {
+                ContentDialog content = new()
+                {
+                    Title = "Warning",
+                    Content = "Miss Information",
+                    PrimaryButtonText = "Ok"
+                };
+                content.ShowAsync();
+            }
             else
             {
-                if (Password != RePassword)
+                if (AccountManager.AccountExists(Email, UserName))
                 {
-                    MessageBox.Show("Password va Confirm Password không khớp");
+                    ContentDialog content = new()
+                    {
+                        Title = "Warning",
+                        Content = "Your username is exist",
+                        PrimaryButtonText = "Ok"
+                    };
+                    content.ShowAsync();
                 }
                 else
                 {
-                    int checkUsername = DataProvider.Instance.Db.Users.Where(x => x.UserName == UserName).Count();
-                    int checkEmail = DataProvider.Instance.Db.Users.Where(x => x.Email == Email).Count();
-                    if (checkUsername > 0 || checkEmail > 0)
+                    try
                     {
-                        _ = MessageBox.Show("Tên tài khoản hoặc email đã tồn tại");
+                        _ = Enum.TryParse(TypeUser.Content.ToString(), out LTypeU _Usertype);
+                        _ = Enum.TryParse(Gender.Content.ToString(), out LGender _Gendertype);
+
+                        User new_user = new()
+                        {
+                            UserName = UserName,
+                            Password = Cryptography.MD5Hash(Cryptography.Base64Encode(Password)),
+                            TypeId = (int)_Usertype,
+                            FirstName = FirstName,
+                            LastName = LastName,
+                            PhoneNumber = PhoneNumber,
+                            Email = Email,
+                            Gender = (byte)_Gendertype,
+                            DateOfBirth = DoB
+                        };
+
+                        AccountManager.RegisterAccount(new_user);
+
+                        ContentDialog content = new()
+                        {
+                            Title = "Success",
+                            Content = "Sign up succuss",
+                            PrimaryButtonText = "Ok"
+                        };
+                        content.ShowAsync();
                     }
-                    else
+                    catch
                     {
-                        try
+                        ContentDialog content = new()
                         {
-                            _ = Enum.TryParse(TypeUser.Content.ToString(), out LTypeU _Usertype);
-                            _ = Enum.TryParse(Gender.Content.ToString(), out LGender _Gendertype);
-
-                            User new_user = new()
-                            {
-                                UserName = UserName,
-                                Password = Encode.MD5Hash(Encode.Base64Encode(Password)),
-                                TypeId = (int)_Usertype,
-                                FirstName = FirstName,
-                                LastName = LastName,
-                                PhoneNumber = PhoneNumber,
-                                Email = Email,
-                                Gender = (byte)_Gendertype,
-                                DateOfBirth = DoB
-                            };
-
-                            _ = DataProvider.Instance.Db.Users.Add(new_user);
-                            _ = DataProvider.Instance.Db.SaveChanges();
-
-                            _ = MessageBox.Show("Đăng kí thành công");
-                        }
-                        catch
-                        {
-                            _ = MessageBox.Show("Đăng kí không thành công!");
-                        }
+                            Title = "Failed",
+                            Content = "Sign up failed",
+                            PrimaryButtonText = "Ok"
+                        };
+                        content.ShowAsync();
                     }
                 }
             }
         }
         void CancelExecute()
         {
-            curWindow.Close();
+            var loginWindow = new LoginViewModel(curWindow);
+            WindowManager.ChangeWindowContent(curWindow, loginWindow, Resources.LoginWindowTitle, Resources.LoginControlPath);
         }
     }
 }
