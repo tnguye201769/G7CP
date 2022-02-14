@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using G7CP.Models;
 using G7CP.Utils;
 using G7CP.Views;
+using ModernWpf.Controls;
 
 namespace G7CP.ViewModels
 {
@@ -17,6 +18,12 @@ namespace G7CP.ViewModels
     {
         #region Properties
         Window curWindow;
+        private string art;
+        public string Art
+        {
+            get { return art; }
+            set { art = value; OnPropertyChanged(); }
+        }
         public Action CloseAction { get; set; }
         private string _Usrname;
         public string UserName
@@ -46,6 +53,7 @@ namespace G7CP.ViewModels
         #region Constructor
         public LoginViewModel(Window window)
         {
+            art = "/GoninDigital;component/Resources/Images/LoginImage.jpg";
             curWindow = window;
             LoginCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { LoginCommandExecute(); });
             PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
@@ -59,7 +67,11 @@ namespace G7CP.ViewModels
         {
             if (UserName == null || Password == null)
             {
-                MessageBox.Show("Both username and password should be filled in.");
+                var content = new ContentDialog();
+                content.Title = "Warning";
+                content.Content = "Both username and password should be filled in.";
+                content.PrimaryButtonText = "Ok";
+                content.ShowAsync();
                 return;
             }
 
@@ -79,7 +91,11 @@ namespace G7CP.ViewModels
             }
             else
             {
-                MessageBox.Show("Invalid credentials.");
+                var content = new ContentDialog();
+                content.Title = "Warning";
+                content.Content = "Invalid credentials.";
+                content.PrimaryButtonText = "Ok";
+                content.ShowAsync();
             }
         }
         private void RegisterCommandExcute()
