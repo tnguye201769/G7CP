@@ -47,9 +47,6 @@ namespace G7CP.ViewModels
             }
         }
         public ICommand LoginCommand { get; set; }
-        public ICommand RegisterCommand { get; set; }
-        public ICommand PasswordChangedCommand { get; set; }
-        public ICommand ResetCommand { get; set; }
         #endregion
 
         #region Constructor
@@ -58,9 +55,7 @@ namespace G7CP.ViewModels
             art = "/GoninDigital;component/Resources/Images/LoginImage.jpg";
             curWindow = window;
             LoginCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { LoginCommandExecute(); });
-            PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
-            RegisterCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { RegisterCommandExcute(); });
-            ResetCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { ResetCommandExcute(); });
+            Passwordchangedcommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { _passwrd = p.Password; });
         }
         #endregion
 
@@ -77,49 +72,21 @@ namespace G7CP.ViewModels
                 content.ShowAsync();
                 return;
             }
-
-            string passEncode = Cryptography.MD5Hash(Cryptography.Base64Encode(Password));
-            var isExist = DataProvider.Instance.Db.Users.First(x => x.UserName == UserName && x.Password == passEncode);
-            if (isExist != null)
+            int accCount = DataProvider.Instance.Db.Users.Where(x => x.UserName == _usrname && x.Password == _passwrd).Count();
+            if (accCount > 0)
             {
-                var dashboardWindow = new DashBoard();
-                if (isExist.TypeId == 1) //admin
-                {
-                    WindowManager.ChangeWindowContent(curWindow, dashboardWindow, "", "GoninDigital.Views.AdminView");
-                }
-                else //user
-                {
-                    WindowManager.ChangeWindowContent(curWindow, dashboardWindow, "", "GoninDigital.Views.DashBoard");
-                }
+                this.window = new Window();
+                window.Show();
             }
             else
             {
-                var content = new ContentDialog();
-                content.Title = "Warning";
-                content.Content = "Invalid credentials.";
-                content.PrimaryButtonText = "Ok";
-                content.ShowAsync();
+                //MessageBox.Show("Invalid credentials.");
             }
         }
-        private void RegisterCommandExcute()
-        {
-            var registerWindow = new RegisterViewModel(curWindow);
-            WindowManager.ChangeWindowContent(curWindow, registerWindow, Resources.RegisterAccountWindowTitle, Resources.RegisterAccountControlPath);
-            if (registerWindow.CloseAction == null)
-            {
-                registerWindow.CloseAction = () => curWindow.Close();
-            }
-        }
+        #endregion
 
-        private void ResetCommandExcute()
-        {
-            var forgotpasswordWindow = new ForgotPasswordViewModel(curWindow);
-            WindowManager.ChangeWindowContent(curWindow, forgotpasswordWindow, Resources.ForgotPasswordWindowTitle, Resources.ForgotPasswordControlPath);
-            if (forgotpasswordWindow.CloseAction == null)
-            {
-                forgotpasswordWindow.CloseAction = () => curWindow.Close();
-            }
-        }
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
         #endregion
     }
 }

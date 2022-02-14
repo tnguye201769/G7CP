@@ -177,16 +177,15 @@
 
 
 
-            <Button x:Name="btnSubmit" 
-                    Grid.Row="8"
-                    Width="250"
-                    Content="Register"
-                    Foreground="{DynamicResource SystemControlBackgroundAltHighBrush}"
-                    Background="{DynamicResource SystemAccentColorDark1Brush}"
-                    HorizontalAlignment="Center"
-                    Click="btnSubmit_Click"
-                    Command="{Binding RegisterCommand}"/>
-        </Grid>
-        
+        <components:BindablePasswordBox Height="34"  HorizontalAlignment="Left" Margin="162,318,0,0" x:Name="passwordBoxCPass" 
+                          VerticalAlignment="Top" Width="222"
+                                        Password="{Binding CpassWord, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+
+        </components:BindablePasswordBox>
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="162,398,0,0" x:Name="textBoxEmail" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="222" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="162,358,0,0" x:Name="textBoxPhoneNum" Text="{Binding phoneNum, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="222" />
+        <!--For password-->
+        <Button Content="Submit" Height="30" Margin="143,457,0,0" x:Name="BtnSubmit" Command="{Binding RegisterCommand}" IsDefault="True" VerticalAlignment="Top" Width="70" />
+        <Button x:Name="BtnCancel" Content="Cancel" Height="30" Margin="244,457,0,0" Command="{Binding CancelCommand}" VerticalAlignment="Top" Width="70" />
     </Grid>
 </UserControl>

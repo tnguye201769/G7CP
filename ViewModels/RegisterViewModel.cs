@@ -146,33 +146,27 @@ namespace G7CP.ViewModels
         void RegisterExecute()
         {
             if (!CanRegister)
+                MessageBox.Show("Chưa nhập đủ thông tin");
+            else
             {
                 ContentDialog content = new()
                 {
-                    Title = "Warning",
-                    Content = "Miss Information",
-                    PrimaryButtonText = "Ok"
-                };
-                content.ShowAsync();
-            }
-            else
-            {
-                if (AccountManager.AccountExists(Email, UserName))
-                {
-                    ContentDialog content = new()
-                    {
-                        Title = "Warning",
-                        Content = "Your username is exist",
-                        PrimaryButtonText = "Ok"
-                    };
-                    content.ShowAsync();
+                    MessageBox.Show("Password va Confirm Password không khớp");
                 }
                 else
                 {
-                    try
+                    int checkUsername = DataProvider.Instance.Db.Users.Where(x => x.UserName == UserName).Count();
+                    int checkEmail = DataProvider.Instance.Db.Users.Where(x => x.Email == Email).Count();
+                    if (checkUsername > 0 || checkEmail > 0)
                     {
-                        _ = Enum.TryParse(TypeUser.Content.ToString(), out LTypeU _Usertype);
-                        _ = Enum.TryParse(Gender.Content.ToString(), out LGender _Gendertype);
+                        _ = MessageBox.Show("Tên tài khoản hoặc email đã tồn tại");
+                    }
+                    else
+                    {
+                        try
+                        {
+                            _ = Enum.TryParse(TypeUser.Content.ToString(), out LTypeU _Usertype);
+                            _ = Enum.TryParse(Gender.Content.ToString(), out LGender _Gendertype);
 
                         User new_user = new()
                         {
@@ -189,31 +183,19 @@ namespace G7CP.ViewModels
 
                         AccountManager.RegisterAccount(new_user);
 
-                        ContentDialog content = new()
+                            _ = MessageBox.Show("Đăng kí thành công");
+                        }
+                        catch
                         {
-                            Title = "Success",
-                            Content = "Sign up succuss",
-                            PrimaryButtonText = "Ok"
-                        };
-                        content.ShowAsync();
-                    }
-                    catch
-                    {
-                        ContentDialog content = new()
-                        {
-                            Title = "Failed",
-                            Content = "Sign up failed",
-                            PrimaryButtonText = "Ok"
-                        };
-                        content.ShowAsync();
+                            _ = MessageBox.Show("Đăng kí không thành công!");
+                        }
                     }
                 }
             }
         }
         void CancelExecute()
         {
-            var loginWindow = new LoginViewModel(curWindow);
-            WindowManager.ChangeWindowContent(curWindow, loginWindow, Resources.LoginWindowTitle, Resources.LoginControlPath);
+            curWindow.Close();
         }
     }
 }
