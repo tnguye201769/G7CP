@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using G7CP.Models;
+using G7CP.Views;
 
 namespace G7CP.ViewModels
 {
@@ -21,12 +23,15 @@ namespace G7CP.ViewModels
         {
             get { return recommnededByEditor.GetRange(0, 3); }
         }
+        public ICommand PurchaseCommand { get; set; }
 
         public CartPageViewModel()
         {
   
             GoninDigitalDBContext db = DataProvider.Instance.Db;
             recommnededByEditor = db.Products.ToList();
+
+            PurchaseCommand = new RelayCommand<object>((p) => { return true; }, (p) => { DashBoard.RootFrame.Navigate(new CartPage_Purchase()); });
         }
     }
 }
