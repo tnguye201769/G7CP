@@ -33,7 +33,7 @@ namespace G7CP.ViewModels
         };*/
         public PurchasePageViewModel()
         {
-            GoninDigitalDBContext db = DataProvider.Instance.Db;
+            G7CPDBContext db = DataProvider.Instance.Db;
             recommnededByEditor = db.Products.ToList();
             /*recommnededByEditor = metaProducts;*/
         }

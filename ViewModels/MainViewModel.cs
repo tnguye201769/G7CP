@@ -9,6 +9,7 @@ using G7CP.Models;
 using G7CP.Views;
 using System.Windows.Input;
 using G7CP.Utils;
+using G7CP.Properties;
 
 namespace G7CP.ViewModels
 {
@@ -19,23 +20,15 @@ namespace G7CP.ViewModels
         public MainViewModel()
         {
             LoadedWidnowCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
-                if (false)
+                if (Settings.Default.usrname != "")
                 {
                     var dashboardWindow = new DashBoard();
-                    if (true) //admin
-                    {
-                        WindowManager.ChangeWindowContent(p, dashboardWindow, "", "GoninDigital.Views.AdminView");
-                    }
-                    else //user
-                    {
-                        
-                        WindowManager.ChangeWindowContent(p, dashboardWindow, "", "GoninDigital.Views.DashBoard");
-                    }
+                    WindowManager.ChangeWindowContent(p, dashboardWindow, Resources.HomepageWindowTitle, Resources.HomepageControlPath);
                 }
                 else //login
                 {
                     var loginWindow = new LoginViewModel(p);
-                    WindowManager.ChangeWindowContent(p, loginWindow, "", "GoninDigital.Views.LoginView");
+                    WindowManager.ChangeWindowContent(p, loginWindow, Resources.LoginWindowTitle, Resources.LoginControlPath);
                 }
 
             }); 

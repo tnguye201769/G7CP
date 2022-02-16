@@ -10,6 +10,8 @@ using System.Windows.Controls;
 using G7CP.Models;
 using G7CP.Utils;
 using G7CP.Views.DashBoardPages;
+using G7CP.Properties;
+
 namespace G7CP.ViewModels
 {
     class UserSettingViewModel : BaseViewModel

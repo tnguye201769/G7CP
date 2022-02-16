@@ -28,7 +28,7 @@ namespace G7CP.ViewModels
         public CartPageViewModel()
         {
   
-            GoninDigitalDBContext db = DataProvider.Instance.Db;
+            G7CPDBContext db = DataProvider.Instance.Db;
             recommnededByEditor = db.Products.ToList();
 
             PurchaseCommand = new RelayCommand<object>((p) => { return true; }, (p) => { DashBoard.RootFrame.Navigate(new CartPage_Purchase()); });

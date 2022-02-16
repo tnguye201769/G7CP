@@ -10,6 +10,7 @@ using G7CP.Models;
 using G7CP.Utils;
 using ModernWpf.Controls;
 using G7CP.Properties;
+using G7CP.ViewModels.Validator;
 
 namespace G7CP.ViewModels
 {
@@ -33,7 +34,7 @@ namespace G7CP.ViewModels
         {
             Admin = 1,
             Seller = 2,
-            Customer = 6
+            Customer = 3
         }
         private string _UserName;
         public string UserName
@@ -75,8 +76,8 @@ namespace G7CP.ViewModels
                 OnPropertyChanged();
             }
         }
-        private ComboBoxItem _Gender;
-        public ComboBoxItem Gender
+        private int _Gender = (int)LGender.Male;
+        public int Gender
         {
             get => _Gender;
             set
@@ -92,16 +93,6 @@ namespace G7CP.ViewModels
             set
             {
                 _DoB = value;
-                OnPropertyChanged();
-            }
-        }
-        private ComboBoxItem _TypeUser;
-        public ComboBoxItem TypeUser
-        {
-            get => _TypeUser;
-            set
-            {
-                _TypeUser = value;
                 OnPropertyChanged();
             }
         }
@@ -125,13 +116,6 @@ namespace G7CP.ViewModels
                 OnPropertyChanged();
             }
         }
-        public bool CanRegister => !string.IsNullOrEmpty(Email) &&
-            !string.IsNullOrEmpty(UserName) &&
-            !string.IsNullOrEmpty(FirstName) &&
-            !string.IsNullOrEmpty(LastName) &&
-            !string.IsNullOrEmpty(PhoneNumber) &&
-            !string.IsNullOrEmpty(Password);
-
         public ICommand RegisterCommand { get; set; }
         public ICommand CancelCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
@@ -145,69 +129,71 @@ namespace G7CP.ViewModels
         }
         void RegisterExecute()
         {
-            if (!CanRegister)
+            if (AccountManager.AccountExists(Email, UserName))
             {
                 ContentDialog content = new()
                 {
                     Title = "Warning",
-                    Content = "Miss Information",
+
+                    Content = "Your username or email already exists",
                     PrimaryButtonText = "Ok"
                 };
                 content.ShowAsync();
             }
             else
             {
-                if (AccountManager.AccountExists(Email, UserName))
+                try
                 {
+                    var Validator = new PersonalAccountValidator().ValidatePassword(Password);
+                    if (!Validator.IsValid)
+                    {
+                        throw new Exception(Validator.ValidationMessage);
+                    }
+                    User new_user = new()
+                    {
+                        UserName = UserName,
+                        Password = Cryptography.MD5Hash(Cryptography.Base64Encode(Password)),
+                        TypeId = (int)LTypeU.Customer,
+                        FirstName = FirstName,
+                        LastName = LastName,
+                        PhoneNumber = PhoneNumber,
+                        Email = Email,
+                        Gender = (byte)Gender,
+                        DateOfBirth = DoB
+                    };
+
+                    AccountManager.RegisterAccount(new_user);
+
                     ContentDialog content = new()
                     {
-                        Title = "Warning",
-                        Content = "Your username is exist",
+                        Title = "Success",
+                        Content = "Congratulations! You are successfully signed up!",
                         PrimaryButtonText = "Ok"
                     };
                     content.ShowAsync();
                 }
-                else
+                catch (Exception e)
                 {
-                    try
+                    ContentDialog content = new()
                     {
-                        _ = Enum.TryParse(TypeUser.Content.ToString(), out LTypeU _Usertype);
-                        _ = Enum.TryParse(Gender.Content.ToString(), out LGender _Gendertype);
+                        Title = "Failed",
+                        Content = e.Message,
+                        PrimaryButtonText = "Ok"
+                    };
+                    content.ShowAsync();
+                    return;
 
-                        User new_user = new()
-                        {
-                            UserName = UserName,
-                            Password = Cryptography.MD5Hash(Cryptography.Base64Encode(Password)),
-                            TypeId = (int)_Usertype,
-                            FirstName = FirstName,
-                            LastName = LastName,
-                            PhoneNumber = PhoneNumber,
-                            Email = Email,
-                            Gender = (byte)_Gendertype,
-                            DateOfBirth = DoB
-                        };
-
-                        AccountManager.RegisterAccount(new_user);
-
-                        ContentDialog content = new()
-                        {
-                            Title = "Success",
-                            Content = "Sign up succuss",
-                            PrimaryButtonText = "Ok"
-                        };
-                        content.ShowAsync();
-                    }
-                    catch
-                    {
-                        ContentDialog content = new()
-                        {
-                            Title = "Failed",
-                            Content = "Sign up failed",
-                            PrimaryButtonText = "Ok"
-                        };
-                        content.ShowAsync();
-                    }
                 }
+                //catch () // error database
+                //{
+                //    ContentDialog content = new()
+                //    {
+                //        Title = "Failed",
+                //        Content = "Sign up failed, please check your information",
+                //        PrimaryButtonText = "Ok"
+                //    };
+                //    content.ShowAsync();
+                //}
             }
         }
         void CancelExecute()

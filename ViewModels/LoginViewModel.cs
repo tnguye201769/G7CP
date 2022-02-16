@@ -79,17 +79,22 @@ namespace G7CP.ViewModels
             }
 
             string passEncode = Cryptography.MD5Hash(Cryptography.Base64Encode(Password));
-            var isExist = DataProvider.Instance.Db.Users.First(x => x.UserName == UserName && x.Password == passEncode);
-            if (isExist != null)
+            var isExist = DataProvider.Instance.Db.Users.FirstOrDefault(x => x.UserName == UserName && x.Password == passEncode);
+            if (isExist != default)
             {
                 var dashboardWindow = new DashBoard();
                 if (isExist.TypeId == 1) //admin
                 {
-                    WindowManager.ChangeWindowContent(curWindow, dashboardWindow, "", "GoninDigital.Views.AdminView");
+                    // Admin not save under resource setting
+                    WindowManager.ChangeWindowContent(curWindow, dashboardWindow, Resources.AdminpageWindowTitle, Resources.AdminpageControlPath);
                 }
                 else //user
                 {
-                    WindowManager.ChangeWindowContent(curWindow, dashboardWindow, "", "GoninDigital.Views.DashBoard");
+                    // save user under setting resource
+                    Settings.Default.usrname = UserName.ToString();
+                    Settings.Default.passwod = passEncode;
+
+                    WindowManager.ChangeWindowContent(curWindow, dashboardWindow, Resources.HomepageWindowTitle, Resources.HomepageControlPath);
                 }
             }
             else
