@@ -70,6 +70,24 @@ namespace G7CP.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GoninDigital.Views.AdminView.
+        /// </summary>
+        internal static string AdminpageControlPath {
+            get {
+                return ResourceManager.GetString("AdminpageControlPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admin Dashboard.
+        /// </summary>
+        internal static string AdminpageWindowTitle {
+            get {
+                return ResourceManager.GetString("AdminpageWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GoninDigital.Views.ConfirmationCodeView.
         /// </summary>
         internal static string ConfirmationCodeControlPath {
@@ -115,7 +133,7 @@ namespace G7CP.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GoninDigital.Views.DashBoardView.
+        ///   Looks up a localized string similar to GoninDigital.Views.DashBoard.
         /// </summary>
         internal static string HomepageControlPath {
             get {
