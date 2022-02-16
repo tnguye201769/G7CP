@@ -5,12 +5,13 @@ using System.Collections.Generic;
 
 namespace G7CP.Models
 {
-    public partial class Favorite
+    public partial class ProductSpecDetail
     {
-        public int UserId { get; set; }
         public int ProductId { get; set; }
+        public int SpecId { get; set; }
+        public string Value { get; set; }
 
         public virtual Product Product { get; set; }
-        public virtual User User { get; set; }
+        public virtual ProductSpec Spec { get; set; }
     }
 }

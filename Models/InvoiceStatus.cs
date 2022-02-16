@@ -5,16 +5,16 @@ using System.Collections.Generic;
 
 namespace G7CP.Models
 {
-    public partial class ProductCategory
+    public partial class InvoiceStatus
     {
-        public ProductCategory()
+        public InvoiceStatus()
         {
-            Products = new HashSet<Product>();
+            Invoices = new HashSet<Invoice>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<Invoice> Invoices { get; set; }
     }
 }
