@@ -72,7 +72,6 @@
                         Icon="Shop" 
                         Label="Order"
                         VerticalAlignment="Center"/>
-                    
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
