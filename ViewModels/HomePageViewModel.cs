@@ -45,7 +45,7 @@ namespace G7CP.ViewModels
             art = "/Resources/Images/HomeBanner.jpg";
             artGroup1 = "/Resources/Images/HomeProductCardGroupBackground.png";
             artGroup2 = "/Resources/Images/HomeProductCardGroupBackground2.jpg";
-            G7CPDBContext db = DataProvider.Instance.Db;
+            GoninDigitalDBContext db = DataProvider.Instance.Db;
             recommnededByEditor = db.Products.ToList();
         }
     }
