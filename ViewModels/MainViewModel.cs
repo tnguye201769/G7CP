@@ -10,15 +10,31 @@ using G7CP.Views;
 using System.Windows.Input;
 using G7CP.Utils;
 using G7CP.Properties;
+using G7CP.SharedControl;
+using System.Windows.Media;
 
 namespace G7CP.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
         public ICommand LoadedWidnowCommand { get; set; }
-
         public MainViewModel()
         {
+            if(Settings.Default.accentColor != "")
+            {
+                ThemeManagerProxy.Current.AccentColor = (Color)ColorConverter.ConvertFromString(Settings.Default.accentColor);
+            }
+            if (!Settings.Default.systemTheme)
+            {
+                if (Settings.Default.theme)
+                {
+                    ThemeManagerProxy.Current.ApplicationTheme = ModernWpf.ApplicationTheme.Light;
+                }
+                else
+                {
+                    ThemeManagerProxy.Current.ApplicationTheme = ModernWpf.ApplicationTheme.Dark;
+                }
+            }
             LoadedWidnowCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 if (Settings.Default.usrname != "")
                 {
