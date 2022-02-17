@@ -1,4 +1,6 @@
-﻿using System;
+﻿using G7CP.Views;
+using G7CP.Views.SharedPages;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -76,7 +78,7 @@ namespace G7CP.SharedControl
         {
             if (Id != null)
             {
-                MessageBox.Show("Navigate to product page");
+                DashBoard.RootFrame.Navigate(new ProductPage((int)Id));
             }
         }
     }
