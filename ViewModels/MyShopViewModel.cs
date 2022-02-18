@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using G7CP.Models;
+using G7CP.Properties;
 
 namespace G7CP.ViewModels
 {
@@ -58,13 +59,14 @@ namespace G7CP.ViewModels
 
         public MyShopViewModel()
         {
+            
             GoninDigitalDBContext db = DataProvider.Instance.Db;
-            var products = new List<Product>();
-            var vendors = new List<Vendor>();
-            var ketqua = from product in products
-                         join vendor in vendors on product.VendorId equals vendor.Id
-                         select product;
-            productList = ketqua.ToList();
+            var usrname = Settings.Default.usrname;
+            var usr = db.Users.Single(p => p.UserName == usrname);
+
+            var vendor = db.Vendors.Single(p => p.OwnerId == usr.Id);
+            var product = db.Products.Where(p => p.VendorId == vendor.Id).ToList();
+            productList = product;
         }
 
     }

@@ -8,13 +8,19 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using G7CP.Properties;
+using G7CP.SharedControl;
 
 namespace G7CP.ViewModels
 {
     internal class ForgotPasswordViewModel : EmailNotification, INotifyPropertyChanged
     {
         #region Properties
-
+        private string art;
+        public string Art
+        {
+            get { return art; }
+            set { art = value;}
+        }
         public Action CloseAction { get; set; }
         public ICommand SendCommand { get; set; }
         public ICommand LoginCommand { get; set; }
@@ -38,6 +44,7 @@ namespace G7CP.ViewModels
         #region Constructor
         public ForgotPasswordViewModel(Window window)
         {
+            art = "/GoninDigital;component/Resources/Images/ForgotPass.jpg";
             this.window = window;
             SendCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { SendCommandExecute(); });
             LoginCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { LoginCommandExecute(); });
