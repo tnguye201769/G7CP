@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using G7CP.ViewModels;
 
 namespace G7CP.Views.DashBoardPages
 {
@@ -23,6 +24,7 @@ namespace G7CP.Views.DashBoardPages
         public UserPage()
         {
             InitializeComponent();
+            this.DataContext = new UserSettingViewModel();
         }
     }
 }
