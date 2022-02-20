@@ -5,15 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:uc="clr-namespace:G7CP.SharedControl"
              Name="shopProduct"
-             
-             d:DesignHeight="450" d:DesignWidth="800">
-    <ScrollViewer>
+             >
+    <Grid>
         <StackPanel Margin="20 0">
             <ItemsControl ItemsSource="{Binding ProductList,ElementName=shopProduct}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <uc:ProductCard
-                        Margin="10 0 10 0"
+                        Margin="10 10 10 10"
                         Id="{Binding Path=Id}"
                         Title="{Binding Path=Name}"
                         Price="{Binding Path=Price}"
@@ -29,5 +28,5 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </StackPanel>
-    </ScrollViewer>
+    </Grid>
 </UserControl>
