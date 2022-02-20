@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using G7CP.Models;
-using G7CP.ViewModels;
 
 namespace G7CP.SharedControl
 {
@@ -22,12 +21,16 @@ namespace G7CP.SharedControl
     /// </summary>
     public partial class CartItemGroup : UserControl
     {
-
-       
+        
         public object ProductList
         {
             get => (object)GetValue(ProductListProperty);
             set => SetValue(ProductListProperty, value);
+        }
+        public object GroupBackground
+        {
+            get => (object)GetValue(GroupBackgroundProperty);
+            set => SetValue(GroupBackgroundProperty, value);
         }
 
         private static List<Product> metaProducts = new List<Product> {
@@ -37,21 +40,14 @@ namespace G7CP.SharedControl
             new Product { Name="Product 4", Price=400000},
             new Product { Name="Product 5", Price=400000}
         };
-        private User selectedItem;
-        public User SelectedItem { 
-            get { return selectedItem; }
-            set => SetValue(SelectedItemProperty, value);
-        }
 
         public static readonly DependencyProperty ProductListProperty =
             DependencyProperty.Register("ProductList", typeof(object), typeof(CartItemGroup), new PropertyMetadata(metaProducts));
-        public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register("ProductList", typeof(object), typeof(CartItemGroup), new PropertyMetadata(0));
-
+        public static readonly DependencyProperty GroupBackgroundProperty =
+            DependencyProperty.Register("GroupBackground", typeof(object), typeof(CartItemGroup), new PropertyMetadata("DarkSeaGreen"));
         public CartItemGroup()
         {
             InitializeComponent();
-
         }
     }
 }

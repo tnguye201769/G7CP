@@ -1,5 +1,4 @@
-﻿using G7CP.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +23,6 @@ namespace G7CP.Views.DashBoardPages
         public CartPage()
         {
             InitializeComponent();
-            
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)

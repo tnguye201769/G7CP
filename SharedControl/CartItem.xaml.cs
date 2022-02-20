@@ -1,6 +1,4 @@
-﻿using G7CP.Models;
-using G7CP.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,7 +30,7 @@ namespace G7CP.SharedControl
             get => (object)GetValue(ImageProperty);
             set => SetValue(ImageProperty, value);
         }
-
+        
 
         public object Price
         {
@@ -44,14 +42,13 @@ namespace G7CP.SharedControl
             get => (object)GetValue(TotalPriceProperty);
             set => SetValue(TotalPriceProperty, value);
         }
-        public ICommand RemoveCartItem;
 
         public static readonly DependencyProperty TitleProperty =
             DependencyProperty.Register("Title", typeof(object), typeof(CartItem), new PropertyMetadata("Unknown"));
         public static readonly DependencyProperty ImageProperty =
             DependencyProperty.Register("Image", typeof(object), typeof(CartItem),
                 new PropertyMetadata("/Resources/Images/BlankImage.jpg"));
-
+      
         public static readonly DependencyProperty PriceProperty =
             DependencyProperty.Register("Price", typeof(object), typeof(CartItem), new PropertyMetadata(0));
         public static readonly DependencyProperty TotalPriceProperty =
@@ -59,8 +56,6 @@ namespace G7CP.SharedControl
         public CartItem()
         {
             InitializeComponent();
-            
         }
-
     }
 }

@@ -7,7 +7,6 @@
              xmlns:ui="http://schemas.modernwpf.com/2019"
              mc:Ignorable="d" 
              Name="cartItem"
-             
              Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"
              Width="700" Height="130">
 
@@ -49,9 +48,6 @@
         <ui:AppBarButton Grid.Column="4" 
                          Icon="Delete" 
                          Label="Remove"
-                         HorizontalAlignment="Center" VerticalAlignment="Center"
-                         Command="{Binding RemoveCartItem }"
-                         
-                         />
+                         HorizontalAlignment="Center" VerticalAlignment="Center" />
     </Grid>
 </UserControl>
