@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using G7CP.Models;
@@ -17,15 +18,16 @@ namespace G7CP.ViewModels
             set { art = value; OnPropertyChanged(); }
         }
 
-        private List<Product> recommnededByEditor;
+        private List<Product> recommendedByEditor;
         public List<Product> RecommendedByEditor
         {
-            get { return recommnededByEditor; }
-            set { recommnededByEditor = value; OnPropertyChanged(); }
+            get { return recommendedByEditor; }
+            set { recommendedByEditor = value; OnPropertyChanged(); }
         }
         public List<Product> RecommendedByEditor3
         {
-            get { return recommnededByEditor.GetRange(0, 3); }
+            get { return recommendedByEditor.Count > 3 ? recommendedByEditor.GetRange(0, 3) : null; }
+            set { recommendedByEditor = value; OnPropertyChanged(); }
         }
 
         private string artGroup1;
@@ -40,13 +42,24 @@ namespace G7CP.ViewModels
             get => artGroup2;
         }
 
+        private void Init()
+        {
+            using (var db = new GoninDigitalDBContext())
+            {
+                RecommendedByEditor = db.Products.ToList();
+                RecommendedByEditor3 = recommendedByEditor;
+            }
+        }
+
+
         public HomePageViewModel()
         {
             art = "/Resources/Images/HomeBanner.jpg";
             artGroup1 = "/Resources/Images/HomeProductCardGroupBackground.png";
             artGroup2 = "/Resources/Images/HomeProductCardGroupBackground2.jpg";
-            GoninDigitalDBContext db = DataProvider.Instance.Db;
-            recommnededByEditor = db.Products.ToList();
+            recommendedByEditor = new List<Product>();
+            Thread thread = new Thread(Init);
+            thread.Start();
         }
     }
 }
