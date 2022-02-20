@@ -26,6 +26,7 @@ namespace G7CP.ViewModels
         }
         public List<Product> RecommendedByEditor3
         {
+
             get { return recommendedByEditor.Count > 3 ? recommendedByEditor.GetRange(0, 3) : null; }
             set { recommendedByEditor = value; OnPropertyChanged(); }
         }

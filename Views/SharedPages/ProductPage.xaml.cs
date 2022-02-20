@@ -24,7 +24,8 @@ namespace G7CP.Views.SharedPages
         public ProductPage(int productId)
         {
             InitializeComponent();
-            ((ProductPageViewModel)DataContext).ProductId = productId;  
+            if (productId != 0)
+                DataContext = new ProductPageViewModel(productId);
         }
     }
 }

@@ -3,46 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using G7CP.Models;
-using G7CP.SharedControl;
 using G7CP.Views;
-using ModernWpf.Controls;
 
 namespace G7CP.ViewModels
 {
     class CartPageViewModel :BaseViewModel
     {
         
-       
 
-        private List<Product> products;
-        public List<Product> Products
+        private List<Product> recommnededByEditor;
+        public List<Product> RecommendedByEditor
         {
-            get { return products; }
-            set { products = value; OnPropertyChanged(); }
+            get { return recommnededByEditor; }
+            set { recommnededByEditor = value; OnPropertyChanged(); }
         }
-
-        private CartItem selectedItem;
-        public CartItem SelectedItem { get { return selectedItem; } set { selectedItem = value; OnPropertyChanged(); } }
-
+        public List<Product> RecommendedByEditor3
+        {
+            get { return recommnededByEditor.GetRange(0, 3); }
+        }
         public ICommand PurchaseCommand { get; set; }
-        /*public ICommand RemoveCartItem { get; set; }*/
+
         public CartPageViewModel()
         {
   
             GoninDigitalDBContext db = DataProvider.Instance.Db;
-            products = db.Products.ToList();
+            recommnededByEditor = db.Products.ToList();
 
             PurchaseCommand = new RelayCommand<object>((p) => { return true; }, (p) => { DashBoard.RootFrame.Navigate(new CartPage_Purchase()); });
-           /* RemoveCartItem = new RelayCommand<object>((p) => { return true; }, (p) => { RemoveCartItemExe(p); });*/
         }
-        public void RemoveCartItemExe(object o)
-        {
-            /*MessageBox.Show(o.ToString());*/
-            MessageBox.Show("dasda");
-        }
-
     }
 }
