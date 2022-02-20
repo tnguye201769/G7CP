@@ -43,10 +43,9 @@ namespace G7CP.ViewModels
                 }
                 else //login
                 {
-                    var loginWindow = new LoginViewModel(p);
-                    WindowManager.ChangeWindowContent(p, loginWindow, Resources.LoginWindowTitle, Resources.LoginControlPath);
+                    //var loginWindow = new LoginViewModel(p);
+                    WindowManager.ChangeWindowContent(p, Resources.LoginWindowTitle, Resources.LoginControlPath);
                 }
-
             }); 
         }
     }
