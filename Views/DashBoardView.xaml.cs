@@ -112,9 +112,9 @@ namespace G7CP.Views
             {
                 ((NavigationViewItem)navigationView.SettingsItem).IsSelected = true;
             }
-            else if (desType == typeof(HotDealPage))
+            else if (desType == typeof(OrderPage))
             {
-                hotDealItem.IsSelected = true;
+                orderItem.IsSelected = true;
             }
             else if (desType == typeof(MyShopPage))
             {
