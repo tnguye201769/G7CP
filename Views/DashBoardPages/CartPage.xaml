@@ -1,17 +1,15 @@
-﻿<ui:Page x:Class="G7CP.Views.DashBoardPages.CartPage"
-         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-         xmlns:local="clr-namespace:G7CP.Views.DashBoardPages"
-         xmlns:uc="clr-namespace:G7CP.SharedControl"
-         xmlns:ui="http://schemas.modernwpf.com/2019"
-         xmlns:cm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-         mc:Ignorable="d"
-         DataContext="{StaticResource CartPageVM}"
-         Background="{DynamicResource AppBackgroundBrush}"
-         Title="CartPage">
-    <Page.Resources>
+﻿<Page x:Class="G7CP.Views.DashBoardPages.CartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:G7CP.Views.DashBoardPages"
+      xmlns:uc="clr-namespace:G7CP.SharedControl"
+      xmlns:ui="http://schemas.modernwpf.com/2019"
+      mc:Ignorable="d" 
+      DataContext="{StaticResource CartPageVM}"
+      Background="{DynamicResource AppBackgroundBrush}"
+      Title="CartPage">
 
         <CollectionViewSource x:Key="ProductsCVS"
                               Source="{Binding Products}">
