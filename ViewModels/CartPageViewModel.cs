@@ -1,37 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using G7CP.Models;
+using G7CP.Properties;
+using G7CP.SharedControl;
 using G7CP.Views;
+using Microsoft.EntityFrameworkCore;
+using ModernWpf.Controls;
 
 namespace G7CP.ViewModels
 {
-    class CartPageViewModel :BaseViewModel
+    class CartPageViewModel : BaseViewModel
     {
-        
+        private ObservableCollection<Cart> products;
+        public ObservableCollection<Cart> Products
+        {
+            get { return products; }
+            set { products = value; OnPropertyChanged(); }
+        }
 
-        private List<Product> recommnededByEditor;
-        public List<Product> RecommendedByEditor
+        private void Init()
         {
-            get { return recommnededByEditor; }
-            set { recommnededByEditor = value; OnPropertyChanged(); }
+            using (var db = new GoninDigitalDBContext())
+            {
+                Products = new ObservableCollection<Cart>(db.Carts.Include(x => x.User)
+                                .Include(x => x.Product)
+                                .Include(x => x.Product.Vendor)
+                                .Where(o => o.User.UserName == Settings.Default.usrname)
+                                .ToList());
+            }
         }
-        public List<Product> RecommendedByEditor3
+
+        public void OnNavigatedTo()
         {
-            get { return recommnededByEditor.GetRange(0, 3); }
+            Thread thread = new Thread(Init);
+            thread.Start();
         }
-        public ICommand PurchaseCommand { get; set; }
 
         public CartPageViewModel()
         {
-  
-            GoninDigitalDBContext db = DataProvider.Instance.Db;
-            recommnededByEditor = db.Products.ToList();
 
-            PurchaseCommand = new RelayCommand<object>((p) => { return true; }, (p) => { DashBoard.RootFrame.Navigate(new CartPage_Purchase()); });
         }
     }
 }

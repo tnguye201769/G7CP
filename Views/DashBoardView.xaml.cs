@@ -9,7 +9,7 @@ using ModernWpf.Controls;
 using ModernWpf.Controls.Primitives;
 using System.Linq;
 using Frame = System.Windows.Controls.Frame;
-using Page = System.Windows.Controls.Page;
+using Page = ModernWpf.Controls.Page;
 using G7CP.Views.SharedPages;
 using G7CP.Properties;
 using System.Windows.Media.Imaging;

@@ -10,18 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Page = ModernWpf.Controls.Page;
 
-namespace G7CP.Views.DashBoardPages
+namespace G7CP.Views
 {
     /// <summary>
-    /// Interaction logic for HomePage.xaml
+    /// Interaction logic for SplashScreenWindow.xaml
     /// </summary>
-    public partial class HomePage : Page
+    public partial class SplashScreenWindow : Window
     {
-        public HomePage()
+        public SplashScreenWindow()
         {
             InitializeComponent();
         }

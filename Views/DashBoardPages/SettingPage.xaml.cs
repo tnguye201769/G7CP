@@ -10,7 +10,7 @@ namespace G7CP.Views.DashBoardPages
     /// <summary>
     /// Interaction logic for SettingPage.xaml
     /// </summary>
-    public partial class SettingPage 
+    public partial class SettingPage
     {
         public SettingPage()
         {

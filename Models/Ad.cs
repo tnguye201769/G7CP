@@ -15,6 +15,7 @@ namespace G7CP.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Subtitle { get; set; }
+        public string Cover { get; set; }
 
         public virtual ICollection<AdDetail> AdDetails { get; set; }
     }

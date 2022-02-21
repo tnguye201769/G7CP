@@ -12,6 +12,7 @@ using G7CP.Utils;
 using G7CP.Views;
 using ModernWpf.Controls;
 using G7CP.Properties;
+using System.Threading;
 
 namespace G7CP.ViewModels
 {
@@ -82,6 +83,7 @@ namespace G7CP.ViewModels
         private void LoginCommandExecute()
         {
             IsBusy = true;
+            Thread.Sleep(3000);
             if (UserName == null || Password == null)
             {
                 var content = new ContentDialog();
