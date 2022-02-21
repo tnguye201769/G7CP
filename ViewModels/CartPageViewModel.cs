@@ -11,33 +11,67 @@ using G7CP.Models;
 using G7CP.Properties;
 using G7CP.SharedControl;
 using G7CP.Views;
+using G7CP.Views.SharedPages;
+using Microsoft.EntityFrameworkCore;
+using ModernWpf.Controls;
 
 namespace G7CP.ViewModels
 {
     class CartPageViewModel : BaseViewModel
     {
-        
+        private ObservableCollection<Cart> products;
+        public ObservableCollection<Cart> Products
+        {
+            get { return products; }
+            set { products = value; OnPropertyChanged(); }
+        }
+        private IEnumerable<Cart> selectedProducts;
+        public IEnumerable<Cart> SelectedProducts
+        {
+            get { return selectedProducts; }
+            set { selectedProducts = value; OnPropertyChanged(); }
+        }
 
-        private List<Product> recommnededByEditor;
-        public List<Product> RecommendedByEditor
+        public ICommand RemoveProduct { get; set; }
+        public ICommand ShowProduct { get; set; }
+        public ICommand BuyProduct { get; set; }
+
+        private void Init()
         {
-            get { return recommnededByEditor; }
-            set { recommnededByEditor = value; OnPropertyChanged(); }
+            using (var db = new GoninDigitalDBContext())
+            {
+                Products = new ObservableCollection<Cart>(db.Carts.Include(x => x.User)
+                                .Include(x => x.Product)
+                                .Include(x => x.Product.Vendor)
+                                .Where(o => o.User.UserName == Settings.Default.usrname)
+                                .ToList());
+            }
         }
-        public List<Product> RecommendedByEditor3
+
+        private async void RemoveCartDb(Cart cart)
         {
-            get { return recommnededByEditor.GetRange(0, 3); }
+            using (var db = new GoninDigitalDBContext())
+            {
+                db.Carts.Remove(cart);
+                await db.SaveChangesAsync();
+            }
         }
-        public ICommand PurchaseCommand { get; set; }
+
+
+        public void OnNavigatedTo()
+        {
+            Thread thread = new Thread(Init);
+            thread.Start();
+        }
 
         public CartPageViewModel()
         {
-  
-            GoninDigitalDBContext db = DataProvider.Instance.Db;
-            recommnededByEditor = db.Products.ToList();
-
-            PurchaseCommand = new RelayCommand<object>((p) => { return true; }, (p) => { DashBoard.RootFrame.Navigate(new CartPage_Purchase()); });
+            selectedProducts = new ObservableCollection<Cart>();
+            RemoveProduct = new RelayCommand<Cart>(o => true, 
+                cart => { Products.Remove(cart); RemoveCartDb(cart); });
+            ShowProduct = new RelayCommand<Cart>(o => true, 
+                cart => DashBoard.RootFrame.Navigate(new ProductPage(cart.ProductId)));
         }
-
     }
+
 }

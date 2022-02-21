@@ -12,23 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using G7CP.ViewModels;
-using ModernWpf.Controls;
-using ModernWpf.Demo.ThreadedUI;
 
 namespace G7CP.Views
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for SplashScreenView.xaml
     /// </summary>
-    public partial class LoginView : UserControl
+    public partial class SplashScreenView : UserControl
     {
-        public LoginView()
+        public SplashScreenView()
         {
             InitializeComponent();
-            DataContext = ViewModel;
         }
-
-        public LoginViewModel ViewModel { get; } = new(Application.Current.MainWindow);
     }
 }
