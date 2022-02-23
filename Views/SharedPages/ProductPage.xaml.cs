@@ -1,6 +1,6 @@
-﻿using GoninDigital.Models;
-using GoninDigital.Properties;
-using GoninDigital.ViewModels;
+﻿using G7CP.Models;
+using G7CP.Properties;
+using G7CP.ViewModels;
 using ModernWpf.Controls;
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Page = ModernWpf.Controls.Page;
 
-namespace GoninDigital.Views.SharedPages
+namespace G7CP.Views.SharedPages
 {
     /// <summary>
     /// Interaction logic for ProductPage.xaml
