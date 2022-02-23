@@ -29,10 +29,16 @@
                 <TextBlock HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            FontSize="24"
-                           Text="G7CP"
+                           Text="GoninDigital"
                            TextAlignment="Center" FontFamily="Segoe Script" FontWeight="Bold" />
             </Grid>
 
+            <!--  OneTime binding: Text="{Binding Path=LoginToUse, Mode=OneTime}"  -->
+            <!--<TextBlock Grid.Row="1"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="20"
+                       Text="Welcome To GoninDigital" FontFamily="Arial" FontStyle="Normal"/>-->
             <StackPanel Grid.Row="2"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"

@@ -79,13 +79,23 @@ namespace G7CP.ViewModels
             get { return newVendorName; }
             set { newVendorName = value; OnPropertyChanged(); }
         }
+        private string vendorName = null;
+        public string VendorName
+        {
+            get { return vendorName; }
+            set { vendorName = value; OnPropertyChanged(); }
+        }
 
         public int OnPrimaryButtonClick { get; private set; }
         public int PrimaryButtonClick { get; private set; }
 
+
+        public ICommand EditAvatarCommand { get; set; }
+        public ICommand EditCoverPhotoCommand { get; set; }
+
         private void InitVendor()
         {
-            using (var db = new G7CPDBContext())
+            using (var db = new GoninDigitalDBContext())
             {
                 try
                 {
@@ -96,6 +106,7 @@ namespace G7CP.ViewModels
                     db.ProductCategories.ToList();
                     Products = new ObservableCollection<Product>(Vendor.Products.ToList());
                     HasVendor = true;
+                    VendorName = Vendor.Name;
                     VisibilityOwner = "Visible";
                     
                 }
@@ -141,7 +152,7 @@ namespace G7CP.ViewModels
         public ICommand RemoveCommand { get; set; }
         public async void RemoveCommandExec(object o)
         {
-            using (var db = new G7CPDBContext())
+            using (var db = new GoninDigitalDBContext())
             {
                 try
                 {
@@ -156,6 +167,63 @@ namespace G7CP.ViewModels
                 {
 
                     MessageBox.Show(e.Message);
+                }
+            }
+        }
+        public ICommand SaveVendorInfoCommand { get; set; }
+        public void SaveVendorConfirm()
+        {
+            var dialog = new ContentDialog
+            {
+                Content = "Do you want to change your vendor information ?",
+
+                Title = "Confirm",
+                PrimaryButtonText = "Save",
+                CloseButtonText = "Cancel",
+                CloseButtonCommand = new RelayCommand<object>((p) => true, (p) => { ResetVendorInfoExec(); }),
+                PrimaryButtonCommand = new RelayCommand<object>((p) => true, (p) => { SaveVendorInfoExec(); }),
+            };
+            dialog.ShowAsync();
+        }
+        public ICommand ResetVendorInfoCommand { get; set; }
+        public void ResetVendorInfoExec()
+        {
+            using (var db = new GoninDigitalDBContext())
+            {
+                Vendor = db.Vendors.Include(o => o.Owner)
+                    .Include(o => o.Products)
+                    .First(o => o.Owner.UserName == Settings.Default.usrname);
+                db.ProductCategories.ToList();
+                VendorName = Vendor.Name;
+            }
+        }
+        public async void SaveVendorInfoExec()
+        {
+            using (var db = new GoninDigitalDBContext())
+            {
+                try
+                {
+                    Vendor.Name = VendorName;
+                    db.Vendors.Update(Vendor);
+                    await db.SaveChangesAsync();
+                    var dialog = new ContentDialog
+                    {
+                        Title = "Completed",
+                        Content = "Your vendor infomation is saved",
+                        PrimaryButtonText = "Ok"
+                    };
+                    await dialog.ShowAsync();
+                }
+                catch (Exception e)
+                {
+
+                    var dialog = new ContentDialog
+                    {
+                        Title = "Error",
+                        Content = e.Message,
+                        PrimaryButtonText = "Ok"
+                    };
+                    await dialog.ShowAsync();
                 }
             }
         }
@@ -187,7 +255,7 @@ namespace G7CP.ViewModels
             if (openFileDialog.ShowDialog() == true)
             {
                 var linkAvatar = await ImageUploader.UploadAsync(openFileDialog.FileName);
-                using (var db = new G7CPDBContext())
+                using (var db = new GoninDigitalDBContext())
                 {
                     SelectedItem.Image = linkAvatar;
 
@@ -203,12 +271,70 @@ namespace G7CP.ViewModels
             RemoveCommand = new RelayCommand<Product>(o => true, o => RemoveCommandExec(o));
             ImageEditCommand = new RelayCommand<Product>(o => true, o => ImageEditCommandExec(o));
             UpgradeCommand = new RelayCommand<object>((p) => true, (p) => { UpgradeCommandExec(); });
+            EditCoverPhotoCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { EditCoverPhotoExec(); });
+            EditAvatarCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { EditAvatarExec(); });
+            ResetVendorInfoCommand = new RelayCommand<object>((p) => true, (p) => { ResetVendorInfoExec(); });
+            SaveVendorInfoCommand = new RelayCommand<object>((p) =>
+            {
+                if (string.IsNullOrEmpty(VendorName))
+                {
+                    return false;
+                }
+                
+                return true;
+            }, (p) => { SaveVendorConfirm(); });
+        }
+        public async void EditAvatarExec()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Title = "Choose Image..";
+
+            openFileDialog.InitialDirectory = @"C:\";
+            openFileDialog.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                var linkAvatar = await ImageUploader.UploadAsync(openFileDialog.FileName);
+                using (var db = new GoninDigitalDBContext())
+                {
+                    Vendor.Avatar = linkAvatar;
+                    db.Vendors.Update(Vendor);
+                    _ = db.SaveChanges();
+                    Vendor = db.Vendors.Include(o => o.Owner)
+                            .Include(o => o.Products)
+                            .First(o => o.Owner.UserName == Settings.Default.usrname);
+                }
+            }
+
+        }
+        public async void EditCoverPhotoExec()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Title = "Choose Image..";
+
+            openFileDialog.InitialDirectory = @"C:\";
+            openFileDialog.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                var linkAvatar = await ImageUploader.UploadAsync(openFileDialog.FileName);
+                using (var db = new GoninDigitalDBContext())
+                {
+                    Vendor.Cover = linkAvatar;
+                    db.Vendors.Update(Vendor);
+                    _ = db.SaveChanges();
+                    Vendor = db.Vendors.Include(o => o.Owner)
+                            .Include(o => o.Products)
+                            .First(o => o.Owner.UserName == Settings.Default.usrname);
+                }
+            }
+
         }
         public void EditBtnExec()
         {
             
             
-            using (var db = new G7CPDBContext())
+            using (var db = new GoninDigitalDBContext())
             {
                 db.Products.Update(selectedItem);
                 db.SaveChanges();
@@ -218,7 +344,7 @@ namespace G7CP.ViewModels
         public void UpgradeExec()
         {
             
-            using (var db = new G7CPDBContext())
+            using (var db = new GoninDigitalDBContext())
             {
                 int userId = db.Users.First(u => u.UserName == Settings.Default.usrname).Id;
                 Vendor newVendor = new Vendor() { Name = NewVendorName, OwnerId = userId, ApprovalStatus=0};

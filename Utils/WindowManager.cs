@@ -18,6 +18,7 @@ namespace G7CP.Utils
             window.Width = w;
             window.WindowState = WindowState.Normal;
             window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            //window.Icon = BitmapFrame.Create(new Uri("pack://application:,,,/G7CP;component/Resources/Icon.ico", UriKind.RelativeOrAbsolute));
 
             var controlAssembly = Assembly.Load("G7CP");
             var controlType = controlAssembly.GetType(controlPath);
@@ -36,6 +37,7 @@ namespace G7CP.Utils
             window.Width = w;
             window.WindowState = WindowState.Normal;
             window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            //window.Icon = BitmapFrame.Create(new Uri("pack://application:,,,/G7CP;component/Resources/Icon.ico", UriKind.RelativeOrAbsolute));
 
             var controlAssembly = Assembly.Load("G7CP");
             var controlType = controlAssembly.GetType(controlPath);

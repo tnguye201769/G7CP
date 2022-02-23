@@ -99,7 +99,7 @@ namespace G7CP.ViewModels
             Task.Factory.StartNew(() =>
             {
                 //we need to do the work in batches so that we can report progress
-                G7CPDBContext context = new();
+                GoninDigitalDBContext context = new();
                 string passEncode = Cryptography.MD5Hash(Cryptography.Base64Encode(Password));
                 isExist = context.Users.FirstOrDefault(x => x.UserName == UserName && x.Password == passEncode);
 

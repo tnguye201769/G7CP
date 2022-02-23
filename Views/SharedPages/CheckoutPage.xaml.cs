@@ -34,7 +34,7 @@ namespace G7CP.Views.SharedPages
 
         void Init()
         {
-            using (var db = new G7CPDBContext())
+            using (var db = new GoninDigitalDBContext())
             {
                 User = db.Users.Single(o => o.UserName == Settings.Default.usrname);
             }
@@ -71,7 +71,7 @@ namespace G7CP.Views.SharedPages
 
                 try
                 {
-                    using (var db = new G7CPDBContext())
+                    using (var db = new GoninDigitalDBContext())
                     {
                         db.Invoices.AddRange(invoices);
                         db.SaveChanges();

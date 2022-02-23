@@ -44,8 +44,7 @@ namespace G7CP.ViewModels
                 Task.Factory.StartNew(() =>
                 {
                     //we need to do the work in batches so that we can report progress
-                    G7CPDBContext db = new();
-                    db.Database.EnsureCreated();
+                    GoninDigitalDBContext db = new();
                     db.Products.ToList();
                     db.Brands.ToList();
                     db.AdDetails.ToList();

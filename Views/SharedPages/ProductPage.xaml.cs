@@ -1,6 +1,6 @@
-﻿using G7CP.Models;
-using G7CP.Properties;
-using G7CP.ViewModels;
+﻿using GoninDigital.Models;
+using GoninDigital.Properties;
+using GoninDigital.ViewModels;
 using ModernWpf.Controls;
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Page = ModernWpf.Controls.Page;
 
-namespace G7CP.Views.SharedPages
+namespace GoninDigital.Views.SharedPages
 {
     /// <summary>
     /// Interaction logic for ProductPage.xaml
@@ -45,7 +45,7 @@ namespace G7CP.Views.SharedPages
 
         void AddtoCartExecute()
         {
-            using (var context = new G7CPDBContext())
+            using (var context = new GoninDigitalDBContext())
             {
                 int userID = context.Users.Where(x => x.UserName == Settings.Default.usrname).First().Id;
                 if (context.Carts.Where(x => x.UserId == userID & x.ProductId == ProductInfo.Id).Count() == 0)

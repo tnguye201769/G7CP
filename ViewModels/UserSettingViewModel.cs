@@ -169,7 +169,7 @@ namespace G7CP.ViewModels
             if (openFileDialog.ShowDialog() == true)
             {
                 var linkAvatar = await ImageUploader.UploadAsync(openFileDialog.FileName);
-                using (var db = new G7CPDBContext())
+                using (var db = new GoninDigitalDBContext())
                 {
                     var t = db.Users.Where(x => x.UserName == Settings.Default.usrname).First();
                     t.Avatar = linkAvatar;
@@ -199,7 +199,7 @@ namespace G7CP.ViewModels
         }
         private void load_page()
         {
-            using (var db = new G7CPDBContext())
+            using (var db = new GoninDigitalDBContext())
             {
                 user = db.Users.Where(x => x.UserName == Settings.Default.usrname).First();
             }
@@ -261,7 +261,7 @@ namespace G7CP.ViewModels
                 else
                 {
                     bool isEmail;
-                    using (var db = new G7CPDBContext())
+                    using (var db = new GoninDigitalDBContext())
                     {
                         isEmail = db.Users.Where(x => x.Email == Email).Count() != 0;
                     }
@@ -297,7 +297,7 @@ namespace G7CP.ViewModels
         }
         void UpdateInfo()
         {
-            using (var db = new G7CPDBContext())
+            using (var db = new GoninDigitalDBContext())
             {
                 var t = db.Users.Where(x => x.UserName == Settings.Default.usrname).First();
                 t.Gender = byte.Parse(Gender);

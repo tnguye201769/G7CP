@@ -38,7 +38,7 @@ namespace G7CP.ViewModels
 
         private void Init()
         {
-            using (var db = new G7CPDBContext())
+            using (var db = new GoninDigitalDBContext())
             {
                 Products = new ObservableCollection<Cart>(db.Carts.Include(x => x.User)
                                 .Include(x => x.Product)
@@ -50,7 +50,7 @@ namespace G7CP.ViewModels
 
         private void RemoveCartDb(Cart cart)
         {
-            using (var db = new G7CPDBContext())
+            using (var db = new GoninDigitalDBContext())
             {
                 
                 db.Carts.Remove(cart);
@@ -60,7 +60,7 @@ namespace G7CP.ViewModels
         }
         private void RemoveCartDb(IEnumerable<Cart> carts)
         {
-            using (var db = new G7CPDBContext())
+            using (var db = new GoninDigitalDBContext())
             {
                 
                 db.Carts.RemoveRange(carts);

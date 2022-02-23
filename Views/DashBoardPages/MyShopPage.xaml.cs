@@ -40,7 +40,7 @@ namespace G7CP.Views.DashBoardPages
             pages = new Dictionary<string, Page>();
             (DataContext as MyShopViewModel).IsOwner = false;
             (DataContext as MyShopViewModel).VisibilityOwner = "Visible";
-            using (var db = new G7CPDBContext())
+            using (var db = new GoninDigitalDBContext())
             {
                 (DataContext as MyShopViewModel).Vendor = db.Vendors
                     .Include(o => o.Products).First(o => o.Id == vendorId);
