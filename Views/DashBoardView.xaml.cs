@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using G7CP.Models;
-using G7CP.Views.DashBoardPages;
+using GoninDigital.Models;
+using GoninDigital.Views.DashBoardPages;
 using ModernWpf.Controls;
 using ModernWpf.Controls.Primitives;
 using System.Linq;
 using Frame = System.Windows.Controls.Frame;
 using Page = ModernWpf.Controls.Page;
-using G7CP.Views.SharedPages;
-using G7CP.Properties;
+using GoninDigital.Views.SharedPages;
+using GoninDigital.Properties;
 using System.Windows.Media.Imaging;
 using ListViewItem = ModernWpf.Controls.ListViewItem;
-using G7CP.Utils;
+using GoninDigital.Utils;
 
-namespace G7CP.Views
+namespace GoninDigital.Views
 {
     class SearchItem
     {
@@ -71,7 +71,7 @@ namespace G7CP.Views
             if (selectedItem != null)
             {
                 string selectedItemTag = (string)selectedItem.Tag;
-                string pageName = "G7CP.Views.DashBoardPages." + selectedItemTag;
+                string pageName = "GoninDigital.Views.DashBoardPages." + selectedItemTag;
                 Page togo;
                 if (!pages.TryGetValue(pageName, out togo))
                 {

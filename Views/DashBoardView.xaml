@@ -51,7 +51,7 @@
                            BackRequested="navigationView_BackRequested"
                            IsBackEnabled="False"
                            IsTitleBarAutoPaddingEnabled="False"
-                           PaneTitle="G7CP">
+                           PaneTitle="Gonin Digital">
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem x:Name="homeItem" Content="Home" Tag="HomePage" Icon="Home" IsSelected="True"/>
                 <ui:NavigationViewItem x:Name="myShopItem" Content="My Shop" Tag="MyShopPage" Icon="Manage" />

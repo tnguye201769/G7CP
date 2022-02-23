@@ -1,5 +1,5 @@
-﻿using G7CP.Models;
-using G7CP.ViewModels;
+﻿using GoninDigital.Models;
+using GoninDigital.ViewModels;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Page = ModernWpf.Controls.Page;
 
-namespace G7CP.Views.DashBoardPages
+namespace GoninDigital.Views.DashBoardPages
 {
     /// <summary>
     /// Interaction logic for CartPage.xaml

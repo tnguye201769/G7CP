@@ -55,15 +55,15 @@
                         <StackPanel Margin="0 0 0 30">
                             <Label Content="Version"
                                    FontSize="18"/>
-                            <TextBlock Text="G7CP v0.0.1"
+                            <TextBlock Text="GoninDigital v1.0.0"
                                        Grid.Row="3"/>
                         </StackPanel>
                         <StackPanel Margin="0 0 0 30">
                             <Label Content="About Us"
                                    FontSize="18"/>
                             <TextBlock>           
-                                <ui:HyperlinkButton Content="G7CP"
-                                                    NavigateUri="https://github.com/tnguye201769/G7CP"/>
+                                <ui:HyperlinkButton Content="GoninDigital"
+                                                    NavigateUri="https://github.com/drakiez92/IT008-VisualProgramming"/>
                             </TextBlock>
                         </StackPanel>
                     </StackPanel>
