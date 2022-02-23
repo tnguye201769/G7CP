@@ -9,7 +9,39 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.2" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="ModernWpfUI" Version="0.9.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\BlankImage.jpg" />
+    <Resource Include="Resources\Images\ForgotPass.jpg" />
+    <Resource Include="Resources\Images\HomeBanner.jpg" />
+    <Resource Include="Resources\Images\HomeBannerNight.jpg" />
+    <Resource Include="Resources\Images\HomeProductCardGroupBackground.png" />
+    <Resource Include="Resources\Images\HomeProductCardGroupBackground2.jpg" />
+    <Resource Include="Resources\Images\LoginImage.jpg" />
+    <Resource Include="Resources\Images\NoOrderYet.jpg" />
+    <Resource Include="Resources\Images\ProductListBackgroundFallback.jpg" />
+    <Resource Include="Resources\Images\ResetPass.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

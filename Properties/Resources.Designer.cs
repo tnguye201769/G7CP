@@ -39,7 +39,7 @@ namespace G7CP.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GoninDigital.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("G7CP.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -70,7 +70,7 @@ namespace G7CP.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GoninDigital.Views.AdminView.
+        ///   Looks up a localized string similar to G7CP.Views.AdminView.
         /// </summary>
         internal static string AdminpageControlPath {
             get {
@@ -88,7 +88,7 @@ namespace G7CP.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GoninDigital.Views.ConfirmationCodeView.
+        ///   Looks up a localized string similar to G7CP.Views.ConfirmationCodeView.
         /// </summary>
         internal static string ConfirmationCodeControlPath {
             get {
@@ -106,7 +106,7 @@ namespace G7CP.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GoninDigital.Views.ForgotPasswordView.
+        ///   Looks up a localized string similar to G7CP.Views.ForgotPasswordView.
         /// </summary>
         internal static string ForgotPasswordControlPath {
             get {
@@ -133,7 +133,7 @@ namespace G7CP.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GoninDigital.Views.DashBoard.
+        ///   Looks up a localized string similar to G7CP.Views.DashBoard.
         /// </summary>
         internal static string HomepageControlPath {
             get {
@@ -142,7 +142,7 @@ namespace G7CP.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Homepage GoninDigital.
+        ///   Looks up a localized string similar to Homepage G7CP.
         /// </summary>
         internal static string HomepageWindowTitle {
             get {
@@ -151,7 +151,7 @@ namespace G7CP.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GoninDigital.Views.LoginView.
+        ///   Looks up a localized string similar to G7CP.Views.LoginView.
         /// </summary>
         internal static string LoginControlPath {
             get {
@@ -169,7 +169,7 @@ namespace G7CP.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GoninDigital.Views.RegisterView.
+        ///   Looks up a localized string similar to G7CP.Views.RegisterView.
         /// </summary>
         internal static string RegisterAccountControlPath {
             get {
@@ -196,7 +196,7 @@ namespace G7CP.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GoninDigital.Views.ResetPasswordView.
+        ///   Looks up a localized string similar to G7CP.Views.ResetPasswordView.
         /// </summary>
         internal static string ResetPasswordControlPath {
             get {

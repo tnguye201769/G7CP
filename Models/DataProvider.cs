@@ -17,16 +17,17 @@ namespace G7CP.Models
                 if (instance == null)
                 {
                     instance = new DataProvider();
+                    instance.Db.Database.EnsureCreated();
                 }
                 return instance;
             }
         }
 
-        public GoninDigitalDBContext Db { get; private set; }
+        public G7CPDBContext Db { get; private set; }
 
         private DataProvider()
         {
-            Db = new GoninDigitalDBContext();
+            Db = new G7CPDBContext();
         }
     }
 }

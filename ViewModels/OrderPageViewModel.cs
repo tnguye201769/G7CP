@@ -83,7 +83,7 @@ namespace G7CP.ViewModels
             get { return image; }
             set { image = value; OnPropertyChanged(); }
         }
-        GoninDigitalDBContext db = DataProvider.Instance.Db;
+        G7CPDBContext db = DataProvider.Instance.Db;
         #endregion
         #region Constructor
         public OrderPageViewModel()

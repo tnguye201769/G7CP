@@ -12,7 +12,7 @@ namespace G7CP.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            using (var db = new Models.GoninDigitalDBContext())
+            using (var db = new Models.G7CPDBContext())
             {
                 return db.Vendors.First(o => o.Name == (string)value).Avatar;
             }

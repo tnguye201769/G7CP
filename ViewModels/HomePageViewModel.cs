@@ -56,7 +56,7 @@ namespace G7CP.ViewModels
 
         private void InitAds()
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 Ads = db.Ads.OrderBy(o => Guid.NewGuid()).Take(3).ToList();
                 List<List<Product>> _adProducts = new List<List<Product>>(3);
@@ -74,7 +74,7 @@ namespace G7CP.ViewModels
 
         private void InitProducts()
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 // Selection algorithm goes here
                 TopProducts = db.Products.Include(x => x.Vendor).OrderBy(o => Guid.NewGuid()).Take(6).ToList();

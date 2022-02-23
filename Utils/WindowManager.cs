@@ -18,9 +18,8 @@ namespace G7CP.Utils
             window.Width = w;
             window.WindowState = WindowState.Normal;
             window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            //window.Icon = BitmapFrame.Create(new Uri("pack://application:,,,/GoninDigital;component/Resources/Icon.ico", UriKind.RelativeOrAbsolute));
 
-            var controlAssembly = Assembly.Load("GoninDigital");
+            var controlAssembly = Assembly.Load("G7CP");
             var controlType = controlAssembly.GetType(controlPath);
             var newControl = Activator.CreateInstance(controlType) as UserControl;
             newControl.DataContext = viewModel;
@@ -37,9 +36,8 @@ namespace G7CP.Utils
             window.Width = w;
             window.WindowState = WindowState.Normal;
             window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            //window.Icon = BitmapFrame.Create(new Uri("pack://application:,,,/GoninDigital;component/Resources/Icon.ico", UriKind.RelativeOrAbsolute));
 
-            var controlAssembly = Assembly.Load("GoninDigital");
+            var controlAssembly = Assembly.Load("G7CP");
             var controlType = controlAssembly.GetType(controlPath);
             var newControl = Activator.CreateInstance(controlType) as UserControl;
             window.Content = newControl;

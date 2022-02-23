@@ -15,20 +15,20 @@ namespace G7CP.Utils
     {
         public static bool EmailExists(string email)
         {
-            GoninDigitalDBContext context = new();
+            G7CPDBContext context = new();
             return context.Users.FirstOrDefault(b => b.Email == email) != default;
         }
 
         public static void RegisterAccount(User new_usr)
         {
-            GoninDigitalDBContext context = new();
+            G7CPDBContext context = new();
             context.Users.Add(new_usr);
             context.SaveChanges();
         }
 
         public static bool AccountExists(string usrname, string email)
         {
-            GoninDigitalDBContext context = new();
+            G7CPDBContext context = new();
             return context.Users.FirstOrDefault(b => b.Email==email || b.UserName==usrname) != default;
         }
 
@@ -36,7 +36,7 @@ namespace G7CP.Utils
         {
             try
             {
-                GoninDigitalDBContext context = new();
+                G7CPDBContext context = new();
                 User user = context.Users.FirstOrDefault(b=>b.Email==email);
                 if (user != default)
                 {

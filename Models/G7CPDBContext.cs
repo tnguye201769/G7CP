@@ -30,6 +30,7 @@ namespace G7CP.Models
         public virtual DbSet<ProductImage> ProductImages { get; set; }
         public virtual DbSet<ProductSpec> ProductSpecs { get; set; }
         public virtual DbSet<ProductSpecDetail> ProductSpecDetails { get; set; }
+        public virtual DbSet<ProductStatus> ProductStatuses { get; set; }
         public virtual DbSet<Rating> Ratings { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
@@ -40,21 +41,23 @@ namespace G7CP.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=tcp:gonin-digital.database.windows.net,1433;Initial Catalog=GoninDigitalDB;Persist Security Info=False;User ID=gonin-admin;Password=5nin-digital;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                optionsBuilder.UseSqlServer("Server=localhost;Database=G7CP;Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+            modelBuilder.HasAnnotation("Relational:Collation", "Latin1_General_CI_AS");
 
             modelBuilder.Entity<Ad>(entity =>
             {
                 entity.ToTable("Ad");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Cover)
+                    .IsRequired()
+                    .HasColumnName("cover");
 
                 entity.Property(e => e.Subtitle)
                     .IsRequired()
@@ -93,6 +96,9 @@ namespace G7CP.Models
             modelBuilder.Entity<Brand>(entity =>
             {
                 entity.ToTable("Brand");
+
+                entity.HasIndex(e => e.Name, "UN_Brand")
+                    .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
@@ -240,8 +246,6 @@ namespace G7CP.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.ApprovalStatus).HasColumnName("approval_status");
-
                 entity.Property(e => e.Available).HasColumnName("available");
 
                 entity.Property(e => e.BrandId).HasColumnName("brand_id");
@@ -257,8 +261,6 @@ namespace G7CP.Models
                     .HasColumnName("description");
 
                 entity.Property(e => e.Detail).HasColumnName("detail");
-
-                entity.Property(e => e.DiscountRate).HasColumnName("discount_rate");
 
                 entity.Property(e => e.Image)
                     .IsRequired()
@@ -278,9 +280,13 @@ namespace G7CP.Models
                     .HasMaxLength(10)
                     .HasColumnName("origin");
 
+                entity.Property(e => e.OriginPrice).HasColumnName("origin_price");
+
                 entity.Property(e => e.Price).HasColumnName("price");
 
                 entity.Property(e => e.Rating).HasColumnName("rating");
+
+                entity.Property(e => e.StatusId).HasColumnName("status_id");
 
                 entity.Property(e => e.UpdatedAt)
                     .HasColumnType("datetime")
@@ -299,6 +305,11 @@ namespace G7CP.Models
                     .HasForeignKey(d => d.CategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PRODUCT_PRODUCTCATEGORY");
+
+                entity.HasOne(d => d.Status)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.StatusId)
+                    .HasConstraintName("FK_PRODUCT_STATUS");
 
                 entity.HasOne(d => d.Vendor)
                     .WithMany(p => p.Products)
@@ -341,13 +352,20 @@ namespace G7CP.Models
             {
                 entity.ToTable("ProductSpec");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.CategoryId).HasColumnName("category_id");
 
                 entity.Property(e => e.Name)
+                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("name");
+
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.ProductSpecs)
+                    .HasForeignKey(d => d.CategoryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProductSpec_ProductCategory");
             });
 
             modelBuilder.Entity<ProductSpecDetail>(entity =>
@@ -375,6 +393,19 @@ namespace G7CP.Models
                     .HasForeignKey(d => d.SpecId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PRODUCTSPECDETAIL_PRODUCTSPEC");
+            });
+
+            modelBuilder.Entity<ProductStatus>(entity =>
+            {
+                entity.ToTable("ProductStatus");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .HasColumnName("name")
+                    .IsFixedLength(true);
             });
 
             modelBuilder.Entity<Rating>(entity =>

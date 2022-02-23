@@ -40,7 +40,7 @@ namespace G7CP.Views.DashBoardPages
             pages = new Dictionary<string, Page>();
             (DataContext as MyShopViewModel).IsOwner = false;
             (DataContext as MyShopViewModel).VisibilityOwner = "Visible";
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 (DataContext as MyShopViewModel).Vendor = db.Vendors
                     .Include(o => o.Products).First(o => o.Id == vendorId);
@@ -66,7 +66,7 @@ namespace G7CP.Views.DashBoardPages
             if (selectedItem != null)
             {
                 string selectedItemTag = (string)selectedItem.Tag;
-                string pageName = "GoninDigital.Views.DashBoardPages.MyShopPages." + selectedItemTag;
+                string pageName = "G7CP.Views.DashBoardPages.MyShopPages." + selectedItemTag;
 
                 Page togo;
                 if (!pages.TryGetValue(pageName, out togo))

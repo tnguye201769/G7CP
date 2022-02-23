@@ -85,7 +85,7 @@ namespace G7CP.ViewModels
 
         private void InitVendor()
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 try
                 {
@@ -141,7 +141,7 @@ namespace G7CP.ViewModels
         public ICommand RemoveCommand { get; set; }
         public async void RemoveCommandExec(object o)
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 try
                 {
@@ -187,7 +187,7 @@ namespace G7CP.ViewModels
             if (openFileDialog.ShowDialog() == true)
             {
                 var linkAvatar = await ImageUploader.UploadAsync(openFileDialog.FileName);
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     SelectedItem.Image = linkAvatar;
 
@@ -208,7 +208,7 @@ namespace G7CP.ViewModels
         {
             
             
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 db.Products.Update(selectedItem);
                 db.SaveChanges();
@@ -218,7 +218,7 @@ namespace G7CP.ViewModels
         public void UpgradeExec()
         {
             
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 int userId = db.Users.First(u => u.UserName == Settings.Default.usrname).Id;
                 Vendor newVendor = new Vendor() { Name = NewVendorName, OwnerId = userId, ApprovalStatus=0};

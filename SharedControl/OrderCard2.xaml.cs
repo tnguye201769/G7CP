@@ -109,7 +109,7 @@ namespace G7CP.SharedControl
 
         private void addCart_Click(object sender, RoutedEventArgs e)
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 int userID = db.Users.Where(x => x.UserName == Settings.Default.usrname).First().Id;
                 int productID = db.Products.Where(x => x.Name == ProductName).First().Id;

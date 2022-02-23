@@ -37,14 +37,15 @@ namespace G7CP.ViewModels
             }
             LoadedWidnowCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 //initialize the splash screen and set it as the application main window
-                WindowManager.ChangeWindowContent(p, "", "GoninDigital.Views.SplashScreenView");
+                WindowManager.ChangeWindowContent(p, "", "G7CP.Views.SplashScreenView");
 
                 //in order to ensure the UI stays responsive, we need to
                 //do the work on a different thread
                 Task.Factory.StartNew(() =>
                 {
                     //we need to do the work in batches so that we can report progress
-                    GoninDigitalDBContext db = new();
+                    G7CPDBContext db = new();
+                    db.Database.EnsureCreated();
                     db.Products.ToList();
                     db.Brands.ToList();
                     db.AdDetails.ToList();

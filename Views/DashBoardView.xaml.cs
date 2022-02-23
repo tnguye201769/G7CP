@@ -71,7 +71,7 @@ namespace G7CP.Views
             if (selectedItem != null)
             {
                 string selectedItemTag = (string)selectedItem.Tag;
-                string pageName = "GoninDigital.Views.DashBoardPages." + selectedItemTag;
+                string pageName = "G7CP.Views.DashBoardPages." + selectedItemTag;
                 Page togo;
                 if (!pages.TryGetValue(pageName, out togo))
                 {
@@ -127,7 +127,7 @@ namespace G7CP.Views
         {
             if (currentUser == null)
             {
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     currentUser = db.Users.FirstOrDefault(o => o.UserName == Settings.Default.usrname);
                 }
@@ -168,7 +168,7 @@ namespace G7CP.Views
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
                 var content = sender.Text;
-                using (var context = new GoninDigitalDBContext())
+                using (var context = new G7CPDBContext())
                 {
                     var productResult = context.Products.Where(product => product.Name.Contains(content))
                         .Select(product => new SearchItem {
@@ -211,7 +211,7 @@ namespace G7CP.Views
 
                 if (searchItem.Type == SearchItem.ItemType.PRODUCT)
                 {
-                    using (var db = new GoninDigitalDBContext())
+                    using (var db = new G7CPDBContext())
                     {
                         var product = db.Products.First(o => o.Id == searchItem.Id);
                         RootFrame.Navigate(new ProductPage(product));

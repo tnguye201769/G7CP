@@ -45,7 +45,7 @@ namespace G7CP.Views.SharedPages
 
         void AddtoCartExecute()
         {
-            using (var context = new GoninDigitalDBContext())
+            using (var context = new G7CPDBContext())
             {
                 int userID = context.Users.Where(x => x.UserName == Settings.Default.usrname).First().Id;
                 if (context.Carts.Where(x => x.UserId == userID & x.ProductId == ProductInfo.Id).Count() == 0)

@@ -53,7 +53,7 @@ namespace G7CP.ViewModels
         #region Constructor
         public ResetPasswordViewModel(Window window, string email)
         {
-            art = "/GoninDigital;component/Resources/Images/ResetPass.jpg";
+            art = "/G7CP;component/Resources/Images/ResetPass.jpg";
             this.window = window;
             this.usr_mail = email;
             ResetCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { ResetCommandExecute(); });

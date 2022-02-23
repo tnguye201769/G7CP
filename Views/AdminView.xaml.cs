@@ -33,7 +33,7 @@ namespace G7CP.Views
             if (selectedItem != null)
             {
                 string selectedItemTag = (string)selectedItem.Tag;
-                string pageName = "GoninDigital.Views.AdminPages." + selectedItemTag;
+                string pageName = "G7CP.Views.AdminPages." + selectedItemTag;
                 Type pageType = typeof(ShopPage).Assembly.GetType(pageName);
                 contentFrame.Navigate(pageType);
             }
