@@ -219,7 +219,7 @@ namespace G7CP.Views
                 }
                 else if (searchItem.Type == SearchItem.ItemType.VENDOR)
                 {
-                    // implement navigate to vendor
+                    RootFrame.Navigate(new MyShopPage(searchItem.Id));
                 }
                 navigationView.IsPaneOpen = false;
             }

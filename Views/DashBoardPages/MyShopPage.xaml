@@ -1,45 +1,102 @@
 ﻿<ui:Page x:Class="G7CP.Views.DashBoardPages.MyShopPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:ui="http://schemas.modernwpf.com/2019"
-      xmlns:local="clr-namespace:G7CP.Views.DashBoardPages"
-      xmlns:uc="clr-namespace:G7CP.SharedControl"
-      mc:Ignorable="d" 
-      d:DesignWidth="1000"
-      DataContext="{StaticResource MyShopPageVM}"
-      Background="{DynamicResource AppBackgroundBrush}"
-      Title="MyShop">
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+         xmlns:ui="http://schemas.modernwpf.com/2019"
+         xmlns:local="clr-namespace:G7CP.Views.DashBoardPages"
+         xmlns:uc="clr-namespace:G7CP.SharedControl"
+         mc:Ignorable="d"
+         d:DesignWidth="1000"
+         
+         DataContext="{StaticResource MyShopPageVM}"
+         Background="{DynamicResource AppBackgroundBrush}"
+         Title="MyShop">
 
     <ScrollViewer>
-        <StackPanel Orientation="Vertical" Margin="0 0 0 50 ">
-            <Grid VerticalAlignment="Top">
-                <Grid Height="450" VerticalAlignment="Top">
-                    <Image Source="{Binding Cover}"
-                           Stretch="UniformToFill"></Image>
-                    <Label
-                                Margin="20 20 0 20"
-                                FontSize="22"
-                                FontWeight="Bold">My Shop</Label>
+        <Grid>
+            <StackPanel Orientation="Vertical"
+                        Margin="0 0 0 50 "
+                        Visibility="{Binding HasVendor,Converter={StaticResource BooleanToVisibility},ConverterParameter=True}">
+                <Grid VerticalAlignment="Top">
+                    <Grid Height="450"
+                          VerticalAlignment="Top">
+                        <Image Source="{Binding Vendor.Cover}"
+                               Stretch="UniformToFill"></Image>
+                        <Label Margin="20 20 0 20"
+                               FontSize="22"
+                               FontWeight="Bold">My Shop</Label>
+                    </Grid>
+                    <Grid Margin="0 405 0 0">
+                        <StackPanel Orientation="Vertical">
+                            <ui:PersonPicture DisplayName="Betsy Sherman"
+                                              ProfilePicture="{Binding Vendor.Avatar}"
+                                              Initials="Shop" />
+                            <Label Content="{Binding Vendor.Name}"
+                                   FontSize="25"
+                                   FontWeight="Bold"
+                                   HorizontalAlignment="Center" />
+                            <Label Content="{Binding Vendor.Description}"
+                                   FontSize="18"
+                                   HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Grid>
                 </Grid>
-                <Grid Margin="0 405 0 0">
-                <StackPanel Orientation="Vertical" >
-                    <ui:PersonPicture 
-                            DisplayName="Betsy Sherman"
-                            ProfilePicture="{Binding Avatar}"
-                            Initials="Shop" 
-                            />
-                    <Label 
-                            Content="{Binding NameShop}" Foreground="Black"
-                            FontSize="22" FontWeight="Bold"
-                            HorizontalAlignment="Center"/>
+
+                <ui:NavigationView x:Name="nav" Margin="0 30 0 0" MinHeight="500"
+                                   SelectionChanged="nav_SelectionChanged"
+                                   PaneDisplayMode="Top"
+                                   SelectionFollowsFocus="Enabled"
+                                   IsTabStop="False"
+                                   IsBackButtonVisible="Collapsed">
+                    <ui:NavigationView.MenuItems>
+                        <ui:NavigationViewItem Content="Home"
+                                               Tag="HomeTab"
+                                               IsSelected="True"/>
+                        <ui:NavigationViewItem Content="All Product"
+                                               Tag="AllProductTab" />
+                        <ui:NavigationViewItem Content="Product Manager"
+                                               Tag="ProductManagerTab" />
+                        <ui:NavigationViewItem Content="About" 
+                                               Tag="AboutTab" />
+                    </ui:NavigationView.MenuItems>
+                    <ui:Frame x:Name="frame"/>
+                </ui:NavigationView>
+
+            </StackPanel>
+            <Grid Visibility="{Binding HasVendor,Converter={StaticResource BooleanToVisibility},ConverterParameter=False}">
+                <Grid VerticalAlignment="Top">
+                    <Label Margin="20 20 0 20"
+                               FontSize="22"
+                               FontWeight="Bold">My Shop</Label>
+                </Grid>
+                <StackPanel HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                    <Label Content="You don't have any Vendor, Would you like to Upgrade your account to vendor" />
+                    <Button Content="Upgrade"
+                            Margin="0 20 0 0"
+                            HorizontalAlignment="Center"
+                            Command="{Binding UpgradeCommand}"/>
                 </StackPanel>
-                </Grid>
+                
             </Grid>
-            
-            <uc:ShopProduct Margin="0 50 0 0" ProductList="{Binding ProductList}"></uc:ShopProduct>
-           
-        </StackPanel>
+            <Grid Visibility="{Binding HasVendor,Converter={StaticResource BooleanToVisibility},ConverterParameter=False}">
+                <Grid VerticalAlignment="Top">
+                    <Label Margin="20 20 0 20"
+                               FontSize="22"
+                               FontWeight="Bold">My Shop</Label>
+                </Grid>
+                <StackPanel HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                    <Label Content="You don't have any Vendor, Would you like to Upgrade your account to vendor" />
+                    <Button Content="Upgrade"
+                            Margin="0 20 0 0"
+                            HorizontalAlignment="Center"
+                            Command="{Binding UpgradeCommand}"/>
+                </StackPanel>
+
+            </Grid>
+        </Grid>
     </ScrollViewer>
+
 </ui:Page>
