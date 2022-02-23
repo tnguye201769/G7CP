@@ -22,7 +22,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid>
-                <TextBlock Text="GONINDIGITAL"
+                <TextBlock Text="G7CP"
                            HorizontalAlignment="Center"
                            Foreground="{DynamicResource SystemControlBackgroundAltHighBrush}"
                            VerticalAlignment="Center"
