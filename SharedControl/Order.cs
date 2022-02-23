@@ -69,11 +69,5 @@ namespace G7CP.SharedControl
             get { return date; }
             set { date = value; OnPropertyChanged(); }
         }
-        private int invoiceId;
-        public int InvoiceId
-        {
-            get { return invoiceId; }
-            set { invoiceId = value; OnPropertyChanged(); }
-        }
     }
 }

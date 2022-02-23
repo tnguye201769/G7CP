@@ -31,7 +31,7 @@ namespace G7CP.SharedControl
         {
             if (ProductInfo != null)
             {
-                DashBoard.RootFrame.Navigate(new ProductPage(ProductInfo.Id));
+                DashBoard.RootFrame.Navigate(new ProductPage(ProductInfo));
             }
         }
     }
