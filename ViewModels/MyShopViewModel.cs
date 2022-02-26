@@ -89,6 +89,10 @@ namespace G7CP.ViewModels
         public int OnPrimaryButtonClick { get; private set; }
         public int PrimaryButtonClick { get; private set; }
 
+
+        public ICommand EditAvatarCommand { get; set; }
+        public ICommand EditCoverPhotoCommand { get; set; }
+
         private void InitVendor()
         {
             using (var db = new GoninDigitalDBContext())
@@ -98,9 +102,11 @@ namespace G7CP.ViewModels
                     
                     Vendor = db.Vendors.Include(o => o.Owner)
                         .Include(o => o.Products)
-                        .First(o => o.Owner.UserName == Settings.Default.usrname);
+                        .First(o => o.Owner.UserName == Settings.Default.usrname );
                     db.ProductCategories.ToList();
-                    Products = new ObservableCollection<Product>(Vendor.Products.ToList());
+                    Products = new ObservableCollection<Product>(Vendor.Products.Where(o=>o.StatusId==(int)Constants.ProductStatus.ACCEPTED).ToList());
+                    ProductBestSeller = new ObservableCollection<Product>(Vendor.Products.Where(o => o.StatusId == (int)Constants.ProductStatus.ACCEPTED).Take(10).ToList());
+                    ProductSpecial = new ObservableCollection<Product>(Vendor.Products.Where(o => o.StatusId == (int)Constants.ProductStatus.ACCEPTED).Take(5).ToList());
                     HasVendor = true;
                     VendorName = Vendor.Name;
                     VisibilityOwner = "Visible";
@@ -146,18 +152,15 @@ namespace G7CP.ViewModels
             dialog.ShowAsync();
         }
         public ICommand RemoveCommand { get; set; }
-        public async void RemoveCommandExec(object o)
+        public void RemoveCommandExec(object o)
         {
             using (var db = new GoninDigitalDBContext())
             {
                 try
                 {
-                    db.Products.Remove(SelectedItem);
-                    
-                    await db.SaveChangesAsync();
-
-                    Products.Remove(SelectedItem);
-                    MessageBox.Show("removed");
+                    SelectedItem.StatusId = (int)Constants.ProductStatus.REMOVED;
+                    db.Update(SelectedItem);
+                    _=db.SaveChanges();
                 }
                 catch (Exception e)
                 {
@@ -247,7 +250,7 @@ namespace G7CP.ViewModels
             openFileDialog.Title = "Choose Image..";
 
             openFileDialog.InitialDirectory = @"C:\";
-            openFileDialog.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
+            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
                 var linkAvatar = await ImageUploader.UploadAsync(openFileDialog.FileName);
@@ -267,6 +270,8 @@ namespace G7CP.ViewModels
             RemoveCommand = new RelayCommand<Product>(o => true, o => RemoveCommandExec(o));
             ImageEditCommand = new RelayCommand<Product>(o => true, o => ImageEditCommandExec(o));
             UpgradeCommand = new RelayCommand<object>((p) => true, (p) => { UpgradeCommandExec(); });
+            EditCoverPhotoCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { EditCoverPhotoExec(); });
+            EditAvatarCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { EditAvatarExec(); });
             ResetVendorInfoCommand = new RelayCommand<object>((p) => true, (p) => { ResetVendorInfoExec(); });
             SaveVendorInfoCommand = new RelayCommand<object>((p) =>
             {
@@ -277,10 +282,56 @@ namespace G7CP.ViewModels
                 
                 return true;
             }, (p) => { SaveVendorConfirm(); });
+
+        }
+        public async void EditAvatarExec()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Title = "Choose Image..";
+
+            openFileDialog.InitialDirectory = @"C:\";
+            openFileDialog.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                var linkAvatar = await ImageUploader.UploadAsync(openFileDialog.FileName);
+                using (var db = new GoninDigitalDBContext())
+                {
+                    Vendor.Avatar = linkAvatar;
+                    db.Vendors.Update(Vendor);
+                    _ = db.SaveChanges();
+                    Vendor = db.Vendors.Include(o => o.Owner)
+                            .Include(o => o.Products)
+                            .First(o => o.Owner.UserName == Settings.Default.usrname);
+                }
+            }
+
+        }
+        public async void EditCoverPhotoExec()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Title = "Choose Image..";
+
+            openFileDialog.InitialDirectory = @"C:\";
+            openFileDialog.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                var linkAvatar = await ImageUploader.UploadAsync(openFileDialog.FileName);
+                using (var db = new GoninDigitalDBContext())
+                {
+                    Vendor.Cover = linkAvatar;
+                    db.Vendors.Update(Vendor);
+                    _ = db.SaveChanges();
+                    Vendor = db.Vendors.Include(o => o.Owner)
+                            .Include(o => o.Products)
+                            .First(o => o.Owner.UserName == Settings.Default.usrname);
+                }
+            }
+
         }
         public void EditBtnExec()
         {
-            
             
             using (var db = new GoninDigitalDBContext())
             {
@@ -296,7 +347,10 @@ namespace G7CP.ViewModels
             {
                 int userId = db.Users.First(u => u.UserName == Settings.Default.usrname).Id;
                 Vendor newVendor = new Vendor() { Name = NewVendorName, OwnerId = userId, ApprovalStatus=0};
+                User user = db.Users.First(o => o.UserName == Settings.Default.usrname);
+                user.TypeId = (int)Constants.UserType.VENDOR;
                 db.Vendors.Add(newVendor);
+                db.Users.Update(user);
                 Vendor = newVendor;
                 HasVendor = true;
                 db.SaveChanges();

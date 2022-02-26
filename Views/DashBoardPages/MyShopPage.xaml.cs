@@ -1,6 +1,8 @@
 ﻿using G7CP.Models;
+using G7CP.Properties;
+using G7CP.Utils;
 using G7CP.ViewModels;
-using G7CP.Views.DashBoardPages.MyShopPages;
+using G7CP.Views.DashBoardPages;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -55,32 +57,5 @@ namespace G7CP.Views.DashBoardPages
             (DataContext as MyShopViewModel).OnNavigatedTo();
         }
 
-        private void nav_SelectionChanged(ModernWpf.Controls.NavigationView sender, ModernWpf.Controls.NavigationViewSelectionChangedEventArgs args)
-        {
-            if (args.IsSettingsSelected)
-            {
-                frame.Navigate(typeof(HomePage));
-                return;
-            }
-            var selectedItem = (ModernWpf.Controls.NavigationViewItem)args.SelectedItem;
-            if (selectedItem != null)
-            {
-                string selectedItemTag = (string)selectedItem.Tag;
-                string pageName = "G7CP.Views.DashBoardPages.MyShopPages." + selectedItemTag;
-
-                Page togo;
-                if (!pages.TryGetValue(pageName, out togo))
-                {
-                    Type pageType = typeof(HomeTab).Assembly.GetType(pageName);
-                    togo = (Page)Activator.CreateInstance(pageType);
-                    pages.Add(pageName, togo);
-                }
-                frame.Navigate(togo);
-            }
-            else
-            {
-                frame.Navigate(typeof(HomeTab));
-            }
-        }
     }
 }
