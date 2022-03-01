@@ -27,7 +27,6 @@ namespace G7CP.ViewModels
                 list = new ObservableCollection<Brand>(db.Brands);
             }
 
-
             #region UpdateCommand
             UpdateCommand = new RelayCommand<Object>((p) =>
             {
@@ -36,8 +35,7 @@ namespace G7CP.ViewModels
                     return true;
                 }
                 return false;
-            }, (p) =>
-            {
+            }, (p) => {
                 using (var db = new GoninDigitalDBContext())
                 {
                     var brand = db.Brands.First(x => x.Id == SelectedItem.Id);
@@ -65,7 +63,6 @@ namespace G7CP.ViewModels
                     db.Brands.Remove(brand);
                     db.SaveChanges();
                 }
-
             });
             #endregion
 
@@ -81,7 +78,6 @@ namespace G7CP.ViewModels
                     user = SelectedItem;
                     db.SaveChanges();
                 }
-
             });
             #endregion
 
