@@ -197,6 +197,7 @@
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\G7CP_0fv1xojj_wpftmp.AssemblyInfo.cs" />
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\G7CP_armoulyg_wpftmp.AssemblyInfo.cs" />
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\G7CP_besdddfo_wpftmp.AssemblyInfo.cs" />
+    <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\G7CP_Content.g.i.cs" />
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\G7CP_d3o0oit3_wpftmp.AssemblyInfo.cs" />
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\G7CP_gb4lwlrt_wpftmp.AssemblyInfo.cs" />
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\G7CP_hvbjjqcp_wpftmp.AssemblyInfo.cs" />
@@ -269,12 +270,16 @@
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views - Copy\RegisterView.g.i.cs" />
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\AdminPages\BrandPage.g.cs" />
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\AdminPages\BrandPage.g.i.cs" />
+    <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\AdminPages\BrandsManagerPage.g.i.cs" />
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\AdminPages\ProductPage.g.cs" />
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\AdminPages\ProductPage.g.i.cs" />
+    <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\AdminPages\ProductsManagerPage.g.i.cs" />
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\AdminPages\ShopPage.g.cs" />
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\AdminPages\ShopPage.g.i.cs" />
+    <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\AdminPages\ShopsManagerPage.g.i.cs" />
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\AdminPages\UserPage.g.cs" />
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\AdminPages\UserPage.g.i.cs" />
+    <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\AdminPages\UsersManagerPage.g.i.cs" />
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\AdminView.g.cs" />
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\AdminView.g.i.cs" />
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\ConfirmationCodeView.g.cs" />
@@ -302,6 +307,10 @@
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\DashBoardPages\PurchasePage.g.i.cs" />
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\DashBoardPages\SettingPage.g.cs" />
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\DashBoardPages\SettingPage.g.i.cs" />
+    <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\DashBoardPages\ShopAboutPage.g.i.cs" />
+    <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\DashBoardPages\ShopAllProductPage.g.i.cs" />
+    <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\DashBoardPages\ShopOrdersManagerPage.g.i.cs" />
+    <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\DashBoardPages\ShopProductManagerPage.g.i.cs" />
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\DashBoardPages\UserPage.g.cs" />
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\DashBoardPages\UserPage.g.i.cs" />
     <Compile Include="obj\Debug\net6.0-windows10.0.18362.0\Views\DashBoardView.g.cs" />

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
 
-namespace GoninDigital.Utils
+namespace G7CP.Utils
 {
     internal static class ImageUploader
     {
