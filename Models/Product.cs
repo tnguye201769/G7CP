@@ -11,6 +11,7 @@ namespace G7CP.Models
         {
             AdDetails = new HashSet<AdDetail>();
             Carts = new HashSet<Cart>();
+            Comments = new HashSet<Comment>();
             Favorites = new HashSet<Favorite>();
             InvoiceDetails = new HashSet<InvoiceDetail>();
             ProductSpecDetails = new HashSet<ProductSpecDetail>();
@@ -31,10 +32,11 @@ namespace G7CP.Models
         public DateTime UpdatedAt { get; set; }
         public int BrandId { get; set; }
         public string Image { get; set; }
-        public byte Rating { get; set; }
+        public double Rating { get; set; }
         public int NRating { get; set; }
         public int Available { get; set; }
         public byte? New { get; set; }
+        public int Buy { get; set; }
 
         public virtual Brand Brand { get; set; }
         public virtual ProductCategory Category { get; set; }
@@ -42,6 +44,7 @@ namespace G7CP.Models
         public virtual Vendor Vendor { get; set; }
         public virtual ICollection<AdDetail> AdDetails { get; set; }
         public virtual ICollection<Cart> Carts { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Favorite> Favorites { get; set; }
         public virtual ICollection<InvoiceDetail> InvoiceDetails { get; set; }
         public virtual ICollection<ProductSpecDetail> ProductSpecDetails { get; set; }
