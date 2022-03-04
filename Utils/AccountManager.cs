@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using G7CP.Models;
-using G7CP.Properties;
-using G7CP.ViewModels;
+using GoninDigital.Models;
+using GoninDigital.Properties;
+using GoninDigital.ViewModels;
 using ModernWpf.Controls;
 
-namespace G7CP.Utils
+namespace GoninDigital.Utils
 {
     class AccountManager
     {

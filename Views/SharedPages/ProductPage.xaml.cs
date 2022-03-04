@@ -84,6 +84,13 @@ namespace G7CP.Views.SharedPages
             InitializeComponent();
         }
 
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            // Checkout page should not in back stack
+            DashBoard.RootFrame.RemoveBackEntry();
+        }
+
         void AddtoCartExecute()
         {
             using (var context = new GoninDigitalDBContext())
@@ -144,16 +151,10 @@ namespace G7CP.Views.SharedPages
                     {
                         usr_rating.Value = (short)sender.Value;
                     }
-                    List<Rating> cur_item_rating = context.Ratings.Where(x => x.ProductId == ProductInfo.Id).ToList();
-                    double sum = 0;
-                    foreach (var item_rate in cur_item_rating)
-                    {
-                        sum += item_rate.Value;
-                    }
 
                     var cur_item = context.Products.FirstOrDefault(x => x.Id == ProductInfo.Id);
                     if (usr_rating == default) cur_item.NRating++;
-                    cur_item.Rating = sum/cur_item.NRating;
+                    cur_item.Rating = (cur_item.Rating * (cur_item.NRating - 1) + usr_rating.Value) / cur_item.NRating;
                     context.Products.Update(cur_item);
                     context.SaveChanges();
                 }

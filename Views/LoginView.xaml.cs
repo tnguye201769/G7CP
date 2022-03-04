@@ -12,11 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using G7CP.ViewModels;
+using GoninDigital.ViewModels;
 using ModernWpf.Controls;
 using ModernWpf.Demo.ThreadedUI;
 
-namespace G7CP.Views
+namespace GoninDigital.Views
 {
     /// <summary>
     /// Interaction logic for LoginView.xaml

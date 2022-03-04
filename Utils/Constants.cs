@@ -39,5 +39,11 @@ namespace G7CP.Utils
             DELIVERED = 4,
             CANCELED = 5
         }
+        public enum ApprovalStatus
+        {
+            REQUEST = 0,
+            ACTIVE = 1,
+            CLOSED = 2
+        }
     }
 }

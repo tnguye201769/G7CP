@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using G7CP.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -54,7 +55,9 @@ namespace G7CP.ViewModels
             set { discountProducts = value; OnPropertyChanged(); }
         }
 
-        private void InitAds()
+        public ICommand OnSeeAllClick;
+
+        private async void InitAds()
         {
             using (var db = new GoninDigitalDBContext())
             {
@@ -62,26 +65,52 @@ namespace G7CP.ViewModels
                 List<List<Product>> _adProducts = new List<List<Product>>(3);
                 for (int i = 0; i < 3; i++)
                 {
-                    _adProducts.Add(db.AdDetails.Where(o => o.AdId == Ads[i].Id)
+                    _adProducts.Add(await db.AdDetails.Where(o => o.AdId == Ads[i].Id)
                                                 .Include(x => x.Product.Vendor)
+                                                .Include(x => x.Product.Brand)
                                                 .Select(o => o.Product)
-                                                .ToList());
+                                                .ToListAsync());
 
                 }
                 AdProducts = _adProducts;
             }
         }
 
-        private void InitProducts()
+        private async void InitProducts()
         {
             using (var db = new GoninDigitalDBContext())
             {
-                // Selection algorithm goes here
-                TopProducts = db.Products.Include(x => x.Vendor).OrderBy(o => Guid.NewGuid()).Take(6).ToList();
+                List<Product> randomProducts = await db.Products
+                    .Include(x => x.Vendor)
+                    .Include(x => x.Brand)
+                    .OrderBy(o => Guid.NewGuid()).Take(20).ToListAsync();
 
-                RecommendedProducts = db.Products.Include(x => x.Vendor).OrderBy(o => Guid.NewGuid()).Take(6).ToList();
+                var topInvoiceDetails = db.InvoiceDetails
+                    .Include(x => x.Invoice)
+                    .Include(x => x.Product)
+                    .Where(o => o.Invoice.CreatedAt > DateTime.Now.AddDays(-7))
+                    .AsEnumerable()
+                    .GroupBy(x => x.ProductId)
+                    .OrderByDescending(x => x.Count())
+                    .ToList();
 
-                DiscountProducts = db.Products.Include(x => x.Vendor).OrderBy(o => Guid.NewGuid()).Take(6).ToList();
+                var tmp = topInvoiceDetails.Select(o => o.Key);
+
+                var fetchedProducts = await db.Products.Where(o => tmp.Contains(o.Id)).ToListAsync();
+                if (fetchedProducts.Count < 10)
+                    fetchedProducts.AddRange(randomProducts);
+
+                TopProducts = fetchedProducts;
+
+                RecommendedProducts = await db.Products
+                    .Include(x => x.Vendor)
+                    .Include(x => x.Brand)
+                    .OrderBy(o => Guid.NewGuid()).Take(20).ToListAsync();
+
+                DiscountProducts = await db.Products
+                    .Include(x => x.Vendor)
+                    .Include(x => x.Brand)
+                    .OrderBy(o => Guid.NewGuid()).Take(6).ToListAsync();
             }
         }
 
@@ -91,10 +120,13 @@ namespace G7CP.ViewModels
 
             ads = new List<Ad>(3);
             adProducts = new List<List<Product>>(3);
-            Thread thread1 = new Thread(InitAds);
-            thread1.Start();
-            Thread thread2 = new Thread(InitProducts);
-            thread2.Start();
+
+            OnSeeAllClick = new RelayCommand<object>(o => true, o => { 
+                
+            });
+
+            InitAds();
+            InitProducts();
         }
     }
 }

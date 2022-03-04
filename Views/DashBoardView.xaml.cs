@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using G7CP.Models;
-using G7CP.Views.DashBoardPages;
+using GoninDigital.Models;
+using GoninDigital.Views.DashBoardPages;
 using ModernWpf.Controls;
 using ModernWpf.Controls.Primitives;
 using System.Linq;
-using Frame = System.Windows.Controls.Frame;
+using Frame = ModernWpf.Controls.Frame;
 using Page = ModernWpf.Controls.Page;
-using G7CP.Views.SharedPages;
-using G7CP.Properties;
+using GoninDigital.Views.SharedPages;
+using GoninDigital.Properties;
 using System.Windows.Media.Imaging;
 using ListViewItem = ModernWpf.Controls.ListViewItem;
-using G7CP.Utils;
+using GoninDigital.Utils;
+using Microsoft.EntityFrameworkCore;
 
-namespace G7CP.Views
+namespace GoninDigital.Views
 {
     class SearchItem
     {
@@ -92,9 +93,8 @@ namespace G7CP.Views
                 string selectedItemTag = (string)selectedItem.Tag;
                 if(selectedItemTag != null)
                 {
-                    string pageName = "G7CP.Views.DashBoardPages." + selectedItemTag;
-                    Page togo;
-                    if (!pages.TryGetValue(pageName, out togo))
+                    string pageName = "GoninDigital.Views.DashBoardPages." + selectedItemTag;
+                    if (!pages.TryGetValue(pageName, out Page togo))
                     {
                         Type pageType = typeof(HomePage).Assembly.GetType(pageName);
                         togo = (Page)Activator.CreateInstance(pageType);
@@ -102,7 +102,6 @@ namespace G7CP.Views
                     }
                     contentFrame.Navigate(togo);
                 }
-                
             }
             else
             {
@@ -112,7 +111,15 @@ namespace G7CP.Views
 
         private void navigationView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
         {
-            contentFrame.GoBack();
+            try
+            {
+                contentFrame.GoBack();
+            }
+            catch
+            {
+                contentFrame.RemoveBackEntry();
+                contentFrame.GoBack();
+            }
         }
 
         private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
@@ -122,9 +129,10 @@ namespace G7CP.Views
             else
                 navigationView.IsBackEnabled = false;
 
-            var desType = contentFrame.SourcePageType;
+            /*var desType = contentFrame.SourcePageType;
             if (desType == typeof(HomePage))
             {
+                
                 homeItem.IsSelected = true;
             }
             else if (desType == typeof(CartPage))
@@ -142,8 +150,8 @@ namespace G7CP.Views
             else if (desType == typeof(MyShopPage))
             {
                 myShopItem.IsSelected = true;
-            }
-            
+            }*/
+
         }
 
         private void NavigationViewItem_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -242,7 +250,9 @@ namespace G7CP.Views
                 {
                     using (var db = new GoninDigitalDBContext())
                     {
-                        var product = db.Products.First(o => o.Id == searchItem.Id);
+                        var product = db.Products
+                            .Include(o => o.Vendor)
+                            .First(o => o.Id == searchItem.Id);
                         RootFrame.Navigate(new ProductPage(product));
                     }
                 }
@@ -270,11 +280,9 @@ namespace G7CP.Views
             }
             else if (selection == "logout")
             {
-                // clear
                 Settings.Default.usrname = "";
                 Settings.Default.passwod = "";
 
-                //var loginWindow = new LoginViewModel(Application.Current.MainWindow);
                 WindowManager.ChangeWindowContent(Application.Current.MainWindow, Properties.Resources.LoginWindowTitle, Properties.Resources.LoginControlPath);
             }
         }
