@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using G7CP.Models;
+using G7CP.Views;
+using G7CP.Views.SharedPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace G7CP.ViewModels
@@ -54,8 +56,6 @@ namespace G7CP.ViewModels
             get { return discountProducts; }
             set { discountProducts = value; OnPropertyChanged(); }
         }
-
-        public ICommand OnSeeAllClick;
 
         private async void InitAds()
         {
@@ -120,10 +120,6 @@ namespace G7CP.ViewModels
 
             ads = new List<Ad>(3);
             adProducts = new List<List<Product>>(3);
-
-            OnSeeAllClick = new RelayCommand<object>(o => true, o => { 
-                
-            });
 
             InitAds();
             InitProducts();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace GoninDigital.Models
+namespace G7CP.Models
 {
     public partial class Brand
     {

@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using GoninDigital.Models;
-using GoninDigital.Views.DashBoardPages;
+using G7CP.Models;
+using G7CP.Views.DashBoardPages;
 using ModernWpf.Controls;
 using ModernWpf.Controls.Primitives;
 using System.Linq;
 using Frame = ModernWpf.Controls.Frame;
 using Page = ModernWpf.Controls.Page;
-using GoninDigital.Views.SharedPages;
-using GoninDigital.Properties;
+using G7CP.Views.SharedPages;
+using G7CP.Properties;
 using System.Windows.Media.Imaging;
 using ListViewItem = ModernWpf.Controls.ListViewItem;
-using GoninDigital.Utils;
+using G7CP.Utils;
 using Microsoft.EntityFrameworkCore;
 
-namespace GoninDigital.Views
+namespace G7CP.Views
 {
     class SearchItem
     {
@@ -93,7 +93,7 @@ namespace GoninDigital.Views
                 string selectedItemTag = (string)selectedItem.Tag;
                 if(selectedItemTag != null)
                 {
-                    string pageName = "GoninDigital.Views.DashBoardPages." + selectedItemTag;
+                    string pageName = "G7CP.Views.DashBoardPages." + selectedItemTag;
                     if (!pages.TryGetValue(pageName, out Page togo))
                     {
                         Type pageType = typeof(HomePage).Assembly.GetType(pageName);
@@ -258,7 +258,7 @@ namespace GoninDigital.Views
                 }
                 else if (searchItem.Type == SearchItem.ItemType.VENDOR)
                 {
-                    RootFrame.Navigate(new MyShopPage(searchItem.Id));
+                    RootFrame.Navigate(new ShopPage(searchItem.Id));
                 }
                 navigationView.IsPaneOpen = false;
             }
@@ -282,7 +282,7 @@ namespace GoninDigital.Views
             {
                 Settings.Default.usrname = "";
                 Settings.Default.passwod = "";
-
+                pages.Clear();
                 WindowManager.ChangeWindowContent(Application.Current.MainWindow, Properties.Resources.LoginWindowTitle, Properties.Resources.LoginControlPath);
             }
         }

@@ -14,7 +14,12 @@ namespace G7CP.Utils
             VENDOR = 2,
             CUSTOMER = 3,
         }
-
+        public enum ApprovalStatus
+        {
+            APPROVED = 1,
+            REJECTED = 2, //EQUAL TO REMOVE
+            WAITING = 0,
+        }
         public enum GenderType
         {
             NOTKNOWN = 0,
@@ -39,11 +44,11 @@ namespace G7CP.Utils
             DELIVERED = 4,
             CANCELED = 5
         }
-        public enum ApprovalStatus
-        {
-            REQUEST = 0,
-            ACTIVE = 1,
-            CLOSED = 2
-        }
+        //public enum ApprovalStatus
+        //{
+        //    REQUEST = 0,
+        //    ACTIVE = 1,
+        //    CLOSED = 2
+        //}
     }
 }

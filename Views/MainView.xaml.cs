@@ -12,11 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using GoninDigital.Views;
-using GoninDigital.Models;
-using GoninDigital.ViewModels;
+using G7CP.Views;
+using G7CP.Models;
+using G7CP.ViewModels;
 
-namespace GoninDigital
+namespace G7CP
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

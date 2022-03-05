@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using Page = ModernWpf.Controls.Page;
 
-namespace GoninDigital.Views.DashBoardPages
+namespace G7CP.Views.DashBoardPages
 {
     /// <summary>
     /// Interaction logic for SettingPage.xaml
