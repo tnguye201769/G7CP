@@ -1,13 +1,16 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:converter="clr-namespace:G7CP.Converters">
+                    xmlns:converter="clr-namespace:GoninDigital.Converters">
     <converter:ItemsLimiter x:Key="ItemsLimiter"></converter:ItemsLimiter>
     <converter:VendorNameToAvatar x:Key="VendorNameToAvatarConverter"></converter:VendorNameToAvatar>
     <converter:TotalPriceConverter x:Key="TotalPriceConverter"></converter:TotalPriceConverter>
     <converter:SumProductsPrice x:Key="SumProductsPrice"></converter:SumProductsPrice>
     <converter:ListCountToVisibility x:Key="ListCountToVisibility"></converter:ListCountToVisibility>
+    <converter:ApprovalStatustoVisibility x:Key="ApprovalStatustoVisibility"></converter:ApprovalStatustoVisibility>
     <converter:BooleanToVisibility x:Key="BooleanToVisibility"></converter:BooleanToVisibility>
     <converter:SearchItemTypeToVisibility x:Key="SearchItemTypeToVisibility"></converter:SearchItemTypeToVisibility>
     <converter:PriceToPercentageOff x:Key="PriceToPercentageOff"></converter:PriceToPercentageOff>
     <converter:BooleanConverter x:Key="BooleanConverter"></converter:BooleanConverter>
+    <converter:BrandIdToName x:Key="BrandIdToName"></converter:BrandIdToName>
+    <converter:CategoryIdToName x:Key="CategoryIdToName"></converter:CategoryIdToName>
 </ResourceDictionary>

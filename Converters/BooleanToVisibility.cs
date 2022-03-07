@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace G7CP.Converters
+namespace GoninDigital.Converters
 {
     class BooleanToVisibility : IValueConverter
     {

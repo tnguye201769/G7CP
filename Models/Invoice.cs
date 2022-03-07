@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace G7CP.Models
+namespace GoninDigital.Models
 {
     public partial class Invoice
     {
