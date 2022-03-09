@@ -1,9 +1,9 @@
-﻿<ui:Page x:Class="G7CP.Views.DashBoardPages.UserPage"
+﻿<ui:Page x:Class="GoninDigital.Views.DashBoardPages.UserPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:G7CP.Views.DashBoardPages"
+      xmlns:local="clr-namespace:GoninDigital.Views.DashBoardPages"
       mc:Ignorable="d" 
       xmlns:ui="http://schemas.modernwpf.com/2019"
       d:DesignHeight="600" d:DesignWidth="950"
@@ -108,13 +108,13 @@
                                  FontSize="16"
                                  Width="200"
                                  Text="{Binding User.FirstName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
-                                 IsReadOnly="{Binding Flag,UpdateSourceTrigger=PropertyChanged }"/>
+                                 IsReadOnly="{Binding Flag }"/>
                             <TextBox ui:ControlHelper.Header="Last Name"
                                  FontSize="16"
                                  Width="200"
                                  Margin="100 0 0 0"
                                  Text="{Binding User.LastName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                 IsReadOnly="{Binding Flag,UpdateSourceTrigger=PropertyChanged }"/>
+                                 IsReadOnly="{Binding Flag}"/>
                         </StackPanel>
                         <TextBox ui:ControlHelper.Header="User Name"
                              Margin="0 20 0 0"
@@ -122,7 +122,7 @@
                              HorizontalAlignment="Left"
                              FontSize="16"
                              Text="{Binding User.UserName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
-                             IsReadOnly="{Binding Flag,UpdateSourceTrigger=PropertyChanged }"/>
+                             IsReadOnly="{Binding Flag}"/>
                         <StackPanel Orientation="Horizontal"
                                 Margin="0 20 0 0">
                             <ComboBox x:Name="cbGender"
@@ -131,14 +131,14 @@
                                   ui:ControlHelper.Header="Gender"
                                   ItemsSource="{Binding LGender}"
                                   SelectedIndex="{Binding Gender}"
-                                  IsHitTestVisible="{Binding Flag3,UpdateSourceTrigger=PropertyChanged}"/>
+                                  IsHitTestVisible="{Binding Flag, Converter={StaticResource BooleantoCombobox}}"/>
                             <DatePicker x:Name="dpDoB"
                                     ui:ControlHelper.Header="Date Of Birth"
                                     FontSize="16"
                                     Width="200"
                                     Margin="100 0 0 0"
                                     SelectedDate="{Binding User.DateOfBirth, UpdateSourceTrigger=PropertyChanged}" DisplayDate="2021-11-10" 
-                                    IsHitTestVisible="{Binding Flag3,UpdateSourceTrigger=PropertyChanged}" />
+                                    IsHitTestVisible="{Binding Flag, Converter={StaticResource BooleantoCombobox}}" />
                         </StackPanel>
 
                         <TextBox ui:ControlHelper.Header="Phone Number"
@@ -147,27 +147,27 @@
                              Margin="0 20 0 0"
                              HorizontalAlignment="Left"
                              Text="{Binding User.PhoneNumber, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                             IsReadOnly="{Binding Flag,UpdateSourceTrigger=PropertyChanged }"/>
+                             IsReadOnly="{Binding Flag}"/>
                         <TextBox ui:ControlHelper.Header="Email"
                              FontSize="16"
                              Margin="0 20 0 0"
                              Width="500"
                              HorizontalAlignment="Left"
                              Text="{Binding User.Email, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                             IsReadOnly="{Binding Flag,UpdateSourceTrigger=PropertyChanged }"/>
+                             IsReadOnly="{Binding Flag }"/>
 
                         <StackPanel Margin="0 20 0 0"
                                 Orientation="Horizontal">
                             <ui:AppBarButton x:Name="Btn_Save" Icon="Save" Label="Save"
                                          Command="{Binding SavePCommand}"
-                                         Visibility="{Binding Flag1, UpdateSourceTrigger=PropertyChanged}"/>
+                                         Visibility="{Binding Flag}"/>
                             <ui:AppBarButton Icon="Refresh" Label="Reset" 
                                                Command="{Binding ResetPCommand}"
-                                               Visibility="{Binding Flag1, UpdateSourceTrigger=PropertyChanged}"/>
+                                               Visibility="{Binding Flag}"/>
                             <ui:AppBarButton Icon="Cancel" Label="Cancel" 
                                                Margin="0 0 20 0"
                                                Command="{Binding CancelPCommand}"
-                                               Visibility="{Binding Flag1, UpdateSourceTrigger=PropertyChanged}"/>
+                                               Visibility="{Binding Flag}"/>
 
                         </StackPanel>
                         <Button x:Name="Btn_EditPrf"
@@ -175,13 +175,6 @@
                             HorizontalAlignment="Center"
                             Margin="0 20 0 0"
                             Command="{Binding EditPCommand}"/>
-
-                        <!--<ui:AppBarButton Icon="Edit" Margin="288,-288,0,0" Visibility="{Binding flag1, UpdateSourceTrigger=PropertyChanged}"/>
-                <ui:AppBarButton Icon="Edit" Margin="-122,-101,0,0" Visibility="{Binding flag1, UpdateSourceTrigger=PropertyChanged}" IsHitTestVisible="False"/>
-                <ui:AppBarButton Icon="Edit" Margin="-122,-46,0,0" Visibility="{Binding flag1, UpdateSourceTrigger=PropertyChanged}" IsHitTestVisible="False"/>
-                <ui:AppBarButton Icon="Edit" Margin="-123,-2,0,0"   Visibility="{Binding flag1, UpdateSourceTrigger=PropertyChanged}" IsHitTestVisible="False"/>
-                <ui:AppBarButton Icon="Edit" Margin="205,-252,0,0"   Visibility="{Binding flag1, UpdateSourceTrigger=PropertyChanged}" IsHitTestVisible="False"/>
-                <ui:AppBarButton Icon="Edit" Margin="-251,-287,0,0"   Visibility="{Binding flag1, UpdateSourceTrigger=PropertyChanged}" IsHitTestVisible="False"/>-->
                     </StackPanel>
                 </Grid>
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace G7CP.SharedControl
+namespace GoninDigital.SharedControl
 {
     public class AppThemes : List<AppTheme>
     {
