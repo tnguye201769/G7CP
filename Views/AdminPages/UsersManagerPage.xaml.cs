@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using G7CP.Models;
+using G7CP.ViewModels;
 
 namespace G7CP.Views.AdminPages
 {
@@ -26,5 +27,14 @@ namespace G7CP.Views.AdminPages
             InitializeComponent();
         }
 
+        private void AutoSuggestBox_TextChanged(ModernWpf.Controls.AutoSuggestBox sender, ModernWpf.Controls.AutoSuggestBoxTextChangedEventArgs args)
+        {
+            (DataContext as UsersViewModel).SearchChanged();
+        }
+
+        private void AutoSuggestBox_QuerySubmitted(ModernWpf.Controls.AutoSuggestBox sender, ModernWpf.Controls.AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            (DataContext as UsersViewModel).SearchUser();
+        }
     }
 }
