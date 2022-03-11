@@ -1,11 +1,11 @@
-﻿<ui:Page x:Class="G7CP.Views.DashBoardPages.ShopOrdersManagerPage"
+﻿<ui:Page x:Class="GoninDigital.Views.DashBoardPages.ShopOrdersManagerPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:G7CP.Views.DashBoardPages"
+      xmlns:local="clr-namespace:GoninDigital.Views.DashBoardPages"
       xmlns:ui="http://schemas.modernwpf.com/2019"
-      xmlns:uc="clr-namespace:G7CP.SharedControl"
+      xmlns:uc="clr-namespace:GoninDigital.SharedControl"
       mc:Ignorable="d"
       d:DesignWidth="1000"
       DataContext="{StaticResource ShopOrderManagerVM}"
@@ -23,7 +23,7 @@
         <TabControl Grid.Row="1"
                     Margin="10 0 0 0"
                     Style="{StaticResource TabControlPivotStyle}">
-            <TabItem Header="Created">
+            <TabItem Header="New Order">
                 <ui:ListView Margin="0 10 0 0"
                              MaxWidth="900"
                              ItemsSource="{Binding CreatedInvoices}"
@@ -41,7 +41,7 @@
                                                VerticalAlignment="Center"
                                                FontSize="18" />
                                 </StackPanel>
-                                <Grid>
+                                <Grid Height="60">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="2*" />
@@ -132,7 +132,7 @@
                 </ui:ListView>
 
             </TabItem>
-            <TabItem Header="Accepted">
+            <TabItem Header="Delivering">
                 <ui:ListView Margin="0 10 0 0"
                              MaxWidth="900"
                              ItemsSource="{Binding AcceptedInvoices}"
@@ -150,13 +150,14 @@
                                                VerticalAlignment="Center"
                                                FontSize="18" />
                                 </StackPanel>
-                                <Grid>
+                                <Grid Height="60">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="2*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel Orientation="Horizontal">
+                                    <StackPanel Orientation="Horizontal"
+                                                Margin="40 0 0 0">
                                         <TextBlock Text="Created At: "
                                                    VerticalAlignment="Center"
                                                    FontWeight="Light"></TextBlock>
@@ -184,10 +185,11 @@
 
                                 <StackPanel>
                                     <Label Content="Products"
-                                           FontWeight="Light" />
+                                           FontWeight="Light" 
+                                           Margin="40 0 0 0"/>
                                     <ItemsControl ItemsSource="{Binding InvoiceDetails}"
                                                   Width="800"
-                                                  Margin="30 0 0 0"
+                                                  Margin="40 0 0 0"
                                                   HorizontalAlignment="Left">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
@@ -230,7 +232,7 @@
             </TabItem>
 
             
-            <TabItem Header="Delivered">
+            <TabItem Header="Receiced">
                 <ui:ListView Margin="0 10 0 0"
                              MaxWidth="900"
                              ItemsSource="{Binding DeliveredInvoices}"
@@ -248,13 +250,14 @@
                                                VerticalAlignment="Center"
                                                FontSize="18" />
                                 </StackPanel>
-                                <Grid>
+                                <Grid Height="60">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="2*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel Orientation="Horizontal">
+                                    <StackPanel Orientation="Horizontal"
+                                                Margin="40 0 0 0">
                                         <TextBlock Text="Created At: "
                                                    VerticalAlignment="Center"
                                                    FontWeight="Light"></TextBlock>
@@ -282,10 +285,11 @@
 
                                 <StackPanel>
                                     <Label Content="Products"
-                                           FontWeight="Light" />
+                                           FontWeight="Light" 
+                                           Margin="40 0 0 0"/>
                                     <ItemsControl ItemsSource="{Binding InvoiceDetails}"
                                                   Width="800"
-                                                  Margin="30 0 0 0"
+                                                  Margin="40 0 0 0"
                                                   HorizontalAlignment="Left">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
@@ -344,13 +348,14 @@
                                                VerticalAlignment="Center"
                                                FontSize="18" />
                                 </StackPanel>
-                                <Grid>
+                                <Grid Height="60">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="2*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel Orientation="Horizontal">
+                                    <StackPanel Orientation="Horizontal"
+                                                Margin="40 0 0 0">
                                         <TextBlock Text="Created At: "
                                                    VerticalAlignment="Center"
                                                    FontWeight="Light"></TextBlock>
@@ -378,10 +383,11 @@
 
                                 <StackPanel>
                                     <Label Content="Products"
-                                           FontWeight="Light" />
+                                           FontWeight="Light" 
+                                           Margin="40 0 0 0"/>
                                     <ItemsControl ItemsSource="{Binding InvoiceDetails}"
                                                   Width="800"
-                                                  Margin="30 0 0 0"
+                                                  Margin="40 0 0 0"
                                                   HorizontalAlignment="Left">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
@@ -440,13 +446,14 @@
                                                VerticalAlignment="Center"
                                                FontSize="18" />
                                 </StackPanel>
-                                <Grid>
+                                <Grid Height="60">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="2*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel Orientation="Horizontal">
+                                    <StackPanel Orientation="Horizontal"
+                                                Margin="40 0 0 0">
                                         <TextBlock Text="Created At: "
                                                    VerticalAlignment="Center"
                                                    FontWeight="Light"></TextBlock>
@@ -474,10 +481,11 @@
 
                                 <StackPanel>
                                     <Label Content="Products"
-                                           FontWeight="Light" />
+                                           FontWeight="Light" 
+                                           Margin="40 0 0 0"/>
                                     <ItemsControl ItemsSource="{Binding InvoiceDetails}"
                                                   Width="800"
-                                                  Margin="30 0 0 0"
+                                                  Margin="40 0 0 0"
                                                   HorizontalAlignment="Left">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
