@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using G7CP.ViewModels;
 using G7CP.Models;
+using G7CP.SharedControl;
 
 namespace G7CP.Views.AdminPages
 {
@@ -41,5 +42,6 @@ namespace G7CP.Views.AdminPages
         {
             (DataContext as AdsPageViewModel).SearchAd();
         }
+
     }
 }

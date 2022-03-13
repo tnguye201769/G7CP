@@ -8,6 +8,7 @@ using G7CP.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Windows.Input;
 using ModernWpf.Controls;
+using G7CP.SharedControl;
 
 namespace G7CP.ViewModels
 {
@@ -15,10 +16,15 @@ namespace G7CP.ViewModels
     {
         private Ad selectedAd;
         public Ad SelectedAd
-        { get { return selectedAd; } set { selectedAd = value; OnPropertyChanged(); } }
+        {
+            get { return selectedAd; }
+            set { selectedAd = value; OnPropertyChanged(); }
+        }
         public ICommand DeleteCommand { get; set; }
-        private List<Product> adProducts = null;
-        public List<Product> AdProducts
+        public ICommand AddCommand { get; set; }
+        public ICommand UpdateCommand { get; set; }
+        private ObservableCollection<Product> adProducts = null;
+        public ObservableCollection<Product> AdProducts
         {
             get { return adProducts; }
             set { adProducts = value; OnPropertyChanged(); }
@@ -35,6 +41,24 @@ namespace G7CP.ViewModels
             get { return searchName; }
             set { searchName = value; OnPropertyChanged(); }
         }
+
+        private string contentUpdate;
+        public string ContentUpdate
+        {
+            get { return contentUpdate; }
+            set { contentUpdate = value; OnPropertyChanged(); }
+        }
+        private ContentDialog addAdDialog;
+        public ContentDialog AddAdDialog
+        {
+            get { return addAdDialog; }
+            set { addAdDialog = value; }
+        }
+
+        public int ProductIdToAdd { get; set; }
+        public ICommand ProductDeleteCommand { get; set; }
+        public ICommand ProductAddCommand { get; set; }
+
         public AdsPageViewModel()
         {
             using (var db = new GoninDigitalDBContext())
@@ -52,8 +76,16 @@ namespace G7CP.ViewModels
             {
                 DeleteExec();
             });
+
+            UpdateCommand = new RelayCommand<Object>( (p) =>true, (p) =>{  UpdateExec(); });
+            AddCommand = new RelayCommand<Object>((p) => true, (p) => { AddExec(); });
+
+            ProductDeleteCommand = new RelayCommand<Product>(p => true, p => { DeleteProductExec(p); });
+            ProductAddCommand = new RelayCommand<object>(p => true, p => { AddProductExec(); });
+
             SelectedAd = new Ad();
-            AdProducts = new List<Product>();
+            AdProducts = new ObservableCollection<Product>();
+            ContentUpdate = "Update";
         }
         private void DeleteExec()
         {
@@ -78,50 +110,198 @@ namespace G7CP.ViewModels
                 db.SaveChanges();
             }
             SelectedAd = new Ad();
-            AdProducts = new List<Product>();
+            AdProducts = new ObservableCollection<Product>();
         }
-            public async void Load_Ads()
+        private void UpdateExec()
+        {
+            if (ContentUpdate == "Save")
+            {
+                bool flag = false;
+                foreach(Ad ad in L_Ads)
+                {
+                    if (ad.Subtitle == "" | ad.Title == "")
+                    {
+                        ContentDialog content = new()
+                        {
+                            Title = "Warning",
+                            Content = "No cell is allowed to be left blank",
+                            PrimaryButtonText = "Ok"
+                        };
+                        content.ShowAsync();
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag)
+                {
+                    using (var db = new GoninDigitalDBContext())
+                    {
+                        db.Ads.UpdateRange(L_Ads);
+                        _ = db.SaveChanges();
+                    }
+                    ContentDialog content = new()
+                    {
+                        Title = "Complete",
+                        Content = "Updated Successfully",
+                        PrimaryButtonText = "Ok"
+                    };
+                    content.ShowAsync();
+                    ContentUpdate = "Update";
+                }
+            }
+            else
+            {
+                ContentUpdate = "Save";
+            }
+        }
+        private void AddExec()
+        {
+            AddAdDialog = new ContentDialog()
+            {
+
+                CloseButtonText = "Close",
+                Content = new AddAdDialog(),
+                Title = "Add Ad",
+
+            };
+            AddAdDialog.ShowAsync();
+            AddAdDialog.CloseButtonClick += AddAdDialog_CloseButtonClick;
+
+        }
+
+        private void AddAdDialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            using (var db = new GoninDigitalDBContext())
+            { 
+                L_Ads = new ObservableCollection<Ad>(db.Ads); 
+            }
+        }
+
+        private void DeleteProductExec(Product product)
+        {
+            try
             {
                 using (var db = new GoninDigitalDBContext())
                 {
-                    if(SelectedAd!=null)
-                        AdProducts = new List<Product>(await db.AdDetails.Where(o => o.AdId == SelectedAd.Id)
-                                                    .Include(x => x.Product.Vendor)
-                                                    .Include(x => x.Product.Brand)
-                                                    .Select(o => o.Product)
-                                                    .ToListAsync());
+                    db.AdDetails.Remove(db.AdDetails.First(o => o.ProductId == product.Id && o.AdId == selectedAd.Id));
+                    db.SaveChanges();
+                    Load_Ads();
                 }
             }
-            public void SearchChanged()
+            catch (Exception ex)
             {
-                if (SearchName == "")
+                var dialog = new ContentDialog
                 {
-                    using (var db = new GoninDigitalDBContext())
-                    {
-                        L_Ads = new ObservableCollection<Ad>(db.Ads);
-                    }
-                }
+                    Content = ex.Message,
+                    Title = "Error",
+                    CloseButtonText = "Close",
+                };
+                dialog.ShowAsync();
             }
-            public void SearchAd()
+
+        }
+        private async void AddProductExec()
+        {
+            try
             {
-                string s = SearchName.ToLower();
-                if (SearchName != "")
+
+                var addDialog = new ContentDialog
                 {
-                    using (var db = new GoninDigitalDBContext())
-                    {
-                        L_Ads = new ObservableCollection<Ad>(db.Ads);
-                    }
-                    int count = 0;
-                    while (count < L_Ads.Count())
-                    {
-                        if (!L_Ads[count].Title.ToLower().Contains(s))
-                            L_Ads.RemoveAt(count);
-                        else
-                            count += 1;
-                    }
+                    Title = "Add Product",
+                    Content = new ProductSearchDialog(),
+                    PrimaryButtonText = "Add",
+                    CloseButtonText = "Cancel",
+                    PrimaryButtonCommand = new RelayCommand<object>(o => true, o => {
+                        if (ProductIdToAdd != 0)
+                        {
+                            using (var db = new GoninDigitalDBContext())
+                            {
+                                var currentAdProducts = db.AdDetails.Where(o => o.AdId == SelectedAd.Id).Select(o => o.ProductId);
+                                if (currentAdProducts.Contains(ProductIdToAdd))
+                                {
+                                    var dialog = new ContentDialog
+                                    {
+                                        Content = "Product existed! Nothing changed",
+                                        Title = "Warning",
+                                        CloseButtonText = "Close",
+                                    };
+                                    dialog.ShowAsync();
+                                }
+                                else
+                                {
+                                    var adDetailToAdd = new AdDetail
+                                    {
+                                        AdId = SelectedAd.Id,
+                                        ProductId = ProductIdToAdd,
+                                    };
+                                    db.AdDetails.Add(adDetailToAdd);
+                                    db.SaveChanges();
+                                    Load_Ads();
+                                }
+
+                            }
+                        }
+                    }),
+
+                };
+                await addDialog.ShowAsync();
+            }
+            catch (Exception ex)
+            {
+                var dialog = new ContentDialog
+                {
+                    Content = ex.Message,
+                    Title = "Error",
+                    CloseButtonText = "Close",
+                };
+                await dialog.ShowAsync();
+            }
+
+        }
+        public async void Load_Ads()
+        {
+            using (var db = new GoninDigitalDBContext())
+            {
+                if (SelectedAd != null)
+                    AdProducts = new ObservableCollection<Product>(await db.AdDetails.Where(o => o.AdId == SelectedAd.Id)
+                                                .Include(x => x.Product.Vendor)
+                                                .Include(x => x.Product.Brand)
+                                                .Select(o => o.Product)
+                                                .ToListAsync());
+            }
+        }
+        public void SearchChanged()
+        {
+            if (SearchName == "")
+            {
+                using (var db = new GoninDigitalDBContext())
+                {
+                    L_Ads = new ObservableCollection<Ad>(db.Ads);
                 }
             }
         }
+        public void SearchAd()
+        {
+            string s = SearchName.ToLower();
+            if (SearchName != "")
+            {
+                using (var db = new GoninDigitalDBContext())
+                {
+                    L_Ads = new ObservableCollection<Ad>(db.Ads);
+                }
+                int count = 0;
+                while (count < L_Ads.Count())
+                {
+                    if (!L_Ads[count].Title.ToLower().Contains(s))
+                        L_Ads.RemoveAt(count);
+                    else
+                        count += 1;
+                }
+            }
+        }
+
+
     }
+}
 
 

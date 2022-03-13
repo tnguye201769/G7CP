@@ -239,6 +239,7 @@ namespace G7CP.ViewModels
                         SelectedItem.StatusId = (int)Constants.ProductStatus.REMOVED;
                         db.Update(SelectedItem);
                         ProductCreated.Remove(SelectedItem);
+                        /*db.Remove(SelectedItem);*/
                     }
                     
                     _ = db.SaveChanges();
@@ -341,6 +342,7 @@ namespace G7CP.ViewModels
 
                     db.Update(SelectedItem);
                     _ = db.SaveChanges();
+                    SelectedItem = selectedItem;
                 }
             }
         }
@@ -416,7 +418,9 @@ namespace G7CP.ViewModels
                 db.ProductSpecDetails.AddRange(selectedProductSpecs);
                 db.Entry(SelectedItem).State = EntityState.Modified;
                 db.SaveChanges();
-                
+                SelectedItem = selectedItem;
+                Products = new ObservableCollection<Product>(Vendor.Products.Where(o => o.StatusId == (int)Constants.ProductStatus.ACCEPTED).ToList());
+                ProductCreated = new ObservableCollection<Product>(Vendor.Products.Where(o => o.StatusId == (int)Constants.ProductStatus.CREATED).ToList());
             }
 
         }
@@ -472,10 +476,12 @@ namespace G7CP.ViewModels
                         {
                             o.Spec = null;
                         });
+                        
                         db.ProductSpecDetails.AddRange(SelectedProductSpecs);
                         db.Entry(SelectedItem).State = EntityState.Modified;
                         db.SaveChanges();
-                        
+                        SelectedItem = selectedItem;
+                       
                     }
                     catch
                     {
@@ -498,7 +504,7 @@ namespace G7CP.ViewModels
                 if (selectedItem != null)
                 {
                     db.Products.Remove(selectedItem);
-                    Products.Remove(selectedItem);
+                    ProductCreated.Remove(selectedItem);
                     db.SaveChanges();
                 }
             }
@@ -546,13 +552,14 @@ namespace G7CP.ViewModels
                     {
                         ProductBestSeller = new ObservableCollection<Product>(Vendor.Products.Where(o => o.StatusId == (int)Constants.ProductStatus.ACCEPTED).OrderByDescending(o => o.Buy).Take(10).ToList());
                         ProductSpecial = new ObservableCollection<Product>(Vendor.Products.Where(o => o.StatusId == (int)Constants.ProductStatus.ACCEPTED).OrderByDescending(o => o.Rating).Take(10).ToList());
+                        
                     }
                     else
                     {
                         ProductBestSeller = new ObservableCollection<Product>(Vendor.Products.Where(o => o.StatusId == (int)Constants.ProductStatus.ACCEPTED).OrderByDescending(o => o.Buy).Take(Products.Count()).ToList());
                         ProductSpecial = new ObservableCollection<Product>(Vendor.Products.Where(o => o.StatusId == (int)Constants.ProductStatus.ACCEPTED).OrderByDescending(o => o.Rating).Take(10).ToList());
                     }
-                    
+                    ProductCreated = new ObservableCollection<Product>(Vendor.Products.Where(o => o.StatusId == (int)Constants.ProductStatus.CREATED).ToList());
                     HasVendor = true;
                     VendorName = Vendor.Name;
                 }
