@@ -24,6 +24,7 @@ namespace G7CP.Views.DashBoardPages
         private Dictionary<string, Page> pages;
         public ShopProductManagerPage()
         {
+            this.DataContext = new MyShopViewModel();
             InitializeComponent();
             pages = new Dictionary<string, Page>();
         }

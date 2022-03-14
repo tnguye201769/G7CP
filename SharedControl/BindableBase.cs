@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace G7CP.SharedControl
+namespace GoninDigital.SharedControl
 {
     public class BindableBase : INotifyPropertyChanged
     {

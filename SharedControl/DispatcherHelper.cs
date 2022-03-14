@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Threading;
 
-namespace G7CP.SharedControl
+namespace GoninDigital.SharedControl
 {
     public static class DispatcherHelper
     {
