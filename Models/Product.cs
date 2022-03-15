@@ -49,5 +49,10 @@ namespace G7CP.Models
         public virtual ICollection<InvoiceDetail> InvoiceDetails { get; set; }
         public virtual ICollection<ProductSpecDetail> ProductSpecDetails { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }
