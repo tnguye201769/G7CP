@@ -44,7 +44,7 @@ namespace G7CP.ViewModels
         #region Constructor
         public ForgotPasswordViewModel(Window window)
         {
-            art = "/G7CP;component/Resources/Images/ForgotPass.jpg";
+            art = "/GoninDigital;component/Resources/Images/ForgotPass.jpg";
             this.window = window;
             SendCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { SendCommandExecute(); });
             LoginCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { LoginCommandExecute(); });

@@ -1,29 +1,30 @@
-﻿using System;
+﻿using G7CP.Models;
+using G7CP.Utils;
+using G7CP.ViewModels;
+using G7CP.ViewModels.Validator;
+using ModernWpf.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
-using G7CP.Models;
-using G7CP.Utils;
-using ModernWpf.Controls;
-using G7CP.Properties;
-using G7CP.ViewModels.Validator;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
-namespace G7CP.ViewModels
+namespace G7CP.SharedControl
 {
-    class RegisterViewModel : BaseViewModel
+    /// <summary>
+    /// Interaction logic for AddUserDialog.xaml
+    /// </summary>
+    public partial class AddUserDialog : UserControl
     {
-        Window curWindow;
-        private string art;
-        public string Art
-        {
-            get { return art; }
-            set { art = value; OnPropertyChanged(); }
-        }
-        public Action CloseAction { get; set; }
         enum LGender
         {
             Other = 0,
@@ -43,7 +44,6 @@ namespace G7CP.ViewModels
             set
             {
                 _UserName = value;
-                OnPropertyChanged();
             }
         }
         private string _Password;
@@ -53,7 +53,15 @@ namespace G7CP.ViewModels
             set
             {
                 _Password = value;
-                OnPropertyChanged();
+            }
+        }
+        private string _CPassword;
+        public string CPassword
+        {
+            get => _CPassword;
+            set
+            {
+                _CPassword = value;
             }
         }
         private string _FirstName;
@@ -63,7 +71,6 @@ namespace G7CP.ViewModels
             set
             {
                 _FirstName = value;
-                OnPropertyChanged();
             }
         }
         private string _LastName;
@@ -73,7 +80,6 @@ namespace G7CP.ViewModels
             set
             {
                 _LastName = value;
-                OnPropertyChanged();
             }
         }
         private int _Gender = (int)LGender.Male;
@@ -83,7 +89,6 @@ namespace G7CP.ViewModels
             set
             {
                 _Gender = value;
-                OnPropertyChanged();
             }
         }
         private DateTime _DoB = DateTime.Now;
@@ -93,7 +98,6 @@ namespace G7CP.ViewModels
             set
             {
                 _DoB = value;
-                OnPropertyChanged();
             }
         }
         private string _Email;
@@ -103,7 +107,6 @@ namespace G7CP.ViewModels
             set
             {
                 _Email = value;
-                OnPropertyChanged();
             }
         }
         private string _PhoneNumber;
@@ -113,32 +116,33 @@ namespace G7CP.ViewModels
             set
             {
                 _PhoneNumber = value;
-                OnPropertyChanged();
             }
         }
-        public ICommand RegisterCommand { get; set; }
-        public ICommand CancelCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
-        public RegisterViewModel(Window p)
+        public AddUserDialog()
         {
-            art = "/GoninDigital;component/Resources/Images/LoginImage.jpg";
-            curWindow = p;
-            RegisterCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { RegisterExecute(); });
-            CancelCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { CancelExecute(); });
+            InitializeComponent();
             PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
         }
-        void RegisterExecute()
-        {
-            if (AccountManager.AccountExists(Email, UserName))
-            {
-                ContentDialog content = new()
-                {
-                    Title = "Warning",
 
-                    Content = "Your username or email already exists",
-                    PrimaryButtonText = "Ok"
-                };
-                content.ShowAsync();
+        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        {
+            Password = FloatingPasswordBox.Password;
+            CPassword = FloatingrePasswordBox.Password;
+            if (UserName =="" | FirstName =="" | LastName =="" | PhoneNumber =="" | Email =="")
+            {
+                Error.Foreground = Brushes.Red;
+                Error.Text = "Please enter full information";
+            }
+            else if(Password!=CPassword)
+            {
+                Error.Foreground = Brushes.Red;
+                Error.Text = "Re-entered password is incorrect";
+            }
+            else if (AccountManager.AccountExists(Email, UserName))
+            {
+                Error.Foreground = Brushes.Red;
+                Error.Text = "Your username or email already exists";
             }
             else
             {
@@ -164,42 +168,17 @@ namespace G7CP.ViewModels
 
                     AccountManager.RegisterAccount(new_user);
 
-                    ContentDialog content = new()
-                    {
-                        Title = "Success",
-                        Content = "Congratulations! You are successfully signed up!",
-                        PrimaryButtonText = "Ok"
-                    };
-                    content.ShowAsync();
+                    Error.Foreground = Brushes.Green;
+                    Error.Text = "Congratulations! You are successfully signed up!";
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    ContentDialog content = new()
-                    {
-                        Title = "Failed",
-                        Content = e.Message,
-                        PrimaryButtonText = "Ok"
-                    };
-                    content.ShowAsync();
+                    Error.Foreground = Brushes.Red;
+                    Error.Text = ex.Message;
                     return;
-
                 }
-                //catch () // error database
-                //{
-                //    ContentDialog content = new()
-                //    {
-                //        Title = "Failed",
-                //        Content = "Sign up failed, please check your information",
-                //        PrimaryButtonText = "Ok"
-                //    };
-                //    content.ShowAsync();
-                //}
             }
         }
-        void CancelExecute()
-        {
-            var loginWindow = new LoginViewModel(curWindow);
-            WindowManager.ChangeWindowContent(curWindow, loginWindow, Resources.LoginWindowTitle, Resources.LoginControlPath);
-        }
+
     }
 }

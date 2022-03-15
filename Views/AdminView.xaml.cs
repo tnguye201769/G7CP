@@ -64,7 +64,7 @@ namespace G7CP.Views
                 if (selectedItemTag != null)
                 {
                     Page togo;
-                    string pageName = "G7CP.Views.AdminPages." + selectedItemTag;
+                    string pageName = "GoninDigital.Views.AdminPages." + selectedItemTag;
                     if (!pages.TryGetValue(pageName, out togo))
                     {
                         Type pageType = typeof(ShopsManagerPage).Assembly.GetType(pageName);

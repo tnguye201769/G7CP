@@ -64,7 +64,7 @@ namespace G7CP.ViewModels
         #region Constructor
         public LoginViewModel(Window window)
         {
-            art = "/G7CP;component/Resources/Images/LoginImage.jpg";
+            art = "/GoninDigital;component/Resources/Images/LoginImage.jpg";
             curWindow = window;
             LoginCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { 
                 
@@ -92,7 +92,7 @@ namespace G7CP.ViewModels
             }
 
             //initialize the splash screen and set it as the application main window
-            WindowManager.ChangeWindowContent(Application.Current.MainWindow, "", "G7CP.Views.SplashScreenView");
+            WindowManager.ChangeWindowContent(Application.Current.MainWindow, "", "GoninDigital.Views.SplashScreenView");
 
             //in order to ensure the UI stays responsive, we need to
             //do the work on a different thread
@@ -108,7 +108,7 @@ namespace G7CP.ViewModels
                 //to create and show the main window
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    WindowManager.ChangeWindowContent(Application.Current.MainWindow, "", "G7CP.Views.LoginView");
+                    WindowManager.ChangeWindowContent(Application.Current.MainWindow, "", "GoninDigital.Views.LoginView");
 
                     //initialize the main window, set it as the application main window
                     //and close the splash screen

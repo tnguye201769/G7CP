@@ -93,7 +93,7 @@ namespace G7CP.Views
                 string selectedItemTag = (string)selectedItem.Tag;
                 if(selectedItemTag != null)
                 {
-                    string pageName = "G7CP.Views.DashBoardPages." + selectedItemTag;
+                    string pageName = "GoninDigital.Views.DashBoardPages." + selectedItemTag;
                     if (!pages.TryGetValue(pageName, out Page togo))
                     {
                         Type pageType = typeof(HomePage).Assembly.GetType(pageName);
