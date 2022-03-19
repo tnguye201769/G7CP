@@ -12,8 +12,6 @@ namespace G7CP.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
-                return null;
             int count;
             if (Int32.TryParse((string)parameter, out count))
             {
