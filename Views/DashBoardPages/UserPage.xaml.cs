@@ -24,8 +24,13 @@ namespace G7CP.Views.DashBoardPages
     {
         public UserPage()
         {
-            InitializeComponent();
             this.DataContext = new UserSettingViewModel();
+            InitializeComponent();
+            
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            (DataContext as UserSettingViewModel).OnNavigatedTo();
         }
     }
 }

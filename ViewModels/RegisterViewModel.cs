@@ -121,7 +121,7 @@ namespace G7CP.ViewModels
         public ICommand PasswordChangedCommand { get; set; }
         public RegisterViewModel(Window p)
         {
-            art = "/G7CP;component/Resources/Images/LoginImage.jpg";
+            art = "/G7CP;component/Resources/Images/Noel.jpg";
             curWindow = p;
             RegisterCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { RegisterExecute(); });
             CancelCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { CancelExecute(); });

@@ -13,6 +13,7 @@ using G7CP.Views;
 using ModernWpf.Controls;
 using G7CP.Properties;
 using System.Threading;
+using Microsoft.EntityFrameworkCore;
 
 namespace G7CP.ViewModels
 {
@@ -64,7 +65,7 @@ namespace G7CP.ViewModels
         #region Constructor
         public LoginViewModel(Window window)
         {
-            art = "/G7CP;component/Resources/Images/LoginImage.jpg";
+            art = "/G7CP;component/Resources/Images/Noel.jpg";
             curWindow = window;
             LoginCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { 
                 
@@ -101,7 +102,8 @@ namespace G7CP.ViewModels
                 //we need to do the work in batches so that we can report progress
                 GoninDigitalDBContext context = new();
                 string passEncode = Cryptography.MD5Hash(Cryptography.Base64Encode(Password));
-                isExist = context.Users.FirstOrDefault(x => x.UserName == UserName && x.Password == passEncode);
+                isExist = context.Users.Include(o => o.Ban)
+                                       .FirstOrDefault(x => x.UserName == UserName && x.Password == passEncode);
                 Settings.Default.usrname = UserName.ToString();
 
                 //once we're done we need to use the Dispatcher
@@ -114,6 +116,19 @@ namespace G7CP.ViewModels
                     //and close the splash screen
                     if (isExist != default)
                     {
+                        if (isExist.Ban != null)
+                        {
+                            if (isExist.Ban.EndDate >= DateTime.Now)
+                            {
+                                var content = new ContentDialog();
+                                content.Title = "Warning";
+                                content.Content = "Your account has been blocked to " + isExist.Ban.EndDate.ToString() + " because " + isExist.Ban.Reason;
+                                content.PrimaryButtonText = "Ok";
+                                content.ShowAsync();
+                                return;
+                            }
+                        }
+
                         var dashboardWindow = new DashBoard();
                         if (isExist.TypeId == 1) //admin
                         {

@@ -11,6 +11,7 @@ using G7CP.Views;
 using G7CP.Views.SharedPages;
 using Microsoft.EntityFrameworkCore;
 using G7CP.Utils;
+using G7CP.Properties;
 
 namespace G7CP.ViewModels
 {
@@ -57,6 +58,7 @@ namespace G7CP.ViewModels
             get { return discountProducts; }
             set { discountProducts = value; OnPropertyChanged(); }
         }
+        private string currentUser = null;
 
         private async void InitAds()
         {
@@ -100,7 +102,10 @@ namespace G7CP.ViewModels
                 var tmp = topInvoiceDetails.Select(o => o.Key);
 
                 var fetchedProducts = await db.Products
-                    .Where(o => tmp.Contains(o.Id) && o.StatusId == (int)Constants.ProductStatus.ACCEPTED)
+                    .Include(x => x.Vendor)
+                    .Where(o => tmp.Contains(o.Id) &&
+                                o.StatusId == (int)Constants.ProductStatus.ACCEPTED &&
+                                o.Vendor.ApprovalStatus == (int)Constants.ApprovalStatus.APPROVED)
                     .ToListAsync();
                 if (fetchedProducts.Count < 20)
                     fetchedProducts.AddRange(randomProducts.Take(20 - fetchedProducts.Count));
@@ -113,14 +118,16 @@ namespace G7CP.ViewModels
                 RecommendedProducts = await db.Products
                     .Include(x => x.Vendor)
                     .Include(x => x.Brand)
-                    .Where(o => o.StatusId == (int)Constants.ProductStatus.ACCEPTED)
+                    .Where(o => o.StatusId == (int)Constants.ProductStatus.ACCEPTED &&
+                                o.Vendor.ApprovalStatus == (int)Constants.ApprovalStatus.APPROVED)
                     .OrderBy(o => Guid.NewGuid()).Take(20).ToListAsync();
 
                 // Discount Products
                 fetchedProducts = await db.Products
                     .Include(x => x.Vendor)
                     .Include(x => x.Brand)
-                    .Where(o => o.Price != o.OriginPrice && o.StatusId == (int)Constants.ProductStatus.ACCEPTED)
+                    .Where(o => o.Price != o.OriginPrice && o.StatusId == (int)Constants.ProductStatus.ACCEPTED &&
+                                o.Vendor.ApprovalStatus == (int)Constants.ApprovalStatus.APPROVED)
                     .OrderByDescending(o => o.UpdatedAt).ToListAsync();
 
                 if (fetchedProducts.Count < 20)
@@ -133,15 +140,57 @@ namespace G7CP.ViewModels
             }
         }
 
+        public void OnNavigatedTo()
+        {
+            if (currentUser != null && currentUser == Settings.Default.usrname)
+                return;
+            currentUser = Settings.Default.usrname;
+            InitProducts();
+        }
+
         public HomePageViewModel()
         {
-            art = "/Resources/Images/HomeBanner.jpg";
+            art = "/Resources/Images/Noel2.jpg";
 
-            ads = new List<Ad>(3);
-            adProducts = new List<List<Product>>(3);
+            var metaProduct = new Product
+            {
+                Name = "Loading",
+                Image = "/Resources/Images/BlankImage.jpg",
+            };
+            var metaProducts = new List<Product>(5)
+            {
+                metaProduct,
+                metaProduct,
+                metaProduct,
+                metaProduct,
+                metaProduct
+            };
 
+            var metaAd = new Ad
+            {
+                Title = "Loading",
+                Subtitle = "Loading",
+                Cover = "/Resources/Images/ProductListBackgroundFallback.jpg",
+            };
+            ads = new List<Ad>(3)
+            {
+                metaAd,
+                metaAd,
+                metaAd
+            };
+
+            AdProducts = new List<List<Product>>(3)
+            {
+                metaProducts,
+                metaProducts,
+                metaProducts
+            };
+
+            TopProducts = metaProducts;
+            RecommendedProducts = metaProducts;
+            DiscountProducts = metaProducts;
+            
             InitAds();
-            InitProducts();
         }
     }
 }

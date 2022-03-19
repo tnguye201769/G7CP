@@ -25,6 +25,7 @@ namespace G7CP.SharedControl
     {
         public ChangePasswordDialog()
         {
+            
             InitializeComponent();
         }
 
@@ -48,6 +49,9 @@ namespace G7CP.SharedControl
                             db.Users.First(o => o.UserName == Settings.Default.usrname).Password = Encode;
                             db.SaveChanges();
                         }
+                        NewPasswordBox.Password = "";
+                        OldPasswordBox.Password = "";
+                        ConfirmNewPasswordBox.Password = "";
                         Error.Text = "Your password is changed";
                         Error.Foreground = new SolidColorBrush(Colors.Green);
                     }
