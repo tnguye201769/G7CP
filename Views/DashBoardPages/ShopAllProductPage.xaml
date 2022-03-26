@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:G7CP.Views.DashBoardPages"
       xmlns:ui="http://schemas.modernwpf.com/2019"
       xmlns:uc="clr-namespace:G7CP.SharedControl"
-      
+      DataContext="{StaticResource MyShopPageVM}"
       Title="AllProductTab">
     <ScrollViewer>
         <StackPanel Margin="20 0">
