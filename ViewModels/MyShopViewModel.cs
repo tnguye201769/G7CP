@@ -32,7 +32,13 @@ namespace G7CP.ViewModels
             get { return hasVendor; }
             set { hasVendor = value; OnPropertyChanged(); }
         }
+        private bool hasReqProduct =true;
+        public bool HasReqProduct
+        {
 
+            get { return hasReqProduct; }
+            set { hasReqProduct = value; OnPropertyChanged(); }
+        }
         private bool isUpgrade;
         public bool IsUpgrade
         {
@@ -272,6 +278,7 @@ namespace G7CP.ViewModels
             {
                 try
                 {
+                    UpdateCategorySpecDetails();
                     if (Products.Contains(selectedItem))
                     {
                         SelectedItem.StatusId = (int)Constants.ProductStatus.REMOVED;
@@ -281,22 +288,15 @@ namespace G7CP.ViewModels
                     if(ProductCreated.Contains(selectedItem))
                     {
                         SelectedItem.StatusId = (int)Constants.ProductStatus.REMOVED;
-                        db.Remove(SelectedItem);
+                        /*db.Remove(SelectedItem);*/
                         db.Update(SelectedItem);
                         ProductCreated.Remove(SelectedItem);
                         
                     }
                     
                     _ = db.SaveChanges();
-                    var content = new ContentDialog
-                    {
-                        Content = "A Product have been removed!",
-                        Title = "Notification",
-                        PrimaryButtonText = "Ok",
-
-                    };
-                    content.ShowAsync();
                     
+
                 }
                 catch (Exception e)
                 {
@@ -306,8 +306,8 @@ namespace G7CP.ViewModels
                         Content = e.ToString(),
                         PrimaryButtonText = "Ok"
                     };
-                     dialog.ShowAsync();
-                    
+                    dialog.ShowAsync();
+
                 }
             }
         }
@@ -542,11 +542,15 @@ namespace G7CP.ViewModels
                     });
                     db.ProductSpecDetails.AddRange(selectedProductSpecs);
                     db.Entry(SelectedItem).State = EntityState.Modified;
+
+                    db.Update(SelectedItem);
                     db.SaveChanges();
+
                     SelectedItem = selectedItem;
-                    Products = new ObservableCollection<Product>(Vendor.Products.Where(o => o.StatusId == (int)Constants.ProductStatus.ACCEPTED).ToList());
-                    ProductCreated = new ObservableCollection<Product>(Vendor.Products.Where(o => o.StatusId == (int)Constants.ProductStatus.CREATED).ToList());
+                    Products = products;
+                    ProductCreated = productCreated;
                 }
+                
             }
             
             catch (Exception e)
@@ -591,7 +595,7 @@ namespace G7CP.ViewModels
         {
             using (var db = new GoninDigitalDBContext())
             {
-                try
+                try 
                 {
                     selectedProductSpecs = db.ProductSpecDetails.Where(o => o.ProductId == selectedItem.Id && o.Spec.CategoryId == selectedItem.CategoryId).ToList();
                     var temp = selectedProductSpecs.Select(o => o.SpecId).ToList();
@@ -613,14 +617,16 @@ namespace G7CP.ViewModels
                 }
                 catch
                 {
-                    var dialog = new ContentDialog
+                    var content = new ContentDialog
                     {
-                        Title = "Warning",
-                        Content = "An unexpected error occured!",
-                        PrimaryButtonText = "Ok"
+                        Content = "A Product have been removed!",
+                        Title = "Notification",
+                        PrimaryButtonText = "Ok",
+
                     };
-                    dialog.ShowAsync();
+                    content.ShowAsync();
                 }
+                
             }
         }
         public void AddBtnExec()
@@ -686,20 +692,32 @@ namespace G7CP.ViewModels
                 brandList = db.Brands.Select(o => o.Name).ToList();
                 if (db.Users.FirstOrDefault(o => o.UserName == Settings.Default.usrname).TypeId == (int)Constants.UserType.CUSTOMER)
                 {
-                    HasVendor = false;
                     try
                     {
+                        HasVendor = false;
                         Vendor = db.Vendors.Include(o => o.Owner)
-                            .Include(o => o.Products)
-                            .FirstOrDefault(o => o.Owner.UserName == Settings.Default.usrname);
-                        IsUpgrade = true;
+                                .Include(o => o.Products)
+                                .FirstOrDefault(o => o.Owner.UserName == Settings.Default.usrname);
+                        if (Vendor != null)
+                        {
+                            IsUpgrade = true;
+                        }
+                        else
+                        {
+                            var query = from o in db.Vendors select o.Name;
+                            AllVendorNames = query.ToList();
+                            IsUpgrade = false;
+                        }
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        var query = from o in db.Vendors select o.Name;
-                        AllVendorNames = query.ToList();
-                        IsUpgrade = false;
+                        ContentDialog content = new ContentDialog()
+                        {
+                            Content = ex.Message,
+                            CloseButtonText = "Ok",
+                        };
                     }
+                    
                 }
                 else
                 {
@@ -727,6 +745,10 @@ namespace G7CP.ViewModels
                         ProductSpecial = new ObservableCollection<Product>(Vendor.Products.Where(o => o.StatusId == (int)Constants.ProductStatus.ACCEPTED).OrderByDescending(o => o.Rating).Take(10).ToList());
                     }
                     ProductCreated = new ObservableCollection<Product>(Vendor.Products.Where(o => o.StatusId == (int)Constants.ProductStatus.CREATED).ToList());
+                    if(ProductCreated.Count()==0)
+                    {
+                        hasReqProduct = false;
+                    }
                     HasVendor = true;
                     VendorName = Vendor.Name;
                 }

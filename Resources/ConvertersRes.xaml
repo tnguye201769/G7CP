@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:converter="clr-namespace:G7CP.Converters">
+                    xmlns:converter="clr-namespace:GoninDigital.Converters">
     <converter:ItemsLimiter x:Key="ItemsLimiter"></converter:ItemsLimiter>
     <converter:VendorNameToAvatar x:Key="VendorNameToAvatarConverter"></converter:VendorNameToAvatar>
     <converter:TotalPriceConverter x:Key="TotalPriceConverter"></converter:TotalPriceConverter>

@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace G7CP.SharedControl
+namespace GoninDigital.SharedControl
 {
     /// <summary>
     /// Interaction logic for AccentColorPicker.xaml
