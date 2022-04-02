@@ -35,7 +35,7 @@ namespace G7CP.SharedControl
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
                 var content = sender.Text;
-                using (var context = new GoninDigitalDBContext())
+                using (var context = new G7CPDBContext())
                 {
                     var productResult = context.Products
                         .Include(o => o.Vendor)

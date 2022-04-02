@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Collections.ObjectModel;
 using ModernWpf.Controls;
 using System;
+using G7CP.ViewModels.BaseClass;
 
 namespace G7CP.ViewModels
 {
@@ -65,7 +66,7 @@ namespace G7CP.ViewModels
                     o.FinishedAt = System.DateTime.Now;
                     CreatedInvoices.Remove(o);
                     CanceledInvoices.Add(o);
-                    using (var db = new GoninDigitalDBContext())
+                    using (var db = new G7CPDBContext())
                     {
                         db.Update(o);
                         db.SaveChanges();
@@ -131,7 +132,7 @@ namespace G7CP.ViewModels
 
                 CreatedInvoices.Add(o);
 
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     db.Update(o);
                     db.SaveChanges();
@@ -143,7 +144,7 @@ namespace G7CP.ViewModels
                 o.FinishedAt = System.DateTime.Now;
                 AcceptedInvoices.Remove(o);
                 DeliveredInvoices.Add(o);
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     db.Update(o);
                     db.SaveChanges();
@@ -158,7 +159,7 @@ namespace G7CP.ViewModels
         private void Load_HistoryPurchase()
         {
 
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 var userInvoices = db.Invoices.Include(o => o.Customer)
                                               .Include(o => o.Vendor)

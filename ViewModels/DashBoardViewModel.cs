@@ -1,4 +1,5 @@
-﻿using System;
+﻿using G7CP.ViewModels.BaseClass;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

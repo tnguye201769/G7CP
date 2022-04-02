@@ -15,6 +15,7 @@ using G7CP.Properties;
 using G7CP.Views.SharedPages;
 using Microsoft.EntityFrameworkCore;
 using ModernWpf.Controls;
+using G7CP.ViewModels.BaseClass;
 
 namespace G7CP.ViewModels
 {
@@ -55,7 +56,7 @@ namespace G7CP.ViewModels
         public ManageShopPageViewModel()
         {
             SelectedVendors = new ObservableCollection<Vendor>();
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 L_Shop = new ObservableCollection<Vendor>(db.Vendors.Include(x => x.Owner).Where(x => x.ApprovalStatus == (byte)Utils.Constants.ApprovalStatus.APPROVED));
                 L_ShopNew = new ObservableCollection<Vendor>(db.Vendors.Include(x => x.Owner).Where(x => x.ApprovalStatus == (byte)Utils.Constants.ApprovalStatus.WAITING));
@@ -87,7 +88,7 @@ namespace G7CP.ViewModels
         private void RemoveExec(Vendor vendor)
         {
             L_ShopNew.Remove(vendor);
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 db.Vendors.Remove(vendor);
                 db.Users.First(x => x.Id == vendor.OwnerId).TypeId = (int)Utils.Constants.UserType.CUSTOMER;
@@ -98,7 +99,7 @@ namespace G7CP.ViewModels
         {
             L_ShopNew.Remove(vendor);
             L_Shop.Add(vendor);
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 db.Vendors.First(x => x.Id == vendor.Id).ApprovalStatus = 1;
                 db.Users.First(x => x.Id == vendor.OwnerId).TypeId = (int)Utils.Constants.UserType.VENDOR;
@@ -108,7 +109,7 @@ namespace G7CP.ViewModels
         private void RemoveSelectionsExec(IEnumerable<Vendor> selectedVendors)
         {
 
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 foreach (Vendor vendor in selectedVendors.ToList())
                 {
@@ -123,7 +124,7 @@ namespace G7CP.ViewModels
         {
             if (selectedVendors != null)
             {
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     foreach (var vendor in selectedVendors.ToList())
                     {
@@ -138,7 +139,7 @@ namespace G7CP.ViewModels
         }
         private void DeleteExec()
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 var vendor = db.Vendors.First(x => x.Id == SelectedItem.Id);
                 foreach(Vendor v in L_Shop)
@@ -159,7 +160,7 @@ namespace G7CP.ViewModels
             string s = SearchName.ToLower();
             if(SearchName!="")
             {
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     L_Shop = new ObservableCollection<Vendor>(db.Vendors.Include(x => x.Owner).Where(x => x.ApprovalStatus == (byte)Utils.Constants.ApprovalStatus.APPROVED));
                 }
@@ -177,7 +178,7 @@ namespace G7CP.ViewModels
         {
             if (SearchName=="")
             {
-                using (var db= new GoninDigitalDBContext())
+                using (var db= new G7CPDBContext())
                 {
                     L_Shop = new ObservableCollection<Vendor>(db.Vendors.Include(x => x.Owner).Where(x => x.ApprovalStatus == (byte)Utils.Constants.ApprovalStatus.APPROVED));
                 }
@@ -185,7 +186,7 @@ namespace G7CP.ViewModels
         }
         public void ToggleChanged(bool flag)
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 if (flag)
                 { 

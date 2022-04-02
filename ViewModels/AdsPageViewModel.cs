@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Windows.Input;
 using ModernWpf.Controls;
 using G7CP.SharedControl;
+using G7CP.ViewModels.BaseClass;
 
 namespace G7CP.ViewModels
 {
@@ -55,7 +56,7 @@ namespace G7CP.ViewModels
 
         public AdsPageViewModel()
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 L_Ads = new ObservableCollection<Ad>(db.Ads);
             }
@@ -89,7 +90,7 @@ namespace G7CP.ViewModels
         {
             try
             {
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     var ad = db.Ads.First(x => x.Id == SelectedAd.Id);
                     int count = 0;
@@ -139,7 +140,7 @@ namespace G7CP.ViewModels
                 }
                 else
                 {
-                    using (var db = new GoninDigitalDBContext())
+                    using (var db = new G7CPDBContext())
                     {
                         db.Ads.Update(SelectedAd);
                         _ = db.SaveChanges();
@@ -194,7 +195,7 @@ namespace G7CP.ViewModels
 
         private void AddAdDialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             { 
                 L_Ads = new ObservableCollection<Ad>(db.Ads); 
             }
@@ -204,7 +205,7 @@ namespace G7CP.ViewModels
         {
             try
             {
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     db.AdDetails.Remove(db.AdDetails.First(o => o.ProductId == product.Id && o.AdId == selectedAd.Id));
                     db.SaveChanges();
@@ -237,7 +238,7 @@ namespace G7CP.ViewModels
                     PrimaryButtonCommand = new RelayCommand<object>(o => true, o => {
                         if (ProductIdToAdd != 0)
                         {
-                            using (var db = new GoninDigitalDBContext())
+                            using (var db = new G7CPDBContext())
                             {
                                 var currentAdProducts = db.AdDetails.Where(o => o.AdId == SelectedAd.Id).Select(o => o.ProductId);
                                 if (currentAdProducts.Contains(ProductIdToAdd))
@@ -283,7 +284,7 @@ namespace G7CP.ViewModels
         }
         public async void Load_Ads()
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 if (SelectedAd != null)
                     AdProducts = new ObservableCollection<Product>(await db.AdDetails.Where(o => o.AdId == SelectedAd.Id)
@@ -297,7 +298,7 @@ namespace G7CP.ViewModels
         {
             if (SearchName == "")
             {
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     L_Ads = new ObservableCollection<Ad>(db.Ads);
                 }
@@ -310,7 +311,7 @@ namespace G7CP.ViewModels
                 string s = SearchName.ToLower();
                 if (SearchName != "")
                 {
-                    using (var db = new GoninDigitalDBContext())
+                    using (var db = new G7CPDBContext())
                     {
                         L_Ads = new ObservableCollection<Ad>(db.Ads);
                     }

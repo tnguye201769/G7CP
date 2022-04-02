@@ -1,4 +1,4 @@
-﻿namespace G7CP.Validator.Interfaces
+﻿namespace G7CP.ViewModels.Validator
 {
     interface IPersonalAccountValidator<T>
     {

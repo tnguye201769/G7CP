@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using G7CP.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Windows.Input;
+using G7CP.ViewModels.BaseClass;
 
 namespace G7CP.ViewModels
 {
@@ -51,7 +52,7 @@ namespace G7CP.ViewModels
         #region Constructor
         public ManageProductPageViewModel()
         {
-            using(var db=new GoninDigitalDBContext())
+            using(var db=new G7CPDBContext())
             {
                 L_Product = new ObservableCollection<Product>(db.Products.Include(x => x.Vendor).Include(x => x.Category).Where(x => x.StatusId == (int)Utils.Constants.ProductStatus.ACCEPTED | x.StatusId== (int)Utils.Constants.ProductStatus.UPDATED));
                 L_NewProduct = new ObservableCollection<Product>(db.Products.Include(x => x.Vendor).Include(x => x.Category).Where(x => x.StatusId == (int)Utils.Constants.ProductStatus.CREATED));
@@ -83,7 +84,7 @@ namespace G7CP.ViewModels
         private void RemoveExec(Product product)
         {
             L_NewProduct.Remove(product);
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 db.Products.Remove(product);
                 db.SaveChanges();
@@ -93,7 +94,7 @@ namespace G7CP.ViewModels
         {
             L_NewProduct.Remove(product);
             L_Product.Add(product);
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 db.Products.First(x => x.Id == product.Id).StatusId = (int)Utils.Constants.ProductStatus.ACCEPTED;
                 db.SaveChanges();
@@ -102,7 +103,7 @@ namespace G7CP.ViewModels
         private void RemoveSelectionsExec(IEnumerable<Product> selectedProducts)
         {
 
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 foreach (Product product in selectedProducts.ToList())
                 {
@@ -116,7 +117,7 @@ namespace G7CP.ViewModels
         {
             if (selectedProducts != null)
             {
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     foreach (Product product in selectedProducts.ToList())
                     {
@@ -130,7 +131,7 @@ namespace G7CP.ViewModels
         }
         private void DeleteExec()
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 var product = db.Products.First(x => x.Id == SelectedItem.Id);
                 foreach (Product p in L_Product)
@@ -150,7 +151,7 @@ namespace G7CP.ViewModels
             string s = SearchName.ToLower();
             if (SearchName != "")
             {
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     if (flag)
                         L_Product = new ObservableCollection<Product>(db.Products.Include(x => x.Vendor).Include(x => x.Category).Where(x => x.StatusId != (int)Utils.Constants.ProductStatus.CREATED));
@@ -171,7 +172,7 @@ namespace G7CP.ViewModels
         {
             if (SearchName == "")
             {
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     if (flag)
                         L_Product = new ObservableCollection<Product>(db.Products.Include(x => x.Vendor).Include(x => x.Category).Where(x => x.StatusId != (int)Utils.Constants.ProductStatus.CREATED));
@@ -182,7 +183,7 @@ namespace G7CP.ViewModels
         }
         public void ToogleChanged(bool flag)
         {
-            using(var db = new GoninDigitalDBContext())
+            using(var db = new G7CPDBContext())
             {
                 if(flag)
                     L_Product= new ObservableCollection<Product>(db.Products.Include(x => x.Vendor).Include(x => x.Category).Where(x => x.StatusId != (int)Utils.Constants.ProductStatus.CREATED));

@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="GoninDigital.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="G7CP.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="usrname" Type="System.String" Scope="User">
@@ -11,9 +11,9 @@
     <Setting Name="DBconnstr" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
-  &lt;ConnectionString&gt;Server=tcp:0.tcp.ap.ngrok.io,16504;Initial Catalog=GoninDigitalDB;Persist Security Info=False;User ID=gonindigital;Password=gonindigital;MultipleActiveResultSets=False;TrustServerCertificate=False;Connection Timeout=30;&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Server=tcp:0.tcp.ap.ngrok.io,16504;Initial Catalog=G7CPDB;Persist Security Info=False;User ID=gonindigital;Password=gonindigital;MultipleActiveResultSets=False;TrustServerCertificate=False;Connection Timeout=30;&lt;/ConnectionString&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Server=tcp:0.tcp.ap.ngrok.io,16504;Initial Catalog=GoninDigitalDB;Persist Security Info=False;User ID=gonindigital;Password=gonindigital;MultipleActiveResultSets=False;TrustServerCertificate=False;Connection Timeout=30;</Value>
+      <Value Profile="(Default)">Server=tcp:0.tcp.ap.ngrok.io,16504;Initial Catalog=G7CPDB;Persist Security Info=False;User ID=gonindigital;Password=gonindigital;MultipleActiveResultSets=False;TrustServerCertificate=False;Connection Timeout=30;</Value>
     </Setting>
     <Setting Name="accentColor" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

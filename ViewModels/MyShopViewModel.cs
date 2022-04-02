@@ -14,6 +14,7 @@ using ModernWpf.Controls;
 using System.Windows.Input;
 using Microsoft.Win32;
 using G7CP.Utils;
+using G7CP.ViewModels.BaseClass;
 
 namespace G7CP.ViewModels
 {
@@ -147,7 +148,7 @@ namespace G7CP.ViewModels
         {
             try
             {
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     selectedItem = new Product
                     {
@@ -274,7 +275,7 @@ namespace G7CP.ViewModels
         public void RemoveCommandExec(object o)
         {
             
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 try
                 {
@@ -345,7 +346,7 @@ namespace G7CP.ViewModels
         {
             try
             {
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     Vendor = db.Vendors.Include(o => o.Owner)
                         .Include(o => o.Products)
@@ -368,7 +369,7 @@ namespace G7CP.ViewModels
         }
         public async void SaveVendorInfoExec()
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 try
                 {
@@ -410,7 +411,7 @@ namespace G7CP.ViewModels
                 if (openFileDialog.ShowDialog() == true)
                 {
                     var linkAvatar = await ImageUploader.UploadAsync(openFileDialog.FileName);
-                    using (var db = new GoninDigitalDBContext())
+                    using (var db = new G7CPDBContext())
                     {
                         SelectedItem.Image = linkAvatar;
 
@@ -446,7 +447,7 @@ namespace G7CP.ViewModels
                 if (openFileDialog.ShowDialog() == true)
                 {
                     var linkAvatar = await ImageUploader.UploadAsync(openFileDialog.FileName);
-                    using (var db = new GoninDigitalDBContext())
+                    using (var db = new G7CPDBContext())
                     {
                         Vendor.Avatar = linkAvatar;
                         db.Vendors.Update(Vendor);
@@ -482,7 +483,7 @@ namespace G7CP.ViewModels
                 if (openFileDialog.ShowDialog() == true)
                 {
                     var linkAvatar = await ImageUploader.UploadAsync(openFileDialog.FileName);
-                    using (var db = new GoninDigitalDBContext())
+                    using (var db = new G7CPDBContext())
                     {
                         Vendor.Cover = linkAvatar;
                         db.Vendors.Update(Vendor);
@@ -511,7 +512,7 @@ namespace G7CP.ViewModels
         {
             try
             {
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     db.Entry(selectedItem).Reload();
                     Products = new ObservableCollection<Product>(Vendor.Products.Where(o => o.StatusId == (int)Constants.ProductStatus.ACCEPTED).ToList());
@@ -532,7 +533,7 @@ namespace G7CP.ViewModels
         {
             try
             {
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     db.ProductSpecDetails.RemoveRange(db.ProductSpecDetails.Where(o => o.ProductId == selectedItem.Id));
                     SelectedProductSpecs.RemoveAll(o => string.IsNullOrEmpty(o.Value));
@@ -568,7 +569,7 @@ namespace G7CP.ViewModels
         {
             try
             {
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     int userId = db.Users.FirstOrDefault(u => u.UserName == Settings.Default.usrname).Id;
                     newVendor.OwnerId = userId;
@@ -593,7 +594,7 @@ namespace G7CP.ViewModels
         }
         public void UpdateCategorySpecDetails()
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 try 
                 {
@@ -631,7 +632,7 @@ namespace G7CP.ViewModels
         }
         public void AddBtnExec()
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 if (selectedItem != null)
                 {
@@ -670,7 +671,7 @@ namespace G7CP.ViewModels
         }
         public void CloseAddBtnExec()
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 if (selectedItem != null)
                 {
@@ -686,7 +687,7 @@ namespace G7CP.ViewModels
         }
         private async void Init()
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 categoryList = db.ProductCategories.Select(o => o.Name).ToList();
                 brandList = db.Brands.Select(o => o.Name).ToList();
@@ -759,7 +760,7 @@ namespace G7CP.ViewModels
         public MyShopViewModel()
         {
 
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 if (db.Users.First(o => o.UserName == Settings.Default.usrname).TypeId == (int)Constants.UserType.CUSTOMER)
                 {

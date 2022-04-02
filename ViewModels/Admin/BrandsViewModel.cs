@@ -1,6 +1,7 @@
 ﻿using ABI.Windows.System;
 using G7CP.Models;
 using G7CP.SharedControl;
+using G7CP.ViewModels.BaseClass;
 using ModernWpf.Controls;
 using System;
 using System.Collections.Generic;
@@ -10,14 +11,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace G7CP.ViewModels
+namespace G7CP.ViewModels.Admin
 {
     public class BrandsViewModel : BaseViewModel
     {
         #region Properties
         private string searchName;
         public string SearchName
-        { 
+        {
             get { return searchName; }
             set { searchName = value; OnPropertyChanged(); }
         }
@@ -45,13 +46,13 @@ namespace G7CP.ViewModels
         #region Constructor
         public BrandsViewModel()
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 list = new ObservableCollection<Brand>(db.Brands);
             }
 
             #region UpdateCommand
-            UpdateCommand = new RelayCommand<Object>((p) =>
+            UpdateCommand = new RelayCommand<object>((p) =>
             {
                 if (SelectedBrand != null)
                 {
@@ -68,34 +69,34 @@ namespace G7CP.ViewModels
         #endregion
         #region Methods
         public void SearchChanged()
+        {
+            if (SearchName == "")
             {
-                if (SearchName == "")
+                using (var db = new G7CPDBContext())
                 {
-                    using (var db = new GoninDigitalDBContext())
-                    {
-                        List = new ObservableCollection<Brand>(db.Brands);
-                    }
+                    List = new ObservableCollection<Brand>(db.Brands);
                 }
             }
-            public void SearchBrand()
+        }
+        public void SearchBrand()
+        {
+            string s = SearchName.ToLower();
+            if (SearchName != "")
             {
-                string s = SearchName.ToLower();
-                if(SearchName!="")
+                using (var db = new G7CPDBContext())
                 {
-                    using (var db = new GoninDigitalDBContext())
-                    {
-                            List = new ObservableCollection<Brand>(db.Brands);
-                    }
-                    int count = 0;
-                    while(count<List.Count())
-                    {
-                        if (!List[count].Name.ToLower().Contains(s))
-                                List.RemoveAt(count);
-                        else
-                            count += 1;
-                    }
+                    List = new ObservableCollection<Brand>(db.Brands);
+                }
+                int count = 0;
+                while (count < List.Count())
+                {
+                    if (!List[count].Name.ToLower().Contains(s))
+                        List.RemoveAt(count);
+                    else
+                        count += 1;
                 }
             }
+        }
         private void UpdateExec()
         {
             if (SelectedBrand.Name == "")
@@ -110,7 +111,7 @@ namespace G7CP.ViewModels
             }
             else
             {
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     db.Brands.Update(SelectedBrand);
                     _ = db.SaveChanges();
@@ -126,11 +127,11 @@ namespace G7CP.ViewModels
         }
         public void AddBrand()
         {
-            if(BrandName!="")
+            if (BrandName != "")
             {
-                using(var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
-                    if(db.Brands.Where(x=>x.Name==BrandName).Count()>0)
+                    if (db.Brands.Where(x => x.Name == BrandName).Count() > 0)
                     {
                         ContentDialog content = new()
                         {
@@ -145,7 +146,7 @@ namespace G7CP.ViewModels
                         Brand brand = new Brand();
                         brand.Name = BrandName;
                         db.Brands.Add(brand);
-                        _=db.SaveChanges();
+                        _ = db.SaveChanges();
                         List = new ObservableCollection<Brand>(db.Brands);
                         ContentDialog content = new()
                         {

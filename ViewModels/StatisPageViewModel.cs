@@ -11,6 +11,7 @@ using System.Windows.Media;
 using G7CP.Models;
 using G7CP.Properties;
 using G7CP.Utils;
+using G7CP.ViewModels.BaseClass;
 using LiveCharts;
 using LiveCharts.Wpf;
 using Microsoft.EntityFrameworkCore;
@@ -124,7 +125,7 @@ namespace G7CP.ViewModels
             top5_Formatter = value => value.ToString("N");
 
             // Biểu đồ đường
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 int thisVendorId = db.Vendors.Include(o => o.Owner)
                                              .Where(o => o.Owner.UserName == Settings.Default.usrname)
@@ -200,7 +201,7 @@ namespace G7CP.ViewModels
                 top5_Formatter = value => value.ToString("N");
 
                 // Biểu đồ đường
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     int thisVendorId = db.Vendors.Include(o => o.Owner)
                                                  .Where(o => o.Owner.UserName == Settings.Default.usrname)
@@ -272,7 +273,7 @@ namespace G7CP.ViewModels
                 top5_Formatter = value => value.ToString("N");
 
                 // Biểu đồ đường
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     int thisVendorId = db.Vendors.Include(o => o.Owner)
                                                  .Where(o => o.Owner.UserName == Settings.Default.usrname)
@@ -314,7 +315,7 @@ namespace G7CP.ViewModels
             canceledInvoices = new ObservableCollection<Invoice>();
             refusedInvoices = new ObservableCollection<Invoice>();
 
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 var userInvoices = db.Invoices.Include(o => o.Customer)
                                               .Include(o => o.Vendor)
@@ -331,7 +332,7 @@ namespace G7CP.ViewModels
 
         //private void Load_Revenue()
         //{
-        //    using (var db = new GoninDigitalDBContext())
+        //    using (var db = new G7CPDBContext())
         //    {
         //        int thisVendorId = db.Vendors.Include(o => o.Owner)
         //                                     .Where(o => o.Owner.UserName == Settings.Default.usrname)
@@ -366,7 +367,7 @@ namespace G7CP.ViewModels
         //}
         private List<Product> Load_Top5BestSeller(int choose_type)
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 int thisVendorId = db.Vendors.Include(o => o.Owner)
                                              .Where(o => o.Owner.UserName == Settings.Default.usrname)

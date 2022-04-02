@@ -14,6 +14,7 @@ using G7CP.Views;
 using Microsoft.EntityFrameworkCore;
 using ModernWpf.Controls;
 using G7CP.Utils;
+using G7CP.ViewModels.BaseClass;
 
 namespace G7CP.ViewModels
 {
@@ -39,7 +40,7 @@ namespace G7CP.ViewModels
 
         private async void Init()
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 Products = new ObservableCollection<Cart>(await db.Carts.Include(x => x.User)
                                 .Include(x => x.Product)
@@ -80,7 +81,7 @@ namespace G7CP.ViewModels
 
         public async void Update()
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 db.Carts.UpdateRange(Products);
                 await db.SaveChangesAsync();
@@ -89,7 +90,7 @@ namespace G7CP.ViewModels
 
         private void RemoveCartDb(Cart cart)
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 
                 db.Carts.Remove(cart);
@@ -99,7 +100,7 @@ namespace G7CP.ViewModels
         }
         private void RemoveCartDb(IEnumerable<Cart> carts)
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 
                 db.Carts.RemoveRange(carts);

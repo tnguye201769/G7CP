@@ -33,7 +33,7 @@ namespace G7CP.Views.SharedPages
         public SearchResultPage(string query)
         {
             Query = query;
-            using (var context = new GoninDigitalDBContext())
+            using (var context = new G7CPDBContext())
             {
                 var productResult = context.Products
                     .Include(o => o.Vendor)

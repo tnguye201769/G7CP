@@ -29,7 +29,7 @@
                 <TextBlock HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            FontSize="24"
-                           Text="GoninDigital"
+                           Text="G7CP"
                            TextAlignment="Center" FontFamily="Segoe Script" FontWeight="Bold" />
             </Grid>
 
@@ -38,7 +38,7 @@
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontSize="20"
-                       Text="Welcome To GoninDigital" FontFamily="Arial" FontStyle="Normal"/>-->
+                       Text="Welcome To G7CP" FontFamily="Arial" FontStyle="Normal"/>-->
             <StackPanel Grid.Row="2"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"

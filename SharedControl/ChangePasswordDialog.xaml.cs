@@ -45,7 +45,7 @@ namespace G7CP.SharedControl
                         }
                         else
                         {
-                            using (var db = new GoninDigitalDBContext())
+                            using (var db = new G7CPDBContext())
                             {
                                 string Encode = Cryptography.MD5Hash(Cryptography.Base64Encode(NewPasswordBox.Password));
                                 db.Users.First(o => o.UserName == Settings.Default.usrname).Password = Encode;

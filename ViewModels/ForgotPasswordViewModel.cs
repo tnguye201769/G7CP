@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Input;
 using G7CP.Properties;
 using G7CP.SharedControl;
+using G7CP.ViewModels.BaseClass;
 
 namespace G7CP.ViewModels
 {

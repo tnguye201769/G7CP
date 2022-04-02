@@ -1,5 +1,6 @@
 ﻿using G7CP.Properties;
 using G7CP.Utils;
+using G7CP.ViewModels.BaseClass;
 using System;
 using System.Collections.Generic;
 using System.Linq;

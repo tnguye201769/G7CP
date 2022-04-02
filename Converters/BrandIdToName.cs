@@ -15,7 +15,7 @@ namespace G7CP.Converters
         {
             var id = (int)value;
             string name;
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 try
                 {
@@ -32,7 +32,7 @@ namespace G7CP.Converters
         {
             var name = (string)value;
             int id;
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 try
                 {

@@ -1,6 +1,6 @@
 ﻿using G7CP.Models;
 using G7CP.Properties;
-using G7CP.ViewModels;
+using G7CP.ViewModels.BaseClass;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

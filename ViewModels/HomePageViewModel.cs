@@ -12,6 +12,7 @@ using G7CP.Views.SharedPages;
 using Microsoft.EntityFrameworkCore;
 using G7CP.Utils;
 using G7CP.Properties;
+using G7CP.ViewModels.BaseClass;
 
 namespace G7CP.ViewModels
 {
@@ -62,7 +63,7 @@ namespace G7CP.ViewModels
 
         private async void InitAds()
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 Ads = db.Ads.OrderBy(o => Guid.NewGuid()).Take(3).ToList();
                 List<List<Product>> _adProducts = new List<List<Product>>(3);
@@ -81,7 +82,7 @@ namespace G7CP.ViewModels
 
         private async void InitProducts()
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 List<Product> randomProducts = await db.Products
                     .Include(x => x.Vendor)

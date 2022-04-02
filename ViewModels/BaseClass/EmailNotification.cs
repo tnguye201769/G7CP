@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace G7CP.ViewModels
+namespace G7CP.ViewModels.BaseClass
 {
     internal class EmailNotification
     {

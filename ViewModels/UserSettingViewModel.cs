@@ -16,6 +16,7 @@ using Microsoft.Win32;
 using G7CP.Utils;
 using System.Windows.Controls;
 using System.Windows.Media;
+using G7CP.ViewModels.BaseClass;
 
 namespace G7CP.ViewModels
 {
@@ -123,7 +124,7 @@ namespace G7CP.ViewModels
             if (openFileDialog.ShowDialog() == true)
             {
                 var linkAvatar = await ImageUploader.UploadAsync(openFileDialog.FileName);
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     User.Avatar = linkAvatar;
                     db.Users.Update(User);
@@ -154,7 +155,7 @@ namespace G7CP.ViewModels
         }
         public void OnNavigatedTo()
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 User = db.Users.Where(x => x.UserName == Settings.Default.usrname).First();
                 UserType = db.UserTypes.First(x => x.Id == user.TypeId).Name;
@@ -192,7 +193,7 @@ namespace G7CP.ViewModels
                 else
                 {
                     bool isEmail;
-                    using (var db = new GoninDigitalDBContext())
+                    using (var db = new G7CPDBContext())
                     {
                         isEmail = db.Users.Where(x => x.Email == User.Email).Count() != 0;
                     }
@@ -225,7 +226,7 @@ namespace G7CP.ViewModels
         }
         void UpdateInfo()
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 db.Users.Update(User);
                 _ = db.SaveChanges();

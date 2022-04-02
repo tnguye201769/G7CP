@@ -1,11 +1,12 @@
-﻿using System;
+﻿using ModernWpf.Demo.ThreadedUI;
+using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
 
-namespace ModernWpf.Demo.ThreadedUI
+namespace G7CP.ThreadedUI
 {
     public abstract class ThreadedVisualHostBase : FrameworkElement
     {

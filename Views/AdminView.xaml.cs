@@ -124,7 +124,7 @@ namespace G7CP.Views
         {
             if (currentUser == null)
             {
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     currentUser = db.Users.FirstOrDefault(o => o.UserName == Settings.Default.usrname);
                 }

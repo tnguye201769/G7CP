@@ -42,7 +42,7 @@ namespace G7CP.SharedControl
             else 
             {
                 int IsCheck = 0;
-                using(var db=new GoninDigitalDBContext())
+                using(var db=new G7CPDBContext())
                 {
                     IsCheck = db.Bans.Where(x => x.UserId == UserId).Count();
                 }
@@ -57,7 +57,7 @@ namespace G7CP.SharedControl
                     ban.UserId = UserId;
                     ban.Reason = reason;
                     ban.EndDate = DateTime.ParseExact(enddate, "M/d/yyyy", CultureInfo.InvariantCulture);
-                    using (var db = new GoninDigitalDBContext())
+                    using (var db = new G7CPDBContext())
                     {
                         db.Bans.Add(ban);
                         _ = db.SaveChanges();

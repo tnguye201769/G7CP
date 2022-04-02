@@ -14,6 +14,7 @@ using ModernWpf.Controls;
 using G7CP.Properties;
 using System.Threading;
 using Microsoft.EntityFrameworkCore;
+using G7CP.ViewModels.BaseClass;
 
 namespace G7CP.ViewModels
 {
@@ -109,7 +110,7 @@ namespace G7CP.ViewModels
             Task.Factory.StartNew(() =>
             {
                 //we need to do the work in batches so that we can report progress
-                GoninDigitalDBContext context = new();
+                G7CPDBContext context = new();
                 string passEncode = Cryptography.MD5Hash(Cryptography.Base64Encode(Password));
                 isExist = context.Users.Include(o => o.Bans)
                                        .FirstOrDefault(x => x.UserName == UserName && x.Password == passEncode);

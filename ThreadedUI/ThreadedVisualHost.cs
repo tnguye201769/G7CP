@@ -1,7 +1,8 @@
-﻿using System;
+﻿using ModernWpf;
+using System;
 using System.Windows;
 
-namespace ModernWpf.Demo.ThreadedUI
+namespace G7CP.ThreadedUI
 {
     public class ThreadedVisualHost : ThreadedVisualHostBase
     {

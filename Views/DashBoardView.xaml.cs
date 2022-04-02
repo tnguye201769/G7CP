@@ -69,7 +69,7 @@ namespace G7CP.Views
         {
             InitializeComponent();
             DataContext = this;
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 if (db.Users.FirstOrDefault(o => o.UserName == Settings.Default.usrname).TypeId == (int)Constants.UserType.VENDOR)
                 {
@@ -161,7 +161,7 @@ namespace G7CP.Views
         {
             if (currentUser == null)
             {
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     currentUser = db.Users.FirstOrDefault(o => o.UserName == Settings.Default.usrname);
                 }
@@ -202,7 +202,7 @@ namespace G7CP.Views
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
                 var content = sender.Text;
-                using (var context = new GoninDigitalDBContext())
+                using (var context = new G7CPDBContext())
                 {
                     var productResult = await context.Products
                         .Include(o => o.Vendor)
@@ -255,7 +255,7 @@ namespace G7CP.Views
 
                 if (searchItem.Type == SearchItem.ItemType.PRODUCT)
                 {
-                    using (var db = new GoninDigitalDBContext())
+                    using (var db = new G7CPDBContext())
                     {
                         var product = db.Products
                             .Include(o => o.Vendor)

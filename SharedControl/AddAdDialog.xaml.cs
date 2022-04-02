@@ -55,7 +55,7 @@ namespace G7CP.SharedControl
                 ad.Title = title;
                 ad.Subtitle = subtitle;
                 ad.Cover = linkCover;
-                using (var db=new GoninDigitalDBContext())
+                using (var db=new G7CPDBContext())
                 {
                     db.Ads.Add(ad);
                     _ = db.SaveChanges();

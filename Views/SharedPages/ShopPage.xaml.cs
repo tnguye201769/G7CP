@@ -34,7 +34,7 @@ namespace G7CP.Views.SharedPages
 
         public ShopPage(int vendorId)
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 try
                 {

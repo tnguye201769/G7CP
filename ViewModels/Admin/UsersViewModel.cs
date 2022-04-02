@@ -1,5 +1,6 @@
 ﻿using G7CP.Models;
 using G7CP.SharedControl;
+using G7CP.ViewModels.BaseClass;
 using ModernWpf.Controls;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace G7CP.ViewModels
+namespace G7CP.ViewModels.Admin
 {
     public class UsersViewModel : BaseViewModel
     {
@@ -46,7 +47,7 @@ namespace G7CP.ViewModels
         {
             Load_Users();
             #region UpdateCommand
-            UpdateCommand = new RelayCommand<Object>((p) =>
+            UpdateCommand = new RelayCommand<object>((p) =>
             {
                 if (SelectedItem != null)
                 {
@@ -57,7 +58,7 @@ namespace G7CP.ViewModels
             {
                 try
                 {
-                    using (var db = new GoninDigitalDBContext())
+                    using (var db = new G7CPDBContext())
                     {
                         db.Users.Update(selectedItem);
                         _ = db.SaveChanges();
@@ -86,7 +87,7 @@ namespace G7CP.ViewModels
             #endregion
 
             #region DeleteCommand
-            DeleteCommand = new RelayCommand<Object>((p) =>
+            DeleteCommand = new RelayCommand<object>((p) =>
             {
                 if (SelectedItem != null)
                 {
@@ -135,7 +136,7 @@ namespace G7CP.ViewModels
             #endregion
 
             #region AddCommand
-            AddCommand = new RelayCommand<Object>((p) => true, (p) =>{ AddExec(); });
+            AddCommand = new RelayCommand<object>((p) => true, (p) => { AddExec(); });
             #endregion
         }
 
@@ -158,7 +159,7 @@ namespace G7CP.ViewModels
                 string s = SearchName.ToLower();
                 if (SearchName != "")
                 {
-                    using (var db = new GoninDigitalDBContext())
+                    using (var db = new G7CPDBContext())
                     {
                         List = new ObservableCollection<User>(db.Users);
                     }
@@ -212,7 +213,7 @@ namespace G7CP.ViewModels
         }
         private void Load_Users()
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 var t = db.Bans.ToList();
                 List = new ObservableCollection<User>(db.Users);

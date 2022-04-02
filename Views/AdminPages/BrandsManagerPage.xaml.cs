@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using G7CP.Models;
-using G7CP.ViewModels;
+using G7CP.ViewModels.Admin;
 
 namespace G7CP.Views.AdminPages
 {

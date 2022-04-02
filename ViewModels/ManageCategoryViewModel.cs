@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using G7CP.Models;
+using G7CP.ViewModels.BaseClass;
 using ModernWpf.Controls;
 
 namespace G7CP.ViewModels
@@ -35,7 +36,7 @@ namespace G7CP.ViewModels
         #region Constructor
         public ManageCategoryViewModel()
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 list = new ObservableCollection<ProductCategory>(db.ProductCategories);
             }
@@ -60,7 +61,7 @@ namespace G7CP.ViewModels
         {
             if (SearchName == "")
             {
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     List = new ObservableCollection<ProductCategory>(db.ProductCategories);
                 }
@@ -71,7 +72,7 @@ namespace G7CP.ViewModels
             string s = SearchName.ToLower();
             if (SearchName != "")
             {
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     List = new ObservableCollection<ProductCategory>(db.ProductCategories);
                 }
@@ -99,7 +100,7 @@ namespace G7CP.ViewModels
             }
             else
             {
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     db.ProductCategories.Update(SelectedCategory);
                     _ = db.SaveChanges();
@@ -117,7 +118,7 @@ namespace G7CP.ViewModels
         {
             if (CategoryName != "")
             {
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     if (db.ProductCategories.Where(x => x.Name == CategoryName).Count() > 0)
                     {

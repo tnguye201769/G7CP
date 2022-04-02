@@ -121,19 +121,19 @@
     <value>Recover your account</value>
   </data>
   <data name="AdminpageControlPath" xml:space="preserve">
-    <value>GoninDigital.Views.AdminView</value>
+    <value>G7CP.Views.AdminView</value>
   </data>
   <data name="AdminpageWindowTitle" xml:space="preserve">
     <value>Admin Dashboard</value>
   </data>
   <data name="ConfirmationCodeControlPath" xml:space="preserve">
-    <value>GoninDigital.Views.ConfirmationCodeView</value>
+    <value>G7CP.Views.ConfirmationCodeView</value>
   </data>
   <data name="ConfirmationCodeWindowTitle" xml:space="preserve">
     <value>Confirmation Code</value>
   </data>
   <data name="ForgotPasswordControlPath" xml:space="preserve">
-    <value>GoninDigital.Views.ForgotPasswordView</value>
+    <value>G7CP.Views.ForgotPasswordView</value>
   </data>
   <data name="ForgotPasswordWindowTitle" xml:space="preserve">
     <value>ForgotPassword</value>
@@ -142,19 +142,19 @@
     <value>We received a request to confirm your account. Your account confirmation code is: </value>
   </data>
   <data name="HomepageControlPath" xml:space="preserve">
-    <value>GoninDigital.Views.DashBoard</value>
+    <value>G7CP.Views.DashBoard</value>
   </data>
   <data name="HomepageWindowTitle" xml:space="preserve">
-    <value>Homepage GoninDigital</value>
+    <value>Homepage G7CP</value>
   </data>
   <data name="LoginControlPath" xml:space="preserve">
-    <value>GoninDigital.Views.LoginView</value>
+    <value>G7CP.Views.LoginView</value>
   </data>
   <data name="LoginWindowTitle" xml:space="preserve">
     <value>Login</value>
   </data>
   <data name="RegisterAccountControlPath" xml:space="preserve">
-    <value>GoninDigital.Views.RegisterView</value>
+    <value>G7CP.Views.RegisterView</value>
   </data>
   <data name="RegisterAccountEmailSubject" xml:space="preserve">
     <value>Register your account</value>
@@ -163,7 +163,7 @@
     <value>Register Account</value>
   </data>
   <data name="ResetPasswordControlPath" xml:space="preserve">
-    <value>GoninDigital.Views.ResetPasswordView</value>
+    <value>G7CP.Views.ResetPasswordView</value>
   </data>
   <data name="ResetPasswordWindowTitle" xml:space="preserve">
     <value>Reset Password</value>

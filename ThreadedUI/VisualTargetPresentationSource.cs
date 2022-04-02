@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 
-namespace ModernWpf.Demo.ThreadedUI
+namespace G7CP.ThreadedUI
 {
     internal class VisualTargetPresentationSource : PresentationSource, IDisposable
     {

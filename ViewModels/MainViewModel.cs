@@ -14,6 +14,7 @@ using G7CP.SharedControl;
 using System.Windows.Media;
 using Microsoft.EntityFrameworkCore;
 using ModernWpf.Controls;
+using G7CP.ViewModels.BaseClass;
 
 namespace G7CP.ViewModels
 {
@@ -26,7 +27,7 @@ namespace G7CP.ViewModels
             {
                 if (Settings.Default.usrname != "" && Settings.Default.passwod != "")
                 {
-                    using (var db = new GoninDigitalDBContext())
+                    using (var db = new G7CPDBContext())
                     {
 
                         if ((await db.Users.FirstOrDefaultAsync(o => o.UserName == Settings.Default.usrname)).TypeId == (int)Constants.UserType.ADMIN)

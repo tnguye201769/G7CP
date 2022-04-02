@@ -1,6 +1,7 @@
 ﻿using G7CP.Models;
 using G7CP.Properties;
 using G7CP.Utils;
+using G7CP.ViewModels.BaseClass;
 using G7CP.Views;
 using Microsoft.EntityFrameworkCore;
 using ModernWpf.Controls;
@@ -65,7 +66,7 @@ namespace G7CP.ViewModels
                 o.FinishedAt = System.DateTime.Now;
                 CreatedInvoices.Remove(o);
                 RefusedInvoices.Add(o);
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     db.Invoices.Update(o);
                     db.SaveChanges();
@@ -75,7 +76,7 @@ namespace G7CP.ViewModels
                 o.StatusId = (int)Constants.InvoiceStatus.ACCEPTED;
                 CreatedInvoices.Remove(o);
                 AcceptedInvoices.Add(o);
-                using (var db = new GoninDigitalDBContext())
+                using (var db = new G7CPDBContext())
                 {
                     db.Invoices.Update(o);
                     try
@@ -127,7 +128,7 @@ namespace G7CP.ViewModels
         private async void Load()
         {
 
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 var vendor = await db.Vendors.Include(o => o.Owner)
                                .FirstAsync(o => o.Owner.UserName == Settings.Default.usrname);

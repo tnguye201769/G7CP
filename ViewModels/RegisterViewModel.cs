@@ -11,6 +11,7 @@ using G7CP.Utils;
 using ModernWpf.Controls;
 using G7CP.Properties;
 using G7CP.ViewModels.Validator;
+using G7CP.ViewModels.BaseClass;
 
 namespace G7CP.ViewModels
 {

@@ -74,7 +74,7 @@ namespace G7CP.Views.SharedPages
 
         public ProductPage(Product product)
         {
-            using (var db = new GoninDigitalDBContext())
+            using (var db = new G7CPDBContext())
             {
                 ProductInfo = db.Products
                     .Include(o => o.Category)
@@ -106,7 +106,7 @@ namespace G7CP.Views.SharedPages
             else
                 IsDisc = "Visible";
 
-            using (GoninDigitalDBContext context = new())
+            using (G7CPDBContext context = new())
             {
                 User tmp = context.Users.FirstOrDefault(x => Settings.Default.usrname == x.UserName);
                 var usr_rating = context.Ratings.FirstOrDefault(x => x.UserId == tmp.Id && x.ProductId == ProductInfo.Id);
@@ -134,7 +134,7 @@ namespace G7CP.Views.SharedPages
 
         private void SendCommentExecute()
         {
-            using (var context = new GoninDigitalDBContext())
+            using (var context = new G7CPDBContext())
             {
                 User tmp = context.Users.FirstOrDefault(x => Settings.Default.usrname == x.UserName);
                 List<Invoice> all_invoice_current_user = context.Invoices.Where(x => x.CustomerId == tmp.Id && x.StatusId == 4).ToList();
@@ -150,7 +150,7 @@ namespace G7CP.Views.SharedPages
                     comment.ProductId = ProductInfo.Id;
                     comment.Time = DateTime.Now;
                     comment.Value = newComment;
-                    using (var db = new GoninDigitalDBContext())
+                    using (var db = new G7CPDBContext())
                     {
                         User user = db.Users.FirstOrDefault(x => Settings.Default.usrname == x.UserName);
                         comment.UserId = user.Id;
@@ -176,7 +176,7 @@ namespace G7CP.Views.SharedPages
         }
         void AddtoCartExecute()
         {
-            using (var context = new GoninDigitalDBContext())
+            using (var context = new G7CPDBContext())
             {
                 int userID = context.Users.Where(x => x.UserName == Settings.Default.usrname).First().Id;
                 if (context.Carts.Where(x => x.UserId == userID & x.ProductId == ProductInfo.Id).Count() == 0)
@@ -207,7 +207,7 @@ namespace G7CP.Views.SharedPages
 
         private void RatingBox_ValueChanged(RatingControl sender, object args)
         {
-            using (var context = new GoninDigitalDBContext())
+            using (var context = new G7CPDBContext())
             {
                 User tmp = context.Users.FirstOrDefault(x => Settings.Default.usrname == x.UserName);
                 List<Invoice> all_invoice_current_user = context.Invoices.Where(x => x.CustomerId == tmp.Id && x.StatusId == 4).ToList();
