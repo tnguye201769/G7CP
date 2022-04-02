@@ -1,10 +1,10 @@
-﻿<ui:Page x:Class="GoninDigital.Views.SharedPages.ProductPage"
+﻿<ui:Page x:Class="G7CP.Views.SharedPages.ProductPage"
          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
          xmlns:ui="http://schemas.modernwpf.com/2019"
          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-         xmlns:local="clr-namespace:GoninDigital.Views.SharedPages"
+         xmlns:local="clr-namespace:G7CP.Views.SharedPages"
          DataContext="{Binding RelativeSource={RelativeSource Self}}"
          mc:Ignorable="d"
          xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
@@ -208,17 +208,18 @@
                             <DataTemplate>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="5*"/>
                                     </Grid.ColumnDefinitions>
-                                <TextBlock Width="170"
-                                           VerticalAlignment="Bottom"
-                                           Text="{Binding Spec.Name}"
-                                           FontWeight="Bold"/>
-                                <TextBlock Text="{Binding Value}" 
-                                           Grid.Column="1"
-                                           VerticalAlignment="Bottom"
-                                           Margin="40 15 0 0"/>
+                                <Label Width="170"
+                                        VerticalAlignment="Bottom"
+                                        Content="{Binding Spec.Name}"
+                                        Margin="0 0 0 15"
+                                        FontWeight="Bold"/>
+                                <Label Content="{Binding Value}" 
+                                        Grid.Column="1"
+                                        VerticalAlignment="Bottom"
+                                        Margin="40 0 0 15"/>
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
