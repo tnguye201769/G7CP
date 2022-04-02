@@ -3,8 +3,8 @@
                     xmlns:ui="http://schemas.modernwpf.com/2019"
                     xmlns:viewmodel="clr-namespace:G7CP.ViewModels" xmlns:viewmodel1="clr-namespace:G7CP.ViewModels.Admin">
     <viewmodel:MainViewModel x:Key="MainVM"></viewmodel:MainViewModel>
-    <viewmodel:UsersViewModel x:Key="UsersVM"></viewmodel:UsersViewModel>
-    <viewmodel:BrandsViewModel x:Key="BrandsVM"></viewmodel:BrandsViewModel>
+    <viewmodel1:UsersViewModel x:Key="UsersVM"></viewmodel1:UsersViewModel>
+    <viewmodel1:BrandsViewModel x:Key="BrandsVM"></viewmodel1:BrandsViewModel>
     <viewmodel:UserSettingViewModel x:Key="UserSettingVM"></viewmodel:UserSettingViewModel>
     <viewmodel:ManageShopPageViewModel x:Key="ManageShopPageVM"></viewmodel:ManageShopPageViewModel>
     <viewmodel:OrderPageViewModel x:Key="OrderPageVM"></viewmodel:OrderPageViewModel>

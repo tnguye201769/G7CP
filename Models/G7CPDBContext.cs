@@ -19,8 +19,10 @@ namespace G7CP.Models
 
         public virtual DbSet<Ad> Ads { get; set; }
         public virtual DbSet<AdDetail> AdDetails { get; set; }
+        public virtual DbSet<Ban> Bans { get; set; }
         public virtual DbSet<Brand> Brands { get; set; }
         public virtual DbSet<Cart> Carts { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Favorite> Favorites { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<InvoiceDetail> InvoiceDetails { get; set; }
@@ -34,14 +36,14 @@ namespace G7CP.Models
         public virtual DbSet<Rating> Ratings { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
+        public virtual DbSet<Var> Vars { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=localhost;Database=G7CP;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer(Properties.Settings.Default.DBconnstr);
             }
         }
 
@@ -93,6 +95,30 @@ namespace G7CP.Models
                     .HasConstraintName("FK_ADDETAIL_PRODUCT");
             });
 
+            modelBuilder.Entity<Ban>(entity =>
+            {
+                entity.ToTable("Ban");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.EndDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("endDate");
+
+                entity.Property(e => e.Reason)
+                    .IsRequired()
+                    .HasColumnType("text")
+                    .HasColumnName("reason");
+
+                entity.Property(e => e.UserId).HasColumnName("user_id");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Bans)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Ban_User");
+            });
+
             modelBuilder.Entity<Brand>(entity =>
             {
                 entity.ToTable("Brand");
@@ -133,6 +159,45 @@ namespace G7CP.Models
                     .HasConstraintName("FK_CART_USER");
             });
 
+            modelBuilder.Entity<Comment>(entity =>
+            {
+                entity.ToTable("Comment");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.ParentId).HasColumnName("parentId");
+
+                entity.Property(e => e.ProductId).HasColumnName("productId");
+
+                entity.Property(e => e.Time)
+                    .HasColumnType("datetime")
+                    .HasColumnName("time");
+
+                entity.Property(e => e.UserId).HasColumnName("userId");
+
+                entity.Property(e => e.Value)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .HasColumnName("value");
+
+                entity.HasOne(d => d.Parent)
+                    .WithMany(p => p.InverseParent)
+                    .HasForeignKey(d => d.ParentId)
+                    .HasConstraintName("FK_Comment_Comment");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.Comments)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Comment_Product");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Comments)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Comment_User");
+            });
+
             modelBuilder.Entity<Favorite>(entity =>
             {
                 entity.HasKey(e => new { e.UserId, e.ProductId });
@@ -163,13 +228,13 @@ namespace G7CP.Models
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.CreatedAt)
-                    .HasColumnType("date")
+                    .HasColumnType("datetime")
                     .HasColumnName("created_at");
 
                 entity.Property(e => e.CustomerId).HasColumnName("customer_id");
 
                 entity.Property(e => e.FinishedAt)
-                    .HasColumnType("date")
+                    .HasColumnType("datetime")
                     .HasColumnName("finished_at");
 
                 entity.Property(e => e.StatusId).HasColumnName("status_id");
@@ -250,6 +315,8 @@ namespace G7CP.Models
 
                 entity.Property(e => e.BrandId).HasColumnName("brand_id");
 
+                entity.Property(e => e.Buy).HasColumnName("buy");
+
                 entity.Property(e => e.CategoryId).HasColumnName("category_id");
 
                 entity.Property(e => e.CreatedAt)
@@ -262,9 +329,7 @@ namespace G7CP.Models
 
                 entity.Property(e => e.Detail).HasColumnName("detail");
 
-                entity.Property(e => e.Image)
-                    .IsRequired()
-                    .HasColumnName("image");
+                entity.Property(e => e.Image).HasColumnName("image");
 
                 entity.Property(e => e.NRating).HasColumnName("n_rating");
 
@@ -473,7 +538,7 @@ namespace G7CP.Models
                     .HasColumnName("password");
 
                 entity.Property(e => e.PhoneNumber)
-                    .HasMaxLength(10)
+                    .HasMaxLength(20)
                     .IsUnicode(false)
                     .HasColumnName("phone_number");
 
@@ -506,6 +571,28 @@ namespace G7CP.Models
                     .IsRequired()
                     .HasMaxLength(10)
                     .HasColumnName("name");
+            });
+
+            modelBuilder.Entity<Var>(entity =>
+            {
+                entity.ToTable("Var");
+
+                entity.HasIndex(e => e.Id, "IX_Var")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .HasColumnName("name")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Value)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .HasColumnName("value")
+                    .IsFixedLength(true);
             });
 
             modelBuilder.Entity<Vendor>(entity =>
