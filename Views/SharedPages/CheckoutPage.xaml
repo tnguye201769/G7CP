@@ -92,7 +92,7 @@
                                                    Margin="10,0,5,0"
                                                    VerticalAlignment="Center" />
 
-                                        <TextBlock Text="{Binding Product.Price, StringFormat=C, ConverterCulture=vi-VN}"
+                                        <TextBlock Text="{Binding Product.Price, StringFormat=C, ConverterCulture=en-CA}"
                                                    VerticalAlignment="Center"
                                                    TextAlignment="Center"
                                                    Width="80" />
@@ -116,7 +116,7 @@
                                             <TextBlock.Text>
                                                 <MultiBinding Converter="{StaticResource TotalPriceConverter}"
                                                               StringFormat="C"
-                                                              ConverterCulture="vi-VN">
+                                                              ConverterCulture="en-CA">
                                                     <Binding Path="Product.Price"></Binding>
                                                     <Binding Path="Quantity"></Binding>
                                                 </MultiBinding>
@@ -141,7 +141,7 @@
                                        Foreground="{DynamicResource SystemControlForegroundAccentBrush}"
                                        VerticalAlignment="Center"
                                        Text="{Binding Products, Converter={StaticResource SumProductsPrice}, 
-                                              StringFormat=C, ConverterCulture=vi-VN}">
+                                              StringFormat=C, ConverterCulture=en-CA}">
                             </TextBlock>
                         </StackPanel>
                     </StackPanel>

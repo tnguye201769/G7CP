@@ -97,14 +97,14 @@
                         </MultiBinding>
                     </TextBlock.Visibility>
                             <Run TextDecorations="Strikethrough"
-                                 Text="{Binding ProductInfo.OriginPrice, StringFormat=C, ConverterCulture=vi-VN, ElementName=productCard}"
+                                 Text="{Binding ProductInfo.OriginPrice, StringFormat=C, ConverterCulture=en-CA, ElementName=productCard}"
                                  FontSize="14" />
                 </TextBlock>
                 <TextBlock Grid.Column="2"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Right"
                            Margin="0 0 20 0"
-                           Text="{Binding ProductInfo.Price, StringFormat=C, ConverterCulture=vi-VN, ElementName=productCard}"
+                           Text="{Binding ProductInfo.Price, StringFormat=C, ConverterCulture=en-CA, ElementName=productCard}"
                            FontSize="16"
                            FontWeight="Bold"
                            Foreground="{DynamicResource SystemControlForegroundAccentBrush}"></TextBlock>

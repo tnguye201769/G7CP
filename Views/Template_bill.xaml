@@ -126,7 +126,7 @@
                                             <TextBlock Text="Total: "
                                                    VerticalAlignment="Center"
                                                    FontWeight="Light"></TextBlock>
-                                            <TextBlock Text="{Binding Value, StringFormat=C, ConverterCulture=vi-VN}"
+                                            <TextBlock Text="{Binding Value, StringFormat=C, ConverterCulture=en-CA}"
                                                    FontWeight="Bold"
                                                    VerticalAlignment="Center"
                                                    FontSize="20"
@@ -158,7 +158,7 @@
                                                                    Margin="10,0,5,0"
                                                                    VerticalAlignment="Center" />
 
-                                                            <TextBlock Text="{Binding Product.Price, StringFormat=C, ConverterCulture=vi-VN}"
+                                                            <TextBlock Text="{Binding Product.Price, StringFormat=C, ConverterCulture=en-CA}"
                                                                    VerticalAlignment="Center"
                                                                    Margin="80 0 0 0"
                                                                    TextAlignment="Center"
@@ -214,7 +214,7 @@
                             <TextBlock Text="{Binding Source={x:Static sys:DateTime.Now}}" FontSize="16" Margin="5"/>
                         </StackPanel>
                         <StackPanel Grid.Column="2">
-                            <TextBlock Text="{Binding InvoiceCurrent.Value, StringFormat=C, ConverterCulture=vi-VN}" FontSize="25" Margin="5" HorizontalAlignment="Right" Foreground="#FF62013C" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding InvoiceCurrent.Value, StringFormat=C, ConverterCulture=en-CA}" FontSize="25" Margin="5" HorizontalAlignment="Right" Foreground="#FF62013C" FontWeight="Bold"/>
                         </StackPanel>
                     </Grid>
                     <Rectangle Fill="Black" Height="1" Margin="5" Opacity="0.5"/>

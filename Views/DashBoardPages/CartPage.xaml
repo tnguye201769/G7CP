@@ -92,7 +92,7 @@
                                                 VerticalAlignment="Center"
                                                 HorizontalAlignment="Center"
                                                 Width="120">
-                                        <TextBlock Text="{Binding Product.Price, StringFormat=C, ConverterCulture=vi-VN}"
+                                        <TextBlock Text="{Binding Product.Price, StringFormat=C, ConverterCulture=en-CA}"
                                                    HorizontalAlignment="Center"
                                                    TextAlignment="Center"
                                                    Width="100"
@@ -140,7 +140,7 @@
                                         <TextBlock.Text>
                                             <MultiBinding Converter="{StaticResource TotalPriceConverter}"
                                                           StringFormat="C"
-                                                          ConverterCulture="vi-VN">
+                                                          ConverterCulture="en-CA">
                                                 <Binding Path="Product.Price"></Binding>
                                                 <Binding Path="Quantity"></Binding>
                                             </MultiBinding>
@@ -172,7 +172,7 @@
                            Foreground="{DynamicResource SystemControlForegroundAccentBrush}"
                            VerticalAlignment="Center"
                            Text="{Binding SelectedProducts, Converter={StaticResource SumProductsPrice}, 
-                                          StringFormat=C, ConverterCulture=vi-VN}">
+                                          StringFormat=C, ConverterCulture=en-CA}">
 
                 </TextBlock>
                 <ui:AppBarButton Margin="20"

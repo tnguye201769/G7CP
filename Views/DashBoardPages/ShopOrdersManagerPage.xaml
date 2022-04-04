@@ -63,7 +63,7 @@
                                         <TextBlock Text="Total: "
                                                    VerticalAlignment="Center"
                                                    FontWeight="Light"></TextBlock>
-                                        <TextBlock Text="{Binding Value, StringFormat=C, ConverterCulture=vi-VN}"
+                                        <TextBlock Text="{Binding Value, StringFormat=C, ConverterCulture=en-CA}"
                                                    FontWeight="Bold"
                                                    VerticalAlignment="Center"
                                                    FontSize="20"
@@ -111,7 +111,7 @@
                                                                    Margin="10,0,5,0"
                                                                    VerticalAlignment="Center" />
 
-                                                        <TextBlock Text="{Binding Product.Price, StringFormat=C, ConverterCulture=vi-VN}"
+                                                        <TextBlock Text="{Binding Product.Price, StringFormat=C, ConverterCulture=en-CA}"
                                                                    VerticalAlignment="Center" Margin="80 0 0 0"
                                                                    TextAlignment="Center"
                                                                    Width="160" />
@@ -174,7 +174,7 @@
                                         <TextBlock Text="Total: "
                                                    VerticalAlignment="Center"
                                                    FontWeight="Light"></TextBlock>
-                                        <TextBlock Text="{Binding Value, StringFormat=C, ConverterCulture=vi-VN}"
+                                        <TextBlock Text="{Binding Value, StringFormat=C, ConverterCulture=en-CA}"
                                                    FontWeight="Bold"
                                                    VerticalAlignment="Center"
                                                    FontSize="20"
@@ -209,7 +209,7 @@
                                                                    Margin="10,0,5,0"
                                                                    VerticalAlignment="Center" />
 
-                                                        <TextBlock Text="{Binding Product.Price, StringFormat=C, ConverterCulture=vi-VN}"
+                                                        <TextBlock Text="{Binding Product.Price, StringFormat=C, ConverterCulture=en-CA}"
                                                                    VerticalAlignment="Center"
                                                                    Margin="80 0 0 0"
                                                                    TextAlignment="Center"
@@ -274,7 +274,7 @@
                                         <TextBlock Text="Total: "
                                                    VerticalAlignment="Center"
                                                    FontWeight="Light"></TextBlock>
-                                        <TextBlock Text="{Binding Value, StringFormat=C, ConverterCulture=vi-VN}"
+                                        <TextBlock Text="{Binding Value, StringFormat=C, ConverterCulture=en-CA}"
                                                    FontWeight="Bold"
                                                    VerticalAlignment="Center"
                                                    FontSize="20"
@@ -315,7 +315,7 @@
                                                                    Margin="10,0,5,0"
                                                                    VerticalAlignment="Center" />
 
-                                                        <TextBlock Text="{Binding Product.Price, StringFormat=C, ConverterCulture=vi-VN}"
+                                                        <TextBlock Text="{Binding Product.Price, StringFormat=C, ConverterCulture=en-CA}"
                                                                    VerticalAlignment="Center"
                                                                    Margin="80 0 0 0"
                                                                    TextAlignment="Center"
@@ -378,7 +378,7 @@
                                         <TextBlock Text="Total: "
                                                    VerticalAlignment="Center"
                                                    FontWeight="Light"></TextBlock>
-                                        <TextBlock Text="{Binding Value, StringFormat=C, ConverterCulture=vi-VN}"
+                                        <TextBlock Text="{Binding Value, StringFormat=C, ConverterCulture=en-CA}"
                                                    FontWeight="Bold"
                                                    VerticalAlignment="Center"
                                                    FontSize="20"
@@ -413,7 +413,7 @@
                                                                    Margin="10,0,5,0"
                                                                    VerticalAlignment="Center" />
 
-                                                        <TextBlock Text="{Binding Product.Price, StringFormat=C, ConverterCulture=vi-VN}"
+                                                        <TextBlock Text="{Binding Product.Price, StringFormat=C, ConverterCulture=en-CA}"
                                                                    VerticalAlignment="Center"
                                                                    Margin="80 0 0 0"
                                                                    TextAlignment="Center"
@@ -476,7 +476,7 @@
                                         <TextBlock Text="Total: "
                                                    VerticalAlignment="Center"
                                                    FontWeight="Light"></TextBlock>
-                                        <TextBlock Text="{Binding Value, StringFormat=C, ConverterCulture=vi-VN}"
+                                        <TextBlock Text="{Binding Value, StringFormat=C, ConverterCulture=en-CA}"
                                                    FontWeight="Bold"
                                                    VerticalAlignment="Center"
                                                    FontSize="20"
@@ -511,7 +511,7 @@
                                                                    Margin="10,0,5,0"
                                                                    VerticalAlignment="Center" />
 
-                                                        <TextBlock Text="{Binding Product.Price, StringFormat=C, ConverterCulture=vi-VN}"
+                                                        <TextBlock Text="{Binding Product.Price, StringFormat=C, ConverterCulture=en-CA}"
                                                                    VerticalAlignment="Center"
                                                                    Margin="80 0 0 0"
                                                                    TextAlignment="Center"

@@ -230,10 +230,10 @@
                                             </MultiBinding>
                                         </TextBlock.Visibility>
                                     <Run TextDecorations="Strikethrough"
-                                         Text="{Binding OriginPrice, StringFormat=C, ConverterCulture=vi-VN}" />
+                                         Text="{Binding OriginPrice, StringFormat=C, ConverterCulture=en-CA}" />
                                     </TextBlock>
 
-                                    <TextBlock Text="{Binding Price, StringFormat=C, ConverterCulture=vi-VN}"
+                                    <TextBlock Text="{Binding Price, StringFormat=C, ConverterCulture=en-CA}"
                                                TextWrapping="Wrap"
                                                HorizontalAlignment="Center"
                                                FontSize="16"

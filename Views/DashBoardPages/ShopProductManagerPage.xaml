@@ -91,7 +91,7 @@
                                                    Width="100"
                                                    Margin="0 0 0 8">
                                         <Run TextDecorations="Strikethrough"
-                                             Text="{Binding OriginPrice, StringFormat=C, ConverterCulture=vi-VN}" />
+                                             Text="{Binding OriginPrice, StringFormat=C, ConverterCulture=en-CA}" />
                                         </TextBlock>
 
                                     </StackPanel>
@@ -99,7 +99,7 @@
                                                 VerticalAlignment="Center"
                                                 HorizontalAlignment="Right"
                                                 Width="120">
-                                        <TextBlock Text="{Binding Price, StringFormat=C, ConverterCulture=vi-VN}"
+                                        <TextBlock Text="{Binding Price, StringFormat=C, ConverterCulture=en-CA}"
                                                    HorizontalAlignment="Center"
                                                    TextAlignment="Center"
                                                    Width="100"
@@ -181,7 +181,7 @@
                                                    Width="100"
                                                    Margin="0 0 0 8">
                                         <Run TextDecorations="Strikethrough"
-                                             Text="{Binding OriginPrice, StringFormat=C, ConverterCulture=vi-VN}" />
+                                             Text="{Binding OriginPrice, StringFormat=C, ConverterCulture=en-CA}" />
                                         </TextBlock>
 
                                     </StackPanel>
@@ -189,7 +189,7 @@
                                                 VerticalAlignment="Center"
                                                 HorizontalAlignment="Right"
                                                 Width="120">
-                                        <TextBlock Text="{Binding Price, StringFormat=C, ConverterCulture=vi-VN}"
+                                        <TextBlock Text="{Binding Price, StringFormat=C, ConverterCulture=en-CA}"
                                                    HorizontalAlignment="Center"
                                                    TextAlignment="Center"
                                                    Width="100"

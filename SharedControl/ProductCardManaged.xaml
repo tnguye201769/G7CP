@@ -72,7 +72,7 @@
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
                                     Width="120">
-                            <TextBlock Text="{Binding Origin, StringFormat=C, ConverterCulture=vi-VN}"
+                            <TextBlock Text="{Binding Origin, StringFormat=C, ConverterCulture=en-CA}"
                                        HorizontalAlignment="Center"
                                        TextAlignment="Center"
                                        Width="100"
@@ -83,7 +83,7 @@
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
                                     Width="120">
-                            <TextBlock Text="{Binding OriginPrice, StringFormat=C, ConverterCulture=vi-VN}"
+                            <TextBlock Text="{Binding OriginPrice, StringFormat=C, ConverterCulture=en-CA}"
                                        HorizontalAlignment="Center"
                                        TextAlignment="Center"
                                        Width="100"
@@ -94,7 +94,7 @@
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Right"
                                     Width="120">
-                            <TextBlock Text="{Binding Price, StringFormat=C, ConverterCulture=vi-VN}"
+                            <TextBlock Text="{Binding Price, StringFormat=C, ConverterCulture=en-CA}"
                                        HorizontalAlignment="Center"
                                        TextAlignment="Center"
                                        Width="100"

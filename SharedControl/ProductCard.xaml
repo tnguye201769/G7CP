@@ -89,7 +89,7 @@
                                Width="140">
                         <TextBlock VerticalAlignment="Bottom"
                                    Margin="10 0 0 5"
-                                   Text="{Binding ProductInfo.Price, StringFormat=C, ConverterCulture=vi-VN, ElementName=productCard}"
+                                   Text="{Binding ProductInfo.Price, StringFormat=C, ConverterCulture=en-CA, ElementName=productCard}"
                                    FontSize="14"
                                    FontWeight="Bold"
                                    DockPanel.Dock="Left"

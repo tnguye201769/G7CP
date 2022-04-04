@@ -76,14 +76,14 @@
                                 Orientation="Vertical"
                                 Margin="0 0 0 10">
                         <Label>
-                            <TextBlock Text="{Binding ProductInfo.Price, StringFormat=C, ConverterCulture=vi-VN}"
+                            <TextBlock Text="{Binding ProductInfo.Price, StringFormat=C, ConverterCulture=en-CA}"
                                        FontSize="24"
                                        FontWeight="Bold"
                                        Margin="0 0 0 5" />
                         </Label>
                         <TextBlock Visibility="{Binding IsDisc}">
                             <Run TextDecorations="Strikethrough"
-                                 Text="{Binding ProductInfo.OriginPrice, StringFormat=C, ConverterCulture=vi-VN}"
+                                 Text="{Binding ProductInfo.OriginPrice, StringFormat=C, ConverterCulture=en-CA}"
                                  FontSize="18" />
                         </TextBlock>
 
