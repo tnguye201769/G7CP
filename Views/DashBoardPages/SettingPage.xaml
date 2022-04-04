@@ -63,7 +63,7 @@
                                    FontSize="18"/>
                             <TextBlock>           
                                 <ui:HyperlinkButton Content="G7CP"
-                                                    NavigateUri="https://github.com/drakiez92/IT008-VisualProgramming"/>
+                                                    NavigateUri="https://github.com/tnguye201769/G7CP"/>
                             </TextBlock>
                         </StackPanel>
                     </StackPanel>
