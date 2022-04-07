@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <Platforms>AnyCPU;x64</Platforms>
+    <StartupObject>G7CP.App</StartupObject>
     <ApplicationIcon>G7CP.ico</ApplicationIcon>
   </PropertyGroup>
 
