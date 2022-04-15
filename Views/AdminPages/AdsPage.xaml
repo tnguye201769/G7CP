@@ -37,7 +37,7 @@
                 <Button  Content="Update"
                         Margin="10"
                         Command="{Binding UpdateCommand}"/>
-                <Button Content="Delete"
+                <Button Content="Ban"
                         Margin="10"
                         Command="{Binding DeleteCommand}" />
             </StackPanel>

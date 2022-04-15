@@ -56,7 +56,7 @@ namespace G7CP.SharedControl
                     Ban ban = new Ban();
                     ban.UserId = UserId;
                     ban.Reason = reason;
-                    ban.EndDate = DateTime.ParseExact(enddate, "M/d/yyyy", CultureInfo.InvariantCulture);
+                    ban.EndDate = DateTime.ParseExact(enddate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                     using (var db = new G7CPDBContext())
                     {
                         db.Bans.Add(ban);

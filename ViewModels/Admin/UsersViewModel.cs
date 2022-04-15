@@ -115,7 +115,7 @@ namespace G7CP.ViewModels.Admin
 
                             CloseButtonText = "Close",
                             Content = new DeleteUserDialog(SelectedItem.Id),
-                            Title = "Add User",
+                            Title = "Ban User",
 
                         };
                         DeleteUserDialog.ShowAsync();
